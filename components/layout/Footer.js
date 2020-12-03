@@ -5,17 +5,18 @@ import { Github } from '@styled-icons/boxicons-logos/Github';
 
 
 const FooterContainer = styled(Container)`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     border-top: 1px solid #839496;
     padding: 15px 0;
     margin-top: 30px;
+    position: relative;
 `;
 
 const Reference = styled.a`
     display: flex;
-    text-align: center;
     margin: 10px 0;
-    align-items: center;
-    justify-content: center;
     font-size: 1rem;
     p {
         margin: 0 0 0 5px;
@@ -24,6 +25,16 @@ const Reference = styled.a`
 
 const GithubIcon = styled(Github)`
     width: 1em;
+`;
+
+const TmdbLogo = styled.a`
+    width: 80px;
+    bottom: 25px;
+    right: 0px;
+    margin-top: 20px;
+    @media (min-width: 600px) {
+        position: absolute;
+    }
 `;
 
 const Footer = () => {
@@ -45,7 +56,15 @@ const Footer = () => {
                     <GithubIcon />
                     <p>View Code</p>
                 </Reference>
+                <TmdbLogo 
+                    href="https://www.themoviedb.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <img src="tmdb.svg" alt="Logo TMDB"/>
+                </TmdbLogo>
             </FooterContainer>
+            
         </footer>
     );
 }
