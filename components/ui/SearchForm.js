@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import { SearchAlt2 } from '@styled-icons/boxicons-regular/SearchAlt2';
 import styled from 'styled-components';
@@ -11,16 +11,30 @@ const SearchInput = styled(InputGroup)`
     max-width: 300px;
 `;
 
-const SearchForm = () => {
+const SearchForm = ({onSubmit}) => {
+
+    const [ query, setQuery ] = useState('');
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        onSubmit(query);
+    };
+
     return (
-        <SearchInput>
-            <FormControl placeholder="..." className="border border-secondary"/>
-            <InputGroup.Append>
-                <Button variant="secondary" className="py-0">
-                    <SearchIcon />
-                </Button>
-            </InputGroup.Append>
-        </SearchInput>
+        <form onSubmit={handleSubmit}>
+            <SearchInput>
+                <FormControl
+                    placeholder="..."
+                    className="border border-secondary"
+                    onChange={ e => setQuery(e.target.value) }
+                />
+                <InputGroup.Append>
+                    <Button type="submit" variant="secondary" className="py-0">
+                        <SearchIcon />
+                    </Button>
+                </InputGroup.Append>
+            </SearchInput>
+        </form>
     );
 }
 

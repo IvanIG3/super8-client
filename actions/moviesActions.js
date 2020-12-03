@@ -38,11 +38,27 @@ export function discoverMovies(data) {
     };
 };
 
-export function searchMovies() {
+export function searchMovies(data) {
     return async dispatch => {
-
-
-
+        dispatch({ type: MOVIES_START_SEARCHING_LIST });
+        try {
+            const params = new URLSearchParams(data).toString();
+            const movies = await tmdb.get(
+                `/search/movie?api_key=${process.env.tmdbApi}&${params}`);
+            dispatch({
+                type: MOVIES_END_SEARCHING_LIST,
+                payload: {
+                    moviesList: movies.data.results,
+                    totalPages: movies.data.total_pages,
+                    totalResults: movies.data.total_results
+                }
+            });
+        } catch (error) {
+            dispatch({
+                type: MOVIES_ERROR_SEARCHING_LIST,
+                payload: error.response.data.msg
+            });
+        }
     };
 };
 
@@ -51,6 +67,15 @@ export function setSortBy(sortBy) {
         dispatch({
             type: MOVIES_SET_SORT_BY,
             payload: sortBy
+        });
+    };
+};
+
+export function setQuery(query) {
+    return dispatch => {
+        dispatch({
+            type: MOVIES_SET_QUERY,
+            payload: query
         });
     };
 };

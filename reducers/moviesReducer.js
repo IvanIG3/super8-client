@@ -53,7 +53,8 @@ const moviesReducer = (state = initialState, action) => {
         case MOVIES_SET_SORT_BY:
             return {
                 ...state,
-                sortBy: action.payload
+                sortBy: action.payload,
+                query: null
             };
         case MOVIES_SET_PAGE:
             return {
@@ -63,7 +64,8 @@ const moviesReducer = (state = initialState, action) => {
         case MOVIES_SET_QUERY:
             return {
                 ...state,
-                query: action.payload
+                query: action.payload,
+                sortBy: null
             };
         case MOVIES_SET_LANGUAGE:
             return {
