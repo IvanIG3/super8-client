@@ -38,11 +38,19 @@ export function discoverMovies(data) {
     };
 };
 
-
 export function searchMovies() {
     return async dispatch => {
 
 
 
+    };
+};
+
+export function setSortBy(sortBy) {
+    return dispatch => {
+        dispatch({
+            type: MOVIES_SET_SORT_BY,
+            payload: sortBy
+        });
     };
 };
