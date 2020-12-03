@@ -1,9 +1,7 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
-
 import Header from './Header';
-import Search from './Search';
 import Footer from './Footer';
 
 const ContainerLayout = styled.div`
@@ -13,12 +11,10 @@ const ContainerLayout = styled.div`
     padding-top: 100px;
 `;
 
-
 const Layout = ({children}) => {
     return (
         <ContainerLayout>
             <Header />
-            <Search />
             <Container className="flex-1">
                 <main>
                     { children }
