@@ -2,10 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Carousel } from 'react-bootstrap';
 
-const CarouselContainer = styled(Carousel)`
-    max-width: 650px;
-`;
-
 const CarouselCaption = styled(Carousel.Caption)`
     padding: 5px;
     background-color: rgba(0, 0, 0, .8);
@@ -18,14 +14,11 @@ const MovieTitle = styled.p`
     @media (min-width: 576px) {
         font-size: 1.5em;
     }
-    @media (min-width: 992px) {
-        font-size: 2em;
-    }
 `;
 
 const CarouselImages = ({items}) => {
     return (
-        <CarouselContainer>
+        <Carousel className="w-100">
             {items.map((item, idx) => (
                 <Carousel.Item key={idx}>
                     <img
@@ -43,7 +36,7 @@ const CarouselImages = ({items}) => {
                     </CarouselCaption>
                 </Carousel.Item>
             ))}
-        </CarouselContainer>
+        </Carousel>
     );
 }
  

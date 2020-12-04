@@ -18,8 +18,8 @@ const Reference = styled.a`
     display: flex;
     margin: 10px 0;
     font-size: 1rem;
-    p {
-        margin: 0 0 0 5px;
+    span {
+        margin-left: 5px;
     }
 `;
 
@@ -54,7 +54,7 @@ const Footer = () => {
                     rel="noopener noreferrer"
                 >
                     <GithubIcon />
-                    <p>View Code</p>
+                    <span>View Code</span>
                 </Reference>
                 <TmdbLogo 
                     href="https://www.themoviedb.org/"
