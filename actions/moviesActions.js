@@ -79,3 +79,13 @@ export function setQuery(query) {
         });
     };
 };
+
+export function setPage(page) {
+    return dispatch => {
+        dispatch({
+            type: MOVIES_SET_PAGE,
+            payload: page
+        });
+    };
+};
+

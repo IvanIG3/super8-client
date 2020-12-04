@@ -1,17 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col } from 'react-bootstrap';
 
 // Components
 import Layout from '../components/layout/Layout';
 import MoviesList from '../components/movies/MoviesList';
 import SortButtons from '../components/ui/SortButtons';
 import SearchForm from '../components/ui/SearchForm';
+import Paginator from '../components/ui/Paginator';
 
-// Redux
-import { discoverMovies, searchMovies, setSortBy, setQuery } from '../actions/moviesActions';
+// Redux actions
+import {
+    discoverMovies,
+    searchMovies,
+    setSortBy,
+    setQuery,
+    setPage
+} from '../actions/moviesActions';
+
 
 const Movies = () => {
+    // State
+    const [ startsearch, setStartSearch ] = useState(true);
 
     // Redux
     const dispatch = useDispatch();
@@ -20,15 +29,19 @@ const Movies = () => {
     const page = useSelector(state => state.movies.page);
     const language = useSelector(state => state.movies.language);
     const query = useSelector(state => state.movies.query);
+    const totalPages = useSelector(state => state.movies.totalPages);
 
     // Get movies
     useEffect(() => {
-        if(sort_by) {
-            dispatch(discoverMovies({sort_by, page, language}))
-        } else if(query) {
-            dispatch(searchMovies({query, page, language}));
+        if(startsearch) {
+            if(sort_by) {
+                dispatch(discoverMovies({sort_by, page, language}))
+            } else if(query) {
+                dispatch(searchMovies({query, page, language}));
+            }
+            setStartSearch(false);
         }
-    }, [sort_by, query, page, language]);
+    }, [startsearch]);
 
     // Sorting movie buttons
     const sortButtons = [
@@ -38,29 +51,46 @@ const Movies = () => {
     ];
 
     // Functions
-    const setSortFn = sortby => dispatch(setSortBy(sortby));
-    const setQueryFn = query => dispatch(setQuery(query));
+    const setSortFn = sortby => {
+        dispatch(setSortBy(sortby));
+        setStartSearch(true);
+    };
+
+    const setQueryFn = query => {
+        dispatch(setQuery(query));
+        setStartSearch(true);
+    };
+
+    const setPageFn = page => {
+        dispatch(setPage(page));
+        setStartSearch(true);
+    };
 
     return (
         <Layout>
             <h1 className="text-center">Movies</h1>
             <div className="d-flex flex-column align-items-center">
-            <div className="my-3">
-                <SortButtons
-                    buttonsData={sortButtons}
-                    sortby={sort_by}
-                    sortFn={setSortFn}
+                <div className="my-3">
+                    <SortButtons
+                        buttonsData={sortButtons}
+                        sortby={sort_by}
+                        sortFn={setSortFn}
+                    />
+                </div>
+                <div className="my-3">
+                    <SearchForm
+                        onSubmit={setQueryFn}
+                    />
+                </div>
+                <MoviesList
+                    list={moviesList}
+                />
+                <Paginator
+                    actualPage={page}
+                    totalPages={totalPages}
+                    onClick={setPageFn}
                 />
             </div>
-            <div className="my-3">
-                <SearchForm
-                    onSubmit={setQueryFn}
-                />
-            </div>
-            <MoviesList
-                list={moviesList}
-            />
-        </div>
         </Layout>
     );
 }
