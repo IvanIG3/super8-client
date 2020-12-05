@@ -20,7 +20,7 @@ const CardTitle = styled(Card.Title)`
 
 const ImageCard = ({title, image}) => {
     return (
-        <Card bg="primary" text="secondary" className="h-100 flex-column">
+        <Card bg="transparent" text="primary" className="h-100 flex-column">
             <Card.Img variant="top" src={image} className="flex-1"/>
             <CardBody>
                 <CardTitle className="px-1">

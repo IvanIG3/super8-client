@@ -8,7 +8,7 @@ const MoviesPreview = ({ numfilms }) => {
     // Redux
     const dispatch = useDispatch();
     const moviesList = useSelector(state => state.movies.moviesList);
-    const language = useSelector(state => state.movies.language);
+    const language = useSelector(state => state.language.language);
 
     // Get movies
     useEffect(() => {

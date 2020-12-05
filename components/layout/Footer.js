@@ -2,6 +2,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
 import { Github } from '@styled-icons/boxicons-logos/Github';
+import { useTranslation } from 'react-i18next';
 
 
 const FooterContainer = styled(Container)`
@@ -38,6 +39,10 @@ const TmdbLogo = styled.a`
 `;
 
 const Footer = () => {
+
+    // Translation
+    const { t } = useTranslation();
+
     return (
         <footer>
             <FooterContainer>
@@ -46,7 +51,7 @@ const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Designed & developed by IvanIG3
+                    {t('Designed & developed by IvanIG3')}
                 </Reference>
                 <Reference
                     href="https://github.com/IvanIG3/super8-client"
@@ -54,7 +59,7 @@ const Footer = () => {
                     rel="noopener noreferrer"
                 >
                     <GithubIcon />
-                    <span>View Code</span>
+                    <span>{t('View Code')}</span>
                 </Reference>
                 <TmdbLogo 
                     href="https://www.themoviedb.org/"

@@ -8,7 +8,6 @@ import {
     MOVIES_SET_SORT_BY,
     MOVIES_SET_PAGE,
     MOVIES_SET_QUERY,
-    MOVIES_SET_LANGUAGE,
 } from '../types';
 
 // Initial state
@@ -20,7 +19,6 @@ const initialState = {
     totalPages: 1,
     totalResults: 0,
     query: null,
-    language: 'es-ES',
     error: null,
 };
 
@@ -68,11 +66,6 @@ const moviesReducer = (state = initialState, action) => {
                 query: action.payload,
                 sortBy: null,
                 page: 1,
-            };
-        case MOVIES_SET_LANGUAGE:
-            return {
-                ...state,
-                language: action.payload
             };
         default:
             return state;

@@ -1,10 +1,21 @@
 import React from 'react';
 import Link from 'next/link';
 import { Navbar, Nav } from 'react-bootstrap';
+import { ThMenu } from '@styled-icons/typicons/ThMenu';
+import styled from 'styled-components';
 import Logo from './Logo';
 import NavLink from './NavLink';
+import { useTranslation } from 'react-i18next';
+
+const ToggleIcon = styled(ThMenu)`
+    width: 1.2em;
+`;
 
 const NavHeader = () => {
+
+    // Translation
+    const { t } = useTranslation();
+
     return (
         <Navbar collapseOnSelect expand="md">
             <Link href="/">
@@ -12,12 +23,14 @@ const NavHeader = () => {
                     <Logo />
                 </Navbar.Brand>
             </Link>
-            <Navbar.Toggle />
+            <Navbar.Toggle className="border-secondary border-2 text-secondary">
+                <ToggleIcon />
+            </Navbar.Toggle>
             <Navbar.Collapse>
                 <Nav className="justify-content-end flex-1">
-                    <NavLink href="/movies">Movies</NavLink>
-                    <NavLink href="/tvshows">TV Shows</NavLink>
-                    <NavLink href="/mylists">My Lists</NavLink>
+                    <NavLink href="/movies">{t('Movies')}</NavLink>
+                    <NavLink href="/tvshows">{t('TV Shows')}</NavLink>
+                    <NavLink href="/mylists">{t('My Lists')}</NavLink>
                     <NavLink href="/mytube">MyTube</NavLink>
                 </Nav>
             </Navbar.Collapse>

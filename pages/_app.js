@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import '../styles/globals.scss';
+import '../translations';
 import { Provider } from 'react-redux';
 import store from '../store';
 
