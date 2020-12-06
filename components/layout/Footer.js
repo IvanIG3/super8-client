@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { Github } from '@styled-icons/boxicons-logos/Github';
 import { useTranslation } from 'react-i18next';
 
-
 const FooterContainer = styled(Container)`
     display: flex;
     flex-direction: column;
@@ -22,10 +21,6 @@ const Reference = styled.a`
     span {
         margin-left: 5px;
     }
-`;
-
-const GithubIcon = styled(Github)`
-    width: 1em;
 `;
 
 const TmdbLogo = styled.a`
@@ -58,7 +53,7 @@ const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <GithubIcon />
+                    <Github style={{width: "1em"}}/>
                     <span>{t('View Code')}</span>
                 </Reference>
                 <TmdbLogo 

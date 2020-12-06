@@ -7,15 +7,7 @@ const CardBody = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
-`;
-
-const CardTitle = styled(Card.Title)`
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    max-width: 50vw;
-    font-size: 1.1em;
+    height: 5em;
 `;
 
 const ImageCard = ({title, image}) => {
@@ -23,9 +15,9 @@ const ImageCard = ({title, image}) => {
         <Card bg="transparent" text="primary" className="h-100 flex-column">
             <Card.Img variant="top" src={image} className="flex-1"/>
             <CardBody>
-                <CardTitle className="px-1">
+                <Card.Title className="text-center" style={{fontSize: "1.1em"}}>
                     {title}
-                </CardTitle>
+                </Card.Title>
             </CardBody>
         </Card>
     );

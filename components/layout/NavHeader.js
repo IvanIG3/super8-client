@@ -7,12 +7,7 @@ import Logo from './Logo';
 import NavLink from './NavLink';
 import { useTranslation } from 'react-i18next';
 
-const ToggleIcon = styled(ThMenu)`
-    width: 1.2em;
-`;
-
 const NavHeader = () => {
-
     // Translation
     const { t } = useTranslation();
 
@@ -24,7 +19,7 @@ const NavHeader = () => {
                 </Navbar.Brand>
             </Link>
             <Navbar.Toggle className="border-secondary border-2 text-secondary">
-                <ToggleIcon />
+                <ThMenu style={{width: "1.2em"}}/>
             </Navbar.Toggle>
             <Navbar.Collapse>
                 <Nav className="justify-content-end flex-1">

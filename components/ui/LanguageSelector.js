@@ -26,8 +26,8 @@ const LanguageSelector = () => {
             value={language}
             onChange={handleChange}
         >
-            <option value="es-ES">Español</option>
-            <option value="en-US">English</option>
+            <option value="es-ES">ES</option>
+            <option value="en-US">EN</option>
         </Form.Control>
     );
 }

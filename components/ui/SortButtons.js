@@ -3,7 +3,7 @@ import { ButtonGroup, ToggleButton } from 'react-bootstrap';
 
 const SortButtons = ({ buttonsData, sortby, sortFn }) => {
     return (
-        <ButtonGroup toggle>
+        <ButtonGroup toggle className="flex-wrap">
             {buttonsData.map((button, idx) => (
                 <ToggleButton
                     key={idx}
@@ -13,6 +13,7 @@ const SortButtons = ({ buttonsData, sortby, sortFn }) => {
                     value={button.value}
                     checked={sortby === button.value}
                     onChange={e => sortFn(e.currentTarget.value)}
+                    className="d-inline-block text-nowrap text-truncate"
                 >
                     {button.name}
                 </ToggleButton>
