@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Card } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 // Styles
 const CardBody = styled.div`
@@ -21,6 +22,11 @@ const ImageCard = ({title, image}) => {
             </CardBody>
         </Card>
     );
-}
+};
+
+ImageCard.propTypes = {
+    title: PropTypes.string,
+    image: PropTypes.string.isRequired
+};
  
 export default ImageCard;

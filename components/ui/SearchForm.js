@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import { SearchAlt2 } from '@styled-icons/boxicons-regular/SearchAlt2';
+import PropTypes from 'prop-types';
 
 const SearchForm = ({onSubmit, placeholder}) => {
     // State
@@ -27,6 +28,11 @@ const SearchForm = ({onSubmit, placeholder}) => {
             </InputGroup>
         </form>
     );
-}
+};
+
+SearchForm.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    placeholder: PropTypes.string
+};
 
 export default SearchForm;

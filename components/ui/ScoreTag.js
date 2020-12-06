@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Score = styled.div`
     position: absolute;
@@ -20,12 +21,16 @@ const Score = styled.div`
     };
 `;
 
-const ScoreTag = ({score}) => {
+const ScoreTag = ({score = 0}) => {
     return (
         <Score value={score}>
             {score}
         </Score>
     );
-}
+};
+
+ScoreTag.propTypes = {
+    score: PropTypes.number
+};
  
 export default ScoreTag;

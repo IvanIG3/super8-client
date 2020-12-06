@@ -1,8 +1,8 @@
 import React from 'react';
 import { Pagination } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 const Paginator = ({actualPage, totalPages, onClick}) => {
-
     // Functions
     const handleClick = e => {
         const page = e.currentTarget.querySelector('.page').innerText;
@@ -53,6 +53,12 @@ const Paginator = ({actualPage, totalPages, onClick}) => {
             {pages}
         </Pagination>
     );
-}
+};
+
+Paginator.propTypes = {
+    actualPage: PropTypes.number.isRequired,
+    totalPages: PropTypes.number.isRequired,
+    onClick: PropTypes.func.isRequired
+};
  
 export default Paginator;

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Carousel } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 const CarouselCaption = styled(Carousel.Caption)`
     padding: 5px;
@@ -38,6 +39,14 @@ const CarouselImages = ({items}) => {
             ))}
         </Carousel>
     );
-}
+};
+
+CarouselImages.propTypes = {
+    items: PropTypes.arrayOf( PropTypes.shape({
+        image: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        overview: PropTypes.string
+    }))
+};
  
 export default CarouselImages;

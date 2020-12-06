@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Row, Col } from 'react-bootstrap';
 import ImageCard from '../ui/ImageCard';
 import ScoreTag from '../ui/ScoreTag';
+import PropTypes from 'prop-types';
 
 const MoviesList = ({list}) => {
     return (
@@ -26,6 +27,15 @@ const MoviesList = ({list}) => {
             ))}
         </Row>
     );
-}
+};
+
+MoviesList.propTypes = {
+    list: PropTypes.arrayOf( PropTypes.shape({
+        id: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]).isRequired,
+        title: PropTypes.string.isRequired,
+        vote_average: PropTypes.number.isRequired,
+        poster_path: PropTypes.string
+    }))
+};
  
 export default MoviesList;

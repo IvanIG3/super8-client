@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from "next/router";
 import { Nav } from 'react-bootstrap';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const NavText = styled.p`
     margin: 0;
@@ -22,6 +23,10 @@ const NavLink = ({ href, children }) => {
             </Nav.Link>
         </Link>
     );
-}
+};
+
+NavLink.propTypes = {
+    href: PropTypes.string.isRequired
+};
 
 export default NavLink;

@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { discoverMovies } from '../../actions/moviesActions';
 import CarouselImages from '../ui/CarouselImages';
+import PropTypes from 'prop-types';
 
 const MoviesPreview = ({ numfilms }) => {
-
     // Redux
     const dispatch = useDispatch();
     const moviesList = useSelector(state => state.movies.moviesList);
@@ -29,6 +29,10 @@ const MoviesPreview = ({ numfilms }) => {
     return (
         <CarouselImages items={carouselItems} />
     );
-}
+};
+
+MoviesPreview.propTypes = {
+    numFilms: PropTypes.number
+};
 
 export default MoviesPreview;
