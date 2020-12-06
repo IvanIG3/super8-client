@@ -94,6 +94,7 @@ const Movies = () => {
                 <div className="my-3">
                     <SearchForm
                         onSubmit={setQueryFn}
+                        placeholder={t('Search for a movie...')}
                     />
                 </div>
                 {loading ?
