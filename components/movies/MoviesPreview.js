@@ -17,7 +17,7 @@ const MoviesPreview = ({ numfilms }) => {
             page: 1,
             language
         }));
-    }, []);
+    }, [language]);
 
     // Carousel items
     const carouselItems = moviesList.slice(0, numfilms).map(movie => ({
