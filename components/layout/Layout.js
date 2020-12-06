@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
 import Header from './Header';
 import Footer from './Footer';
-import LanguageSelector from '../ui/LanguageSelector';
+import UserNav from './UserNav';
 
 const ContainerLayout = styled.div`
     display: flex;
@@ -17,7 +17,7 @@ const Layout = ({children}) => {
         <ContainerLayout>
             <Header />
             <Container className="flex-1">
-                <LanguageSelector />
+                <UserNav />
                 <main>
                     { children }
                 </main>
