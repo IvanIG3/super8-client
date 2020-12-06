@@ -8,5 +8,6 @@ export default {
         "Soon": "Próximamente",
         "Designed & developed by IvanIG3": "Diseñado y desarrollado por IvanIG3",
         "View Code": "Ver código",
+        "Search for a movie...": "Busca por una película..."
     }
 };

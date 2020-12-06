@@ -8,5 +8,6 @@ export default {
         "Soon": "Soon",
         "Designed & developed by IvanIG3": "Designed & developed by IvanIG3",
         "View Code": "View Code",
+        "Search for a movie...": "Search for a movie...",
     }
 };
