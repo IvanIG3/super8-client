@@ -4,7 +4,7 @@ import { discoverMovies } from '../../actions/moviesActions';
 import CarouselImages from '../ui/CarouselImages';
 import PropTypes from 'prop-types';
 
-const MoviesPreview = ({ numfilms }) => {
+const MoviesPreview = ({ num }) => {
     // Redux
     const dispatch = useDispatch();
     const moviesList = useSelector(state => state.movies.moviesList);
@@ -12,15 +12,11 @@ const MoviesPreview = ({ numfilms }) => {
 
     // Get movies
     useEffect(() => {
-        dispatch(discoverMovies({
-            sort_by: 'popularity.desc',
-            page: 1,
-            language
-        }));
+        dispatch(discoverMovies({ language }));
     }, [language]);
 
     // Carousel items
-    const carouselItems = moviesList.slice(0, numfilms).map(movie => ({
+    const carouselItems = moviesList.slice(0, num).map(movie => ({
         title: movie.title,
         image: `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`,
         overview: `${movie.overview.substring(0, 150)}...`
@@ -32,7 +28,7 @@ const MoviesPreview = ({ numfilms }) => {
 };
 
 MoviesPreview.propTypes = {
-    numFilms: PropTypes.number
+    num: PropTypes.number
 };
 
 export default MoviesPreview;

@@ -14,11 +14,14 @@ import {
 const initialState = {
     moviesList: [],
     loading: false,
-    sortBy: 'popularity.desc',
+    sortBy: 'popular',
+    sortParams: {
+        sort_by: 'popularity.desc'
+    },
     page: 1,
     totalPages: 1,
     totalResults: 0,
-    query: null,
+    query: '',
     error: null,
 };
 
@@ -51,8 +54,9 @@ const moviesReducer = (state = initialState, action) => {
         case MOVIES_SET_SORT_BY:
             return {
                 ...state,
-                sortBy: action.payload,
-                query: null,
+                sortBy: action.payload.sortBy,
+                sortParams: action.payload.sortParams,
+                query: '',
                 page: 1,
             };
         case MOVIES_SET_PAGE:
@@ -64,7 +68,8 @@ const moviesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 query: action.payload,
-                sortBy: null,
+                sortBy: '',
+                sortParams: {},
                 page: 1,
             };
         default:

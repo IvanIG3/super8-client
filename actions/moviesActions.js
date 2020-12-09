@@ -10,7 +10,6 @@ import {
     MOVIES_SET_SORT_BY,
     MOVIES_SET_PAGE,
     MOVIES_SET_QUERY,
-    MOVIES_SET_LANGUAGE,
 } from '../types';
 
 
@@ -62,11 +61,11 @@ export function searchMovies(data) {
     };
 };
 
-export function setSortBy(sortBy) {
+export function setSortBy(sortBy, sortParams) {
     return dispatch => {
         dispatch({
             type: MOVIES_SET_SORT_BY,
-            payload: sortBy
+            payload: {sortBy, sortParams}
         });
     };
 };

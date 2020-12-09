@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 const MoviesList = ({list}) => {
     return (
-        <Row noGutters className="my-5" xs="2" sm="3" md="4" lg="5" xl="6">
+        <Row noGutters className="mt-5" xs="2" sm="3" md="4" lg="5" xl="6">
             {list.map(item => (
                 <Col key={item.id} className="mb-5">
                     <Link href={`/movies/${item.id}`}>
