@@ -1,35 +1,37 @@
 import React from 'react';
-import { ButtonGroup, ToggleButton } from 'react-bootstrap';
+import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-const SortButtons = ({ buttonsData, sortby, sortFn }) => {
+const SortButtons = ({ value, buttons, onChange }) => {
     return (
-        <ButtonGroup toggle className="flex-wrap">
-            {buttonsData.map((button, idx) => (
+        <ToggleButtonGroup
+            type="radio"
+            name="sort-options"
+            onChange={onChange}
+            value={value}
+            className="flex-wrap"
+        >
+            {buttons.map((button, idx) => (
                 <ToggleButton
                     key={idx}
-                    type="radio"
                     variant="secondary"
-                    name="radio"
                     value={button.value}
-                    checked={sortby === button.value}
-                    onChange={e => sortFn(e.currentTarget.value)}
                     className="d-inline-block text-nowrap text-truncate"
                 >
                     {button.name}
                 </ToggleButton>
             ))}
-        </ButtonGroup>
+        </ToggleButtonGroup>
     );
 };
 
 SortButtons.propTypes = {
-    buttonsData: PropTypes.arrayOf( PropTypes.shape({
+    buttons: PropTypes.arrayOf( PropTypes.shape({
         name: PropTypes.string.isRequired,
         value: PropTypes.string.isRequired
     })),
-    sortby: PropTypes.string.isRequired,
-    sortFn: PropTypes.func.isRequired
+    onChange: PropTypes.func,
+    defaultValue: PropTypes.string
 };
  
 export default SortButtons;

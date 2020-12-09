@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 // Components
 import MoviesPreview from '../components/movies/MoviesPreview';
+import TvShowsPreview from '../components/tvshows/TvShowsPreview';
 
 const ResponsiveContainer = styled.div`
     width: 100%;
@@ -22,14 +23,26 @@ const Index = () => {
     return (
         <Layout>
             <div className="d-flex flex-column align-items-center">
-                <Link href="/movies">
-                    <a className="w-100">
-                        <h1 className="text-center">{t('Movies')}</h1>
-                    </a>
-                </Link>
-                <ResponsiveContainer className="my-3">
-                    <MoviesPreview numfilms={20} />
-                </ResponsiveContainer>
+                <div>
+                    <Link href="/movies">
+                        <a className="w-100">
+                            <h1 className="text-center">{t('Movies')}</h1>
+                        </a>
+                    </Link>
+                    <ResponsiveContainer className="my-3">
+                        <MoviesPreview numfilms={20} />
+                    </ResponsiveContainer>
+                </div>
+                <div>
+                    <Link href="/tvshows">
+                        <a className="w-100">
+                            <h1 className="text-center">{t('TV Shows')}</h1>
+                        </a>
+                    </Link>
+                    <ResponsiveContainer className="my-3">
+                        <TvShowsPreview numfilms={20} />
+                    </ResponsiveContainer>
+                </div>
             </div>
             
         </Layout>

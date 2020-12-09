@@ -2,32 +2,33 @@ import React from 'react';
 import { Pagination } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-const Paginator = ({actualPage, totalPages, onClick}) => {
-    // Functions
+const Paginator = ({page, setPage, totalPages}) => {
+    // Handle on page change
     const handleClick = e => {
-        const page = e.currentTarget.querySelector('.page').innerText;
-        switch(page) {
+        const value = e.currentTarget.querySelector('.page').innerText;
+        switch(value) {
             case '>':
-                onClick(actualPage + 1);
+                setPage(page + 1);
                 break;
             case '<':
-                onClick(actualPage - 1);
+                setPage(page - 1);
                 break;
             case '>>':
-                onClick(totalPages);
+                setPage(totalPages);
                 break;
             case '<<':
-                onClick(1);
+                setPage(1);
                 break;
             default:
-                onClick(parseInt(page));
+                setPage(parseInt(value));
         }
     };
-
+    
+    // Create page
     const createPage = number => (
         <Pagination.Item
             key={number}
-            active={number === actualPage}
+            active={number === page}
             onClick={handleClick}
         >
             <div className="text-primary page">
@@ -35,30 +36,22 @@ const Paginator = ({actualPage, totalPages, onClick}) => {
             </div>
         </Pagination.Item>
     );
-
-    // Create pages
-    let pages = [];
-    if(actualPage > 1) {
-        pages.push( createPage('<<') );
-        pages.push( createPage('<') );
-    }
-    pages.push( createPage(actualPage) );
-    if(actualPage < totalPages) {
-        pages.push( createPage('>') );
-        pages.push( createPage('>>') );
-    }
     
     return (
         <Pagination>
-            {pages}
+            { page > 1 && createPage('<<') }
+            { page > 1 && createPage('<') }
+            { createPage(page) }
+            { page < totalPages && createPage('>') }
+            { page < totalPages && createPage('>>') }
         </Pagination>
     );
 };
 
 Paginator.propTypes = {
-    actualPage: PropTypes.number.isRequired,
+    page: PropTypes.number.isRequired,
     totalPages: PropTypes.number.isRequired,
-    onClick: PropTypes.func.isRequired
+    setPage: PropTypes.func.isRequired
 };
  
 export default Paginator;

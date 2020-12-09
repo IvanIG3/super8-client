@@ -3,13 +3,14 @@ import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import { SearchAlt2 } from '@styled-icons/boxicons-regular/SearchAlt2';
 import PropTypes from 'prop-types';
 
-const SearchForm = ({onSubmit, placeholder}) => {
+const SearchForm = ({query, setQuery, placeholder}) => {
     // State
-    const [ query, setQuery ] = useState('');
+    const [ state, setState ] = useState(query);
+    
     // Handlers
     const handleSubmit = e => {
         e.preventDefault();
-        onSubmit(query);
+        setQuery(state);
     };
 
     return (
@@ -18,7 +19,8 @@ const SearchForm = ({onSubmit, placeholder}) => {
                 <FormControl
                     placeholder={placeholder}
                     className="border border-secondary"
-                    onChange={ e => setQuery(e.target.value) }
+                    onChange={ e => setState(e.target.value) }
+                    value={state}
                 />
                 <InputGroup.Append>
                     <Button type="submit" variant="secondary" className="py-0">
@@ -31,7 +33,8 @@ const SearchForm = ({onSubmit, placeholder}) => {
 };
 
 SearchForm.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
+    query: PropTypes.string,
+    setQuery: PropTypes.func.isRequired,
     placeholder: PropTypes.string
 };
 

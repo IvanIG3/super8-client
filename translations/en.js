@@ -9,5 +9,8 @@ export default {
         "Designed & developed by IvanIG3": "Designed & developed by IvanIG3",
         "View Code": "View Code",
         "Search for a movie...": "Search for a movie...",
+        "Search for a Tv Show...": "Search for a Tv Show...",
+        "Best TV Shows": "Best TV Shows",
+        "Release": "Release",
     }
 };
