@@ -33,6 +33,7 @@ const moviesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
+                moviesList: [],
             };
         case MOVIES_END_DISCOVERING_LIST:
         case MOVIES_END_SEARCHING_LIST:

@@ -32,6 +32,7 @@ const tvShowsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
+                tvShowsList: [],
             };
         case TVSHOWS_END_DISCOVERING_LIST:
         case TVSHOWS_END_SEARCHING_LIST:
