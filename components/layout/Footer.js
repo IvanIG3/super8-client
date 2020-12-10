@@ -61,7 +61,7 @@ const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <img src="tmdb.svg" alt="Logo TMDB"/>
+                    <img src="/tmdb.svg" alt="Logo TMDB"/>
                 </TmdbLogo>
             </FooterContainer>
             

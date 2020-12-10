@@ -12,5 +12,13 @@ export default {
         "Search for a Tv Show...": "Busca por una serie...",
         "Best TV Shows": "Mejores Series",
         "Releases": "Estrenos",
+        "Overview": "Resumen",
+        "Score": "Puntuación",
+        "Release Date": "Fecha de salida",
+        "Runtime": "Duración",
+        "Genres": "Géneros",
+        "Over 100": "Sobre 100",
+        "Seasons": "Temporadas",
+        "votes": "votos",
     }
 };

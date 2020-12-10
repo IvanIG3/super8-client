@@ -12,5 +12,13 @@ export default {
         "Search for a Tv Show...": "Search for a Tv Show...",
         "Best TV Shows": "Best TV Shows",
         "Release": "Release",
+        "Overview": "Overview",
+        "Score": "Score",
+        "Release Date": "Release Date",
+        "Runtime": "Runtime",
+        "Genres": "Genres",
+        "Over 100": "Over 100",
+        "Seasons": "Seasons",
+        "votes": "votes",
     }
 };
