@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Spinner } from 'react-bootstrap';
 import { discoverTvShows } from '../../actions/tvShowsActions';
 import CarouselImages from '../ui/CarouselImages';
 import PropTypes from 'prop-types';
@@ -9,6 +10,7 @@ const TvShowsPreview = ({ num }) => {
     const dispatch = useDispatch();
     const tvShowsList = useSelector(state => state.tvShows.tvShowsList);
     const language = useSelector(state => state.language.language);
+    const loading = useSelector(state => state.tvShows.loading);
 
     // Get default tv shows
     useEffect(() => {
@@ -23,7 +25,19 @@ const TvShowsPreview = ({ num }) => {
     }));
 
     return (
-        <CarouselImages items={carouselItems} />
+        <>
+            {loading ?
+                <div className="text-center">
+                    <Spinner
+                        className="my-5"
+                        animation="border"
+                        variant="secondary"
+                    />
+                </div>
+            :
+                <CarouselImages items={carouselItems} />
+            }
+        </>
     );
 };
 

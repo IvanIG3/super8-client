@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Spinner } from 'react-bootstrap';
 import { discoverMovies } from '../../actions/moviesActions';
 import CarouselImages from '../ui/CarouselImages';
 import PropTypes from 'prop-types';
@@ -9,6 +10,7 @@ const MoviesPreview = ({ num }) => {
     const dispatch = useDispatch();
     const moviesList = useSelector(state => state.movies.moviesList);
     const language = useSelector(state => state.language.language);
+    const loading = useSelector(state => state.movies.loading);
 
     // Get movies
     useEffect(() => {
@@ -23,7 +25,19 @@ const MoviesPreview = ({ num }) => {
     }));
 
     return (
-        <CarouselImages items={carouselItems} />
+        <>
+            {loading ?
+                <div className="text-center">
+                    <Spinner
+                        className="my-5"
+                        animation="border"
+                        variant="secondary"
+                    />
+                </div>
+            :
+                <CarouselImages items={carouselItems} />
+            }
+        </>
     );
 };
 

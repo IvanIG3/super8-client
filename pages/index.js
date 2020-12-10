@@ -1,19 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 import Layout from '../components/layout/Layout';
-import styled from 'styled-components';
+import { Row, Col } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 // Components
 import MoviesPreview from '../components/movies/MoviesPreview';
 import TvShowsPreview from '../components/tvshows/TvShowsPreview';
-
-const ResponsiveContainer = styled.div`
-    width: 100%;
-    @media (min-width: 768px) {
-        width: 600px;
-    }
-`;
 
 const Index = () => {
 
@@ -22,29 +15,20 @@ const Index = () => {
 
     return (
         <Layout>
-            <div className="d-flex flex-column align-items-center">
-                <div>
+            <Row className="justify-content-center mb-5">
+                <Col xs={12} md={10} lg={8} xl={6} className="mt-3">
                     <Link href="/movies">
-                        <a className="w-100">
-                            <h1 className="text-center">{t('Movies')}</h1>
-                        </a>
+                        <a><h1 className="w-100 text-center">{t('Movies')}</h1></a>
                     </Link>
-                    <ResponsiveContainer className="my-3">
-                        <MoviesPreview numfilms={20} />
-                    </ResponsiveContainer>
-                </div>
-                <div>
+                    <MoviesPreview numfilms={20} />
+                </Col>
+                <Col xs={12} md={10} lg={8} xl={6} className="mt-3">
                     <Link href="/tvshows">
-                        <a className="w-100">
-                            <h1 className="text-center">{t('TV Shows')}</h1>
-                        </a>
+                        <a><h1 className="w-100 text-center">{t('TV Shows')}</h1></a>
                     </Link>
-                    <ResponsiveContainer className="my-3">
-                        <TvShowsPreview numfilms={20} />
-                    </ResponsiveContainer>
-                </div>
-            </div>
-            
+                    <TvShowsPreview numfilms={20} />
+                </Col>
+            </Row>
         </Layout>
     );
 }

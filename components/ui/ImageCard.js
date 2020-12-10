@@ -14,7 +14,7 @@ const CardBody = styled.div`
 const ImageCard = ({title, image}) => {
     return (
         <Card bg="transparent" text="primary" className="h-100 flex-column">
-            <Card.Img variant="top" src={image} className="flex-1"/>
+            <Card.Img variant="top" src={image} className="flex-1 rounded"/>
             <CardBody>
                 <Card.Title className="text-center" style={{fontSize: "1.1em"}}>
                     {title}

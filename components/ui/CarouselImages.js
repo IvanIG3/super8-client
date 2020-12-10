@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Carousel } from 'react-bootstrap';
+import { Carousel, Image } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const CarouselCaption = styled(Carousel.Caption)`
@@ -19,19 +19,20 @@ const MovieTitle = styled.p`
 
 const CarouselImages = ({items}) => {
     return (
-        <Carousel className="w-100">
+        <Carousel>
             {items.map((item, idx) => (
                 <Carousel.Item key={idx}>
-                    <img
-                        className="d-block w-100"
+                    <Image
+                        rounded fluid
+                        className="w-100"
                         src={item.image}
                         alt={item.title}
                     />
                     <CarouselCaption>
                         <MovieTitle>{item.title}</MovieTitle>
                         {item.overview &&
-                            <p className="d-none d-sm-inline-block">
-                                {`${item.overview.substring(0, 150)}...`}
+                            <p className="d-none d-sm-block text-justify">
+                                {`${item.overview.substring(0, 120)} ...`}
                             </p>
                         }
                     </CarouselCaption>
