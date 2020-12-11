@@ -21,7 +21,7 @@ const Movies = () => {
 
     // Redux
     const moviesList = useSelector(state => state.movies.moviesList);
-    const sortParams = useSelector(state => state.movies.sortParams);
+    const sortBy = useSelector(state => state.movies.sortBy);
     const page = useSelector(state => state.movies.page);
     const query = useSelector(state => state.movies.query);
     const loading = useSelector(state => state.movies.loading);
@@ -30,11 +30,11 @@ const Movies = () => {
     // Get movies
     useEffect(() => {
         if(query) {
-            dispatch(searchMovies({query, page, language}));
+            dispatch(searchMovies(query, language, page));
         } else {
-            dispatch(discoverMovies({...sortParams, page, language}))
+            dispatch(discoverMovies(sortBy, language, page))
         }
-    }, [language, query, page, sortParams]);
+    }, [language, query, page, sortBy]);
 
     return (
         <Layout>

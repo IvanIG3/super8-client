@@ -15,12 +15,8 @@ const initialState = {
     moviesList: [],
     loading: false,
     sortBy: 'popular',
-    sortParams: {
-        sort_by: 'popularity.desc'
-    },
     page: 1,
     totalPages: 1,
-    totalResults: 0,
     query: '',
     error: null,
 };
@@ -43,7 +39,6 @@ const moviesReducer = (state = initialState, action) => {
                 error: null,
                 moviesList: action.payload.moviesList,
                 totalPages: action.payload.totalPages,
-                totalResults: action.payload.totalResults,
             };
         case MOVIES_ERROR_DISCOVERING_LIST:
         case MOVIES_ERROR_SEARCHING_LIST:
@@ -55,8 +50,7 @@ const moviesReducer = (state = initialState, action) => {
         case MOVIES_SET_SORT_BY:
             return {
                 ...state,
-                sortBy: action.payload.sortBy,
-                sortParams: action.payload.sortParams,
+                sortBy: action.payload,
                 query: '',
                 page: 1,
             };
@@ -70,7 +64,6 @@ const moviesReducer = (state = initialState, action) => {
                 ...state,
                 query: action.payload,
                 sortBy: '',
-                sortParams: {},
                 page: 1,
             };
         default:

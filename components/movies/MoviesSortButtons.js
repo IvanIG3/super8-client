@@ -12,37 +12,17 @@ const MoviesSortButtons = () => {
     // State
     const sortBy = useSelector(state => state.movies.sortBy);
 
-    // Get sort params by button value
-    const getSortParams = sortMethod => {
-        switch(sortMethod) {
-            case 'popular':
-                return {
-                    sort_by: 'popularity.desc'
-                };
-            case 'best':
-                return {
-                    sort_by: 'vote_average.desc',
-                    'vote_count.gte': 1000,
-                };
-            case 'release':
-                return {
-                    sort_by: 'primary_release_date.desc',
-                    'primary_release_date.lte': (new Date()).toISOString().split('T')[0]
-                };
-        }
-    };
-
     // Handler
     const handleChange = selectedButton => {
-        const sortParams = getSortParams(selectedButton);
-        dispatch( setSortBy(selectedButton, sortParams) );
+        dispatch(setSortBy(selectedButton));
     };
 
     // Sorting movie buttons
     const sortButtons = [
         { name: t('Popular'), value: 'popular'},
-        { name: t('Most voted'), value: 'best'},
-        { name: t('Releases'), value: 'release'},
+        { name: t('Top rated'), value: 'top_rated'},
+        { name: t('In theaters'), value: 'now_playing'},
+        { name: t('Soon'), value: 'upcoming'},
     ];
 
     return (

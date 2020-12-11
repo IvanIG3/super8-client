@@ -13,19 +13,22 @@ import {
 } from '../types';
 
 
-export function discoverMovies(data) {
+export function discoverMovies(endpoint, language, page) {
     return async dispatch => {
         dispatch({ type: MOVIES_START_DISCOVERING_LIST });
         try {
+            const data = {
+                api_key: process.env.tmdbApi,
+                language,
+                page
+            };
             const params = new URLSearchParams(data).toString();
-            const movies = await tmdb.get(
-                `/discover/movie?api_key=${process.env.tmdbApi}&${params}`);
+            const movies = await tmdb.get(`/movie/${endpoint}?${params}`);
             dispatch({
                 type: MOVIES_END_DISCOVERING_LIST,
                 payload: {
                     moviesList: movies.data.results,
                     totalPages: movies.data.total_pages,
-                    totalResults: movies.data.total_results
                 }
             });
         } catch (error) {
@@ -37,19 +40,23 @@ export function discoverMovies(data) {
     };
 };
 
-export function searchMovies(data) {
+export function searchMovies(query, language, page) {
     return async dispatch => {
         dispatch({ type: MOVIES_START_SEARCHING_LIST });
         try {
+            const data = {
+                api_key: process.env.tmdbApi,
+                query,
+                language,
+                page
+            };
             const params = new URLSearchParams(data).toString();
-            const movies = await tmdb.get(
-                `/search/movie?api_key=${process.env.tmdbApi}&${params}`);
+            const movies = await tmdb.get(`/search/movie?${params}`);
             dispatch({
                 type: MOVIES_END_SEARCHING_LIST,
                 payload: {
                     moviesList: movies.data.results,
                     totalPages: movies.data.total_pages,
-                    totalResults: movies.data.total_results
                 }
             });
         } catch (error) {
@@ -61,11 +68,11 @@ export function searchMovies(data) {
     };
 };
 
-export function setSortBy(sortBy, sortParams) {
+export function setSortBy(sortBy) {
     return dispatch => {
         dispatch({
             type: MOVIES_SET_SORT_BY,
-            payload: {sortBy, sortParams}
+            payload: sortBy
         });
     };
 };

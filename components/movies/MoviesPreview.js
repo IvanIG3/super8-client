@@ -14,7 +14,7 @@ const MoviesPreview = ({ num }) => {
 
     // Get movies
     useEffect(() => {
-        dispatch(discoverMovies({ language }));
+        dispatch(discoverMovies('popular', language, '1'));
     }, [language]);
 
     // Carousel items
