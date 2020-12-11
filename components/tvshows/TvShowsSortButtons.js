@@ -1,7 +1,16 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+
+// Icons
+import { TrendingUp } from '@styled-icons/boxicons-regular/TrendingUp';
+import { StarFill } from '@styled-icons/bootstrap/StarFill';
+import { CalendarExclamation } from '@styled-icons/boxicons-regular/CalendarExclamation';
+
+// Components
 import SortButtons from '../ui/SortButtons';
+
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
 import { setSortBy } from '../../actions/tvShowsActions';
 
 const TvShowsSortButtons = () => {
@@ -19,9 +28,21 @@ const TvShowsSortButtons = () => {
 
     // Sorting tv shows buttons
     const sortButtons = [
-        { name: t('Popular'), value: 'popular'},
-        { name: t('Top rated'), value: 'top_rated'},
-        { name: t('This week'), value: 'on_the_air'},
+        {
+            name: t('Popular'),
+            value: 'popular',
+            icon: <TrendingUp style={{width: "1.5em"}}/>
+        },
+        {
+            name: t('Top rated'),
+            value: 'top_rated',
+            icon: <StarFill style={{width: "1.5em"}}/>
+        },
+        {
+            name: t('This week'),
+            value: 'on_the_air',
+            icon: <CalendarExclamation style={{width: "1.5em"}}/>
+        },
     ];
 
     return (

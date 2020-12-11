@@ -1,8 +1,19 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+
+// Icons
+import { TrendingUp } from '@styled-icons/boxicons-regular/TrendingUp';
+import { StarFill } from '@styled-icons/bootstrap/StarFill';
+import { TheaterMasks } from '@styled-icons/fa-solid/TheaterMasks';
+import { CalendarExclamation } from '@styled-icons/boxicons-regular/CalendarExclamation';
+
+// Components
 import SortButtons from '../ui/SortButtons';
+
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
 import { setSortBy } from '../../actions/moviesActions';
+
 
 const MoviesSortButtons = () => {
     // Hooks
@@ -19,10 +30,26 @@ const MoviesSortButtons = () => {
 
     // Sorting movie buttons
     const sortButtons = [
-        { name: t('Popular'), value: 'popular'},
-        { name: t('Top rated'), value: 'top_rated'},
-        { name: t('In theaters'), value: 'now_playing'},
-        { name: t('Soon'), value: 'upcoming'},
+        {
+            name: t('Popular'),
+            value: 'popular',
+            icon: <TrendingUp style={{width: "1.5em"}}/>
+        },
+        {
+            name: t('Top rated'),
+            value: 'top_rated',
+            icon: <StarFill style={{width: "1.5em"}}/>
+        },
+        {
+            name: t('In theaters'),
+            value: 'now_playing',
+            icon: <TheaterMasks style={{width: "1.5em"}}/>
+        },
+        {
+            name: t('Soon'),
+            value: 'upcoming',
+            icon: <CalendarExclamation style={{width: "1.5em"}}/>
+        },
     ];
 
     return (
