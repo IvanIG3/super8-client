@@ -12,37 +12,16 @@ const TvShowsSortButtons = () => {
     // State
     const sortBy = useSelector(state => state.tvShows.sortBy);
 
-    // Get sort params by button value
-    const getSortParams = sortMethod => {
-        switch(sortMethod) {
-            case 'popular':
-                return {
-                    sort_by: 'popularity.desc'
-                };
-            case 'best':
-                return {
-                    sort_by: 'vote_average.desc',
-                    'vote_count.gte': 1000,
-                };
-            case 'release':
-                return {
-                    sort_by: 'first_air_date.desc',
-                    'first_air_date.lte': (new Date()).toISOString().split('T')[0]
-                };
-        }
-    };
-
     // Handler
     const handleChange = selectedButton => {
-        const sortParams = getSortParams(selectedButton);
-        dispatch( setSortBy(selectedButton, sortParams) );
+        dispatch(setSortBy(selectedButton));
     };
 
     // Sorting tv shows buttons
     const sortButtons = [
         { name: t('Popular'), value: 'popular'},
-        { name: t('Best TV Shows'), value: 'best'},
-        { name: t('Releases'), value: 'release'},
+        { name: t('Top rated'), value: 'top_rated'},
+        { name: t('This week'), value: 'on_the_air'},
     ];
 
     return (

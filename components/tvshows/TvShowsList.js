@@ -14,7 +14,10 @@ const TvShowsList = ({list}) => {
                         <a>
                             <ImageCard
                                 className="position-relative"
-                                title={item.name}
+                                title={item.name.length > 50 ?
+                                    item.name.substring(0, 50) + "..." :
+                                    item.name
+                                }
                                 image={item.poster_path ?
                                     `https://image.tmdb.org/t/p/w500${item.poster_path}` :
                                     'no-poster.png'

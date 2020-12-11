@@ -15,12 +15,8 @@ const initialState = {
     tvShowsList: [],
     loading: false,
     sortBy: 'popular',
-    sortParams: {
-        sort_by: 'popularity.desc'
-    },
     page: 1,
     totalPages: 1,
-    totalResults: 0,
     query: '',
     error: null,
 };
@@ -42,7 +38,6 @@ const tvShowsReducer = (state = initialState, action) => {
                 error: null,
                 tvShowsList: action.payload.tvShowsList,
                 totalPages: action.payload.totalPages,
-                totalResults: action.payload.totalResults,
             };
         case TVSHOWS_ERROR_DISCOVERING_LIST:
         case TVSHOWS_ERROR_SEARCHING_LIST:
@@ -54,8 +49,7 @@ const tvShowsReducer = (state = initialState, action) => {
         case TVSHOWS_SET_SORT_BY:
             return {
                 ...state,
-                sortBy: action.payload.sortBy,
-                sortParams: action.payload.sortParams,
+                sortBy: action.payload,
                 query: '',
                 page: 1,
             };
@@ -69,7 +63,6 @@ const tvShowsReducer = (state = initialState, action) => {
                 ...state,
                 query: action.payload,
                 sortBy: '',
-                sortParams: {},
                 page: 1,
             };
         default:

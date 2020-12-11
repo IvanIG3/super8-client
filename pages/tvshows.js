@@ -20,7 +20,7 @@ const TvShows = () => {
 
     // Redux
     const tvShowsList = useSelector(state => state.tvShows.tvShowsList);
-    const sortParams = useSelector(state => state.tvShows.sortParams);
+    const sortBy = useSelector(state => state.tvShows.sortBy);
     const page = useSelector(state => state.tvShows.page);
     const query = useSelector(state => state.tvShows.query);
     const loading = useSelector(state => state.tvShows.loading);
@@ -29,11 +29,11 @@ const TvShows = () => {
     // Get Tv Shows
     useEffect(() => {
         if(query) {
-            dispatch(searchTvShows({query, page, language}));
+            dispatch(searchTvShows(query, language, page));
         } else {
-            dispatch(discoverTvShows({...sortParams, page, language}));
+            dispatch(discoverTvShows(sortBy, language, page));
         }
-    }, [language, query, page, sortParams]);
+    }, [language, query, page, sortBy]);
     
     return (
         <Layout>

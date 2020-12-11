@@ -14,7 +14,7 @@ const TvShowsPreview = ({ num }) => {
 
     // Get default tv shows
     useEffect(() => {
-        dispatch(discoverTvShows({ language }));
+        dispatch(discoverTvShows('popular', language, '1'));
     }, [language]);
 
     // Carousel items
