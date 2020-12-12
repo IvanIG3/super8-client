@@ -22,5 +22,23 @@ export default {
         "Over 100": "Sobre 100",
         "Seasons": "Temporadas",
         "votes": "votos",
+        "The name is required": "El nombre es obligatorio",
+        "The email is not valid": "El email no es válido",
+        "The email is required": "El email es obligatorio",
+        "The password is required": "La contraseña es obligatoria",
+        "The password must be at least 6 characters": "La contraseña debe ser de al menos 6 caracteres",
+        "Name": "Nombre",
+        "Enter your name": "Escribe tu nombre",
+        "Email address": "Correo electrónico",
+        "Enter your email": "Escribe tu email",
+        "We'll never share your email with anyone": "Nunca compartiremos tu email con nadie",
+        "Password": "Contraseña",
+        "Enter your password": "Escribe tu contraseña",
+        "Create user": "Crear usuario",
+        "Login": "Iniciar sesión",
+        "Logout": "Cerrar sesión",
+        "I don't have an user account. Let's create one!": "No tengo una cuenta de usuario. ¡Vamos a crear una!",
+        "I already have an user account. Let's login!": "Ya tengo una cuenta de usuario. ¡Vamos a iniciar sesión!",
+
     }
 };

@@ -1,5 +1,6 @@
 @import "~bootswatch/dist/solar/variables.scss";
 
+/* DEFAULT VALUES */
 $primary:       #b58900;
 $secondary:     #d33682;
 $success:       #2aa198;
@@ -9,6 +10,8 @@ $danger:        #c00000;
 $light:         #fdf6e3;
 $dark:          #073642;
 
+/* OVERWRITTEN VALUES */
 $secondary:     #bb1d69;
 $primary:       #daa300;
 $light:         #839496;
+$danger:        #a00000;

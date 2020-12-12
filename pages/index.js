@@ -16,13 +16,13 @@ const Index = () => {
     return (
         <Layout>
             <Row className="justify-content-center mb-5">
-                <Col xs={12} md={10} lg={8} xl={6} className="mt-3">
+                <Col xs={12} md={10} lg={8} xl={6}>
                     <Link href="/movies">
                         <a><h1 className="w-100 text-center">{t('Movies')}</h1></a>
                     </Link>
                     <MoviesPreview numfilms={20} />
                 </Col>
-                <Col xs={12} md={10} lg={8} xl={6} className="mt-3">
+                <Col xs={12} md={10} lg={8} xl={6}>
                     <Link href="/tvshows">
                         <a><h1 className="w-100 text-center">{t('TV Shows')}</h1></a>
                     </Link>

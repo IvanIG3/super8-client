@@ -22,5 +22,23 @@ export default {
         "Over 100": "Over 100",
         "Seasons": "Seasons",
         "votes": "votes",
+        "The name is required": "The name is required",
+        "The email is not valid": "The email is not valid",
+        "The email is required": "The email is required",
+        "The password is required": "The password is required",
+        "The password must be at least 6 characters": "The password must be at least 6 characters",
+        "Name": "Name",
+        "Enter your name": "Enter your name",
+        "Email address": "Email address",
+        "Enter your email": "Enter your email",
+        "We'll never share your email with anyone": "We'll never share your email with anyone",
+        "Password": "Password",
+        "Enter your password": "Enter your password",
+        "Create user": "Create user",
+        "Login": "Login",
+        "Logout": "Logout",
+        "I don't have an user account. Let's create one!": "I don't have an user account. Let's create one!",
+        "I already have an user account. Let's login!": "I already have an user account. Let's login!",
+        
     }
 };
