@@ -11,6 +11,8 @@
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
     "bootswatch": "^4.5.3",
+    "firebase": "^8.1.2",
+    "formik": "^2.2.6",
     "i18next": "^19.8.4",
     "next": "10.0.3",
     "react": "17.0.1",
@@ -18,11 +20,14 @@
     "react-dom": "17.0.1",
     "react-i18next": "^11.7.4",
     "react-redux": "^7.2.2",
+    "react-redux-firebase": "^3.8.1",
     "redux": "^4.0.5",
+    "redux-firestore": "^0.14.0",
     "redux-thunk": "^2.3.0",
     "sass": "^1.29.0",
     "styled-components": "^5.2.1",
-    "styled-icons": "^10.22.0"
+    "styled-icons": "^10.22.0",
+    "yup": "^0.32.8"
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^1.12.0"

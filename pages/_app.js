@@ -2,6 +2,8 @@ import Head from 'next/head';
 import '../styles/globals.scss';
 import '../translations';
 import { Provider } from 'react-redux';
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
+import rrfProps from '../firebase';
 import store from '../store';
 
 function MyApp({ Component, pageProps }) {
@@ -16,7 +18,9 @@ function MyApp({ Component, pageProps }) {
                 />
             </Head>
             <Provider store={store}>
-                <Component {...pageProps} />
+                <ReactReduxFirebaseProvider {...rrfProps}>
+                    <Component {...pageProps} />
+                </ReactReduxFirebaseProvider>
             </Provider>
         </>
     )
