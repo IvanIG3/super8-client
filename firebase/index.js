@@ -1,25 +1,17 @@
 import store from '../store';
-import firebaseConfig from './config';
+import initFirebase from './initFirebase';
 import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
-import { createFirestoreInstance } from 'redux-firestore'
-
-// RRF stores authenticated users’ data in either Cloud Firestore
-const rrfConfig = {
-    userProfile: 'users',
-    useFirestoreForProfile: true,
-};
+import { createFirestoreInstance } from 'redux-firestore';
 
 // Initialize firebase instance
-if(!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
-firebase.firestore();
+initFirebase();
 
 const rrfProps = {
     firebase,
-    config: rrfConfig,
+    config: {
+        userProfile: 'users',
+        useFirestoreForProfile: true,
+    },
     dispatch: store.dispatch,
     createFirestoreInstance
 };
