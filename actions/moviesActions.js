@@ -1,5 +1,4 @@
-import tmdb from '../config/axiosTmdb';
-
+import apiTmdb from '../tmdb/apiTmdb';
 import {
     MOVIES_START_DISCOVERING_LIST,
     MOVIES_END_DISCOVERING_LIST,
@@ -17,18 +16,12 @@ export function discoverMovies(endpoint, language, page) {
     return async dispatch => {
         dispatch({ type: MOVIES_START_DISCOVERING_LIST });
         try {
-            const data = {
-                api_key: process.env.tmdbApi,
-                language,
-                page
-            };
-            const params = new URLSearchParams(data).toString();
-            const movies = await tmdb.get(`/movie/${endpoint}?${params}`);
+            const movies = await apiTmdb(`/movie/${endpoint}`, { language, page });
             dispatch({
                 type: MOVIES_END_DISCOVERING_LIST,
                 payload: {
-                    moviesList: movies.data.results,
-                    totalPages: movies.data.total_pages,
+                    moviesList: movies.results,
+                    totalPages: movies.total_pages,
                 }
             });
         } catch (error) {
@@ -44,19 +37,12 @@ export function searchMovies(query, language, page) {
     return async dispatch => {
         dispatch({ type: MOVIES_START_SEARCHING_LIST });
         try {
-            const data = {
-                api_key: process.env.tmdbApi,
-                query,
-                language,
-                page
-            };
-            const params = new URLSearchParams(data).toString();
-            const movies = await tmdb.get(`/search/movie?${params}`);
+            const movies = await apiTmdb(`/search/movie`, { query, language, page });
             dispatch({
                 type: MOVIES_END_SEARCHING_LIST,
                 payload: {
-                    moviesList: movies.data.results,
-                    totalPages: movies.data.total_pages,
+                    moviesList: movies.results,
+                    totalPages: movies.total_pages,
                 }
             });
         } catch (error) {

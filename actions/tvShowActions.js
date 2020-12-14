@@ -1,4 +1,4 @@
-import tmdb from '../config/axiosTmdb';
+import apiTmdb from '../tmdb/apiTmdb';
 import {
     TVSHOW_START_FETCHING_INFO,
     TVSHOW_END_FETCHING_INFO,
@@ -15,9 +15,11 @@ export function getTvShow(id, language) {
             };
             const params = new URLSearchParams(data).toString();
             const tvShow = await tmdb.get(`/tv/${id}?${params}`);
+
+            const tvShow = await apiTmdb(`/tv/${id}`, { language });
             dispatch({
                 type: TVSHOW_END_FETCHING_INFO,
-                payload: tvShow.data
+                payload: tvShow
             });
         } catch (error) {
             dispatch({

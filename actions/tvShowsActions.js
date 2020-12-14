@@ -1,4 +1,4 @@
-import tmdb from '../config/axiosTmdb';
+import apiTmdb from '../tmdb/apiTmdb';
 import {
     TVSHOWS_START_DISCOVERING_LIST,
     TVSHOWS_END_DISCOVERING_LIST,
@@ -15,18 +15,12 @@ export function discoverTvShows(endpoint, language, page) {
     return async dispatch => {
         dispatch({ type: TVSHOWS_START_DISCOVERING_LIST });
         try {
-            const data = {
-                api_key: process.env.tmdbApi,
-                language,
-                page
-            };
-            const params = new URLSearchParams(data).toString();
-            const tvShows = await tmdb.get(`/tv/${endpoint}?${params}`);
+            const tvShows = await apiTmdb(`/tv/${endpoint}`, { language, page });
             dispatch({
                 type: TVSHOWS_END_DISCOVERING_LIST,
                 payload: {
-                    tvShowsList: tvShows.data.results,
-                    totalPages: tvShows.data.total_pages,
+                    tvShowsList: tvShows.results,
+                    totalPages: tvShows.total_pages,
                 }
             });
         } catch (error) {
@@ -42,19 +36,12 @@ export function searchTvShows(query, language, page) {
     return async dispatch => {
         dispatch({ type: TVSHOWS_START_SEARCHING_LIST });
         try {
-            const data = {
-                api_key: process.env.tmdbApi,
-                query,
-                language,
-                page
-            };
-            const params = new URLSearchParams(data).toString();
-            const tvShows = await tmdb.get(`/search/tv?${params}`);
+            const tvShows = await apiTmdb(`/search/tv`, { query, language, page });
             dispatch({
                 type: TVSHOWS_END_SEARCHING_LIST,
                 payload: {
-                    tvShowsList: tvShows.data.results,
-                    totalPages: tvShows.data.total_pages,
+                    tvShowsList: tvShows.results,
+                    totalPages: tvShows.total_pages,
                 }
             });
         } catch (error) {

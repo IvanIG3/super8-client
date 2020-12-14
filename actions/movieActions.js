@@ -1,4 +1,4 @@
-import tmdb from '../config/axiosTmdb';
+import apiTmdb from '../tmdb/apiTmdb';
 import {
     MOVIE_START_FETCHING_INFO,
     MOVIE_END_FETCHING_INFO,
@@ -9,15 +9,10 @@ export function getMovie(id, language) {
     return async dispatch => {
         dispatch({ type: MOVIE_START_FETCHING_INFO });
         try {
-            const data = {
-                api_key: process.env.tmdbApi,
-                language
-            };
-            const params = new URLSearchParams(data).toString();
-            const movie = await tmdb.get(`/movie/${id}?${params}`);
+            const movie = await apiTmdb(`/movie/${id}`, { language });
             dispatch({
                 type: MOVIE_END_FETCHING_INFO,
-                payload: movie.data
+                payload: movie
             });
         } catch (error) {
             dispatch({
