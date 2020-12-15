@@ -37,7 +37,7 @@ const Movies = () => {
 
     return (
         <Layout>
-            <h1 className="text-center">{t('Movies')}</h1>
+            <h1 className="text-center">{t('Movies')} - {t(sortBy)}</h1>
             <div className="d-flex flex-column align-items-center">
                 <div className="my-3">
                     <MoviesSortButtons />

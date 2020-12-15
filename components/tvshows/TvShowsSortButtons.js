@@ -29,17 +29,17 @@ const TvShowsSortButtons = () => {
     // Sorting tv shows buttons
     const sortButtons = [
         {
-            name: t('Popular'),
+            name: t('popular'),
             value: 'popular',
             icon: <TrendingUp style={{width: "1.5em"}}/>
         },
         {
-            name: t('Top rated'),
+            name: t('top_rated'),
             value: 'top_rated',
             icon: <StarFill style={{width: "1.5em"}}/>
         },
         {
-            name: t('This week'),
+            name: t('on_the_air'),
             value: 'on_the_air',
             icon: <CalendarExclamation style={{width: "1.5em"}}/>
         },

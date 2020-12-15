@@ -36,7 +36,7 @@ const TvShows = () => {
     
     return (
         <Layout>
-            <h1 className="text-center">{t('TV Shows')}</h1>
+            <h1 className="text-center">{t('TV Shows')} - {t(sortBy)}</h1>
             <div className="d-flex flex-column align-items-center">
                 <div className="my-3">
                     <TvShowsSortButtons />

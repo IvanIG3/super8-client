@@ -28,6 +28,10 @@ a {
 h1 {
     border-bottom: 1px solid;
     margin-top: 30px;
+    font-size: 2rem;
+    @media (min-width: 576px) {
+        font-size: 2.5rem;
+    }
 }
 
 /* Utilities */

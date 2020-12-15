@@ -36,17 +36,17 @@ const MoviesSortButtons = () => {
             icon: <TrendingUp style={{width: "1.5em"}}/>
         },
         {
-            name: t('Top rated'),
+            name: t('top_rated'),
             value: 'top_rated',
             icon: <StarFill style={{width: "1.5em"}}/>
         },
         {
-            name: t('In theaters'),
+            name: t('now_playing'),
             value: 'now_playing',
             icon: <TheaterMasks style={{width: "1.5em"}}/>
         },
         {
-            name: t('Soon'),
+            name: t('upcoming'),
             value: 'upcoming',
             icon: <CalendarExclamation style={{width: "1.5em"}}/>
         },
