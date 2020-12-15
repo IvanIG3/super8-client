@@ -19,7 +19,6 @@ const TvShows = () => {
     const dispatch = useDispatch();
 
     // Redux
-    const tvShowsList = useSelector(state => state.tvShows.tvShowsList);
     const sortBy = useSelector(state => state.tvShows.sortBy);
     const page = useSelector(state => state.tvShows.page);
     const query = useSelector(state => state.tvShows.query);
@@ -52,9 +51,7 @@ const TvShows = () => {
                         variant="secondary"
                     />
                 :
-                    <TvShowsList
-                        list={tvShowsList}
-                    />
+                    <TvShowsList />
                 }
                 <TvShowsPaginator />
             </div>

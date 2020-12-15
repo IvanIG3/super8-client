@@ -20,7 +20,6 @@ const Movies = () => {
     const dispatch = useDispatch();
 
     // Redux
-    const moviesList = useSelector(state => state.movies.moviesList);
     const sortBy = useSelector(state => state.movies.sortBy);
     const page = useSelector(state => state.movies.page);
     const query = useSelector(state => state.movies.query);
@@ -53,9 +52,7 @@ const Movies = () => {
                         variant="secondary"
                     />
                 :
-                    <MoviesList
-                        list={moviesList}
-                    />
+                    <MoviesList />
                 }
                 <MoviesPaginator />
             </div>
