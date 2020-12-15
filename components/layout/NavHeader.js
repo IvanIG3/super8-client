@@ -25,8 +25,7 @@ const NavHeader = () => {
                 <Nav className="justify-content-end flex-1">
                     <NavLink href="/movies">{t('Movies')}</NavLink>
                     <NavLink href="/tvshows">{t('TV Shows')}</NavLink>
-                    <NavLink href="/mylists">{t('My Lists')}</NavLink>
-                    <NavLink href="/mytube">MyTube</NavLink>
+                    <NavLink href="/mylist">{t('My List')}</NavLink>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

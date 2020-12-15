@@ -1,19 +1,26 @@
 import React from 'react';
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
-import ImageCard from '../ui/ImageCard';
-import ScoreTag from '../ui/ScoreTag';
 import PropTypes from 'prop-types';
 
-const MoviesList = ({list}) => {
+import ImageCard from '../ui/ImageCard';
+import ScoreTag from '../ui/ScoreTag';
+import MyListTag from '../ui/MyListTag';
+import useFirebaseUserCollection from '../../hooks/useFirebaseUserCollection';
+
+const MoviesList = () => {
+    
+    const list = useSelector(state => state.movies.moviesList);
+    const [mylist] = useFirebaseUserCollection('mylist');
+
     return (
-        <Row noGutters className="mt-5" xs="2" sm="3" md="4" lg="5" xl="6">
+        <Row noGutters className="mt-5 w-100" xs="2" sm="3" md="4" lg="5" xl="6">
             {list.map(item => (
                 <Col key={item.id} className="mb-5">
                     <Link href={`/movies/${item.id}`}>
                         <a>
                             <ImageCard
-                                className="position-relative"
                                 title={item.title.length > 50 ?
                                     item.title.substring(0, 50) + "..." :
                                     item.title
@@ -26,6 +33,9 @@ const MoviesList = ({list}) => {
                         </a>
                     </Link>
                     <ScoreTag score={item.vote_average * 10}/>
+                    {mylist && mylist.some(i => i.id === item.id) &&
+                        <MyListTag />
+                    }
                 </Col>
             ))}
         </Row>

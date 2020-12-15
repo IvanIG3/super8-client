@@ -2,7 +2,7 @@ export default {
     translation: {
         "Movies": "Películas",
         "TV Shows": "Series",
-        "My Lists": "Mis Listas",
+        "My List": "Mi Lista",
         "Popular": "Populares",
         "Top rated": "Más valoradas",
         "In theaters": "En cines",
@@ -39,6 +39,8 @@ export default {
         "Logout": "Cerrar sesión",
         "I don't have an user account. Let's create one!": "No tengo una cuenta de usuario. ¡Vamos a crear una!",
         "I already have an user account. Let's login!": "Ya tengo una cuenta de usuario. ¡Vamos a iniciar sesión!",
+        "Add to My List": "Añadir a Mi Lista",
+        "Remove from My List": "Eliminar de Mi Lista",
 
     }
 };
