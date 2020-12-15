@@ -73,7 +73,7 @@ const TvShow = () => {
                         <Image
                             fluid rounded thumbnail
                             className="border-light"
-                            src={`https://image.tmdb.org/t/p/w500/${tvShow.poster_path}`}
+                            src={`${process.env.tmdbImageURL}${tvShow.poster_path}`}
                             alt={tvShow.name}
                         />
                         {uid && 

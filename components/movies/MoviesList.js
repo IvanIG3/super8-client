@@ -26,7 +26,7 @@ const MoviesList = () => {
                                     item.title
                                 }
                                 image={item.poster_path ?
-                                    `https://image.tmdb.org/t/p/w500${item.poster_path}` :
+                                    `${process.env.tmdbImageURL}${item.poster_path}` :
                                     'no-poster.png'
                                 }
                             />

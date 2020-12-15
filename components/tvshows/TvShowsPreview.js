@@ -20,7 +20,7 @@ const TvShowsPreview = ({ num }) => {
     // Carousel items
     const carouselItems = tvShowsList.slice(0, num).map(tvShow => ({
         title: tvShow.name,
-        image: `https://image.tmdb.org/t/p/w500${tvShow.backdrop_path}`,
+        image: `${process.env.tmdbImageURL}${tvShow.backdrop_path}`,
         overview: `${tvShow.overview.substring(0, 150)}...`
     }));
 

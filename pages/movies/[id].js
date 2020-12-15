@@ -73,7 +73,7 @@ const Movie = () => {
                         <Image
                             fluid rounded thumbnail
                             className="border-light"
-                            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                            src={`${process.env.tmdbImageURL}${movie.poster_path}`}
                             alt={movie.title}
                         />
                         {uid && 
