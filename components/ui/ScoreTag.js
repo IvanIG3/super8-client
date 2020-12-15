@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 const Score = styled.div`
     position: absolute;
     width: 40px;
-    height: 40px;
+    height: 35px;
     text-align: center;
     border-radius: 10px;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 22px;
     left: calc(50% - 20px);
     top: -20px;
     background-color: black;
