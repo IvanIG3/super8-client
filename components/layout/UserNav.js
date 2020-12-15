@@ -14,11 +14,11 @@ const UserNav = () => {
 
     // Redux
     const user = useSelector(state => state.firebase.profile);
-    const logged = useSelector(state => !state.firebase.auth.isEmpty);
+    const uid = useSelector(state => state.firebase.auth.uid);
 
     // Login
     const login = () => {
-        if(logged) {
+        if(uid) {
             firebase.logout();
         } else {
             router.push('/login');
@@ -43,7 +43,7 @@ const UserNav = () => {
                     size="sm"
                     onClick={ () => login() }
                 >
-                    {logged ? t("Logout") : t("Login")}
+                    {uid ? t("Logout") : t("Login")}
                 </Button>
             </div>
         </div>
