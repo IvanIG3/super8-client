@@ -22,7 +22,6 @@ const SortButtons = ({ value, buttons, onChange }) => {
             name="sort-options"
             onChange={onChange}
             value={value}
-            className="flex-wrap"
         >
             {buttons.map((button, idx) => (
                 <ToggleButton
