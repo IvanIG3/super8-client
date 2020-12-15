@@ -9,13 +9,6 @@ export function getTvShow(id, language) {
     return async dispatch => {
         dispatch({ type: TVSHOW_START_FETCHING_INFO });
         try {
-            const data = {
-                api_key: process.env.tmdbApi,
-                language
-            };
-            const params = new URLSearchParams(data).toString();
-            const tvShow = await tmdb.get(`/tv/${id}?${params}`);
-
             const tvShow = await apiTmdb(`/tv/${id}`, { language });
             dispatch({
                 type: TVSHOW_END_FETCHING_INFO,
