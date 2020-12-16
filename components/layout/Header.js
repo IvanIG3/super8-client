@@ -4,7 +4,8 @@ import NavHeader from './NavHeader';
 
 const Header = () => {
     return (
-        <header className="bg-primary fixed-top d-flex">
+        <header className="fixed-top d-flex">
+            <div class="blurrer"></div>
             <Container className="d-inline-block">
                 <NavHeader />
             </Container>

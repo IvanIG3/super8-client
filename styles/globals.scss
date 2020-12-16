@@ -45,9 +45,26 @@ h1 {
 }
 
 .border-2 {
-    border-width: 2px!important;
+    border-width: 2px !important;
 }
 
 .border-3 {
-    border-width: 3px!important;
+    border-width: 3px !important;
+}
+
+.blurrer {
+    height: 140%;
+    top: -30%;
+    left: -30%;
+    right: -30%;
+    position: absolute;
+    overflow: hidden;
+    filter: blur(10px);
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    z-index: -500;
+    background-color: $dark;
+    background-size: cover;
 }
