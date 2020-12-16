@@ -1,4 +1,5 @@
 import apiTmdb from '../tmdb/apiTmdb';
+import { toast } from 'react-toastify';
 import {
     MOVIE_START_FETCHING_INFO,
     MOVIE_END_FETCHING_INFO,
@@ -19,6 +20,7 @@ export function getMovie(id, language) {
                 type: MOVIE_ERROR_FETCHING_INFO,
                 payload: error.response.data.msg
             });
+            toast.error(error.response.data.msg, { className: 'bg-danger' });
         }
     };
 };

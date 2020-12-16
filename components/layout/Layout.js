@@ -1,6 +1,8 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
+import { ToastContainer } from 'react-toastify';
+
 import Header from './Header';
 import Footer from './Footer';
 import UserNav from './UserNav';
@@ -16,6 +18,7 @@ const Layout = ({children}) => {
     return (
         <ContainerLayout>
             <Header />
+            <ToastContainer />
             <Container className="flex-1">
                 <UserNav />
                 <main>

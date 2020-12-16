@@ -1,4 +1,5 @@
 import apiTmdb from '../tmdb/apiTmdb';
+import { toast } from 'react-toastify';
 import {
     TVSHOWS_START_DISCOVERING_LIST,
     TVSHOWS_END_DISCOVERING_LIST,
@@ -28,6 +29,7 @@ export function discoverTvShows(endpoint, language, page) {
                 type: TVSHOWS_ERROR_DISCOVERING_LIST,
                 payload: error.response.data.msg
             });
+            toast.error(error.response.data.msg, { className: 'bg-danger' });
         }
     };
 };
@@ -49,6 +51,7 @@ export function searchTvShows(query, language, page) {
                 type: TVSHOWS_ERROR_SEARCHING_LIST,
                 payload: error.response.data.msg
             });
+            toast.error(error.response.data.msg, { className: 'bg-danger' });
         }
     };
 };

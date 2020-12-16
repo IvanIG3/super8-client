@@ -6,8 +6,9 @@ import * as Yup from 'yup';
 import { Form, Button, Row, Col, Alert } from 'react-bootstrap';
 import { AlertCircleOutline } from '@styled-icons/evaicons-outline/AlertCircleOutline';
 import { useTranslation } from 'react-i18next';
-import Layout from '../components/layout/Layout';
 import { useFirebase } from 'react-redux-firebase';
+import { toast } from 'react-toastify';
+import Layout from '../components/layout/Layout';
 
 const Login = () => {
     // Hooks
@@ -35,7 +36,7 @@ const Login = () => {
             await firebase.login({ email, password });
             router.push('/');
         } catch (error) {
-            console.log(error);
+            toast.error(error, { className: 'bg-danger' });
         }
     };
 

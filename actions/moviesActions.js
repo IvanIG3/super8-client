@@ -1,4 +1,5 @@
 import apiTmdb from '../tmdb/apiTmdb';
+import { toast } from 'react-toastify';
 import {
     MOVIES_START_DISCOVERING_LIST,
     MOVIES_END_DISCOVERING_LIST,
@@ -29,6 +30,7 @@ export function discoverMovies(endpoint, language, page) {
                 type: MOVIES_ERROR_DISCOVERING_LIST,
                 payload: error.response.data.msg
             });
+            toast.error(error.response.data.msg, { className: 'bg-danger' });
         }
     };
 };
@@ -50,6 +52,7 @@ export function searchMovies(query, language, page) {
                 type: MOVIES_ERROR_SEARCHING_LIST,
                 payload: error.response.data.msg
             });
+            toast.error(error.response.data.msg, { className: 'bg-danger' });
         }
     };
 };

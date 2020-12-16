@@ -1,5 +1,6 @@
 import { useFirestore, useFirestoreConnect } from 'react-redux-firebase';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const useFirebaseUserCollection = (collection) => {
     // States
@@ -26,7 +27,7 @@ const useFirebaseUserCollection = (collection) => {
                 .collection('users').doc(uid)
                 .collection(collection).doc(id.toString()).set(item);
         } catch (error) {
-            console.log(error);
+            toast.error(error, { className: 'bg-danger' });
         }
     };
 
@@ -37,7 +38,7 @@ const useFirebaseUserCollection = (collection) => {
                 .collection('users').doc(uid)
                 .collection(collection).doc(id.toString()).delete();
         } catch (error) {
-            console.log(error);
+            toast.error(error, { className: 'bg-danger' });
         }
     };
 
