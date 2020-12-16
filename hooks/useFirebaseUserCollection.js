@@ -27,7 +27,7 @@ const useFirebaseUserCollection = (collection) => {
                 .collection('users').doc(uid)
                 .collection(collection).doc(id.toString()).set(item);
         } catch (error) {
-            toast.error(error, { className: 'bg-danger' });
+            toast.error(error.message, { className: 'bg-danger' });
         }
     };
 
@@ -38,7 +38,7 @@ const useFirebaseUserCollection = (collection) => {
                 .collection('users').doc(uid)
                 .collection(collection).doc(id.toString()).delete();
         } catch (error) {
-            toast.error(error, { className: 'bg-danger' });
+            toast.error(error.message, { className: 'bg-danger' });
         }
     };
 
