@@ -31,7 +31,7 @@ const MoviesSortButtons = () => {
     // Sorting movie buttons
     const sortButtons = [
         {
-            name: t('Popular'),
+            name: t('popular'),
             value: 'popular',
             icon: <TrendingUp style={{width: "1.5em"}}/>
         },
