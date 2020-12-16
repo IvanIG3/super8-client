@@ -37,7 +37,6 @@ const UserNav = () => {
                     {user && user.name}
                 </p>
                 <Button
-                    className="text-white"
                     variant="secondary"
                     type="submit"
                     size="sm"

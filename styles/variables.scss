@@ -2,7 +2,7 @@
 
 /* DEFAULT VALUES */
 $primary:       #b58900;
-$secondary:     #d33682;
+$secondary:     $gray-600;
 $success:       #2aa198;
 $info:          #268bd2;
 $warning:       #cb4b16;
@@ -11,7 +11,6 @@ $light:         #fdf6e3;
 $dark:          #073642;
 
 /* OVERWRITTEN VALUES */
-$secondary:     #a0004d;
-$primary:       #daa300;
+$secondary:     #752b00;
+$primary:       #f7a000;
 $light:         #839496;
-$danger:        #a00000;

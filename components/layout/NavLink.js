@@ -14,11 +14,11 @@ const NavText = styled.p`
 const NavLink = ({ href, children }) => {
     const router = useRouter();
     const active = router.pathname === href ? 
-        "border-bottom border-secondary border-2" : "";
+        "border-bottom border-primary border-2" : "";
     return (
         <Link href={href}>
             <Nav.Link href={href} className="mx-2">
-                <NavText className={`text-secondary ${active}`}>
+                <NavText className={`text-primary ${active}`}>
                     {children}
                 </NavText>
             </Nav.Link>

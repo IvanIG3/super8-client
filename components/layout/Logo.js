@@ -16,7 +16,7 @@ const TextLogo = styled.h2`
 const Logo = () => {
     return (
         <TextLogo
-            className="text-secondary"
+            className="text-primary"
         >SUPER8</TextLogo>
     );
 }

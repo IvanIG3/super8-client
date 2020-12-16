@@ -17,7 +17,7 @@ const NavHeader = () => {
                     <Logo />
                 </Navbar.Brand>
             </Link>
-            <Navbar.Toggle className="border-secondary border-2 text-secondary">
+            <Navbar.Toggle className="border-primary border-2 text-primary">
                 <ThMenu style={{width: "1em"}}/>
             </Navbar.Toggle>
             <Navbar.Collapse>

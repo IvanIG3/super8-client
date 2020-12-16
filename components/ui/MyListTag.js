@@ -10,7 +10,7 @@ const Tag = styled(BookmarkCheckFill)`
 `;
 
 const MyListTag = () => (
-    <Tag className="text-secondary"/>
+    <Tag className="text-danger"/>
 )
 
 export default MyListTag;
