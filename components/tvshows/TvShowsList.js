@@ -15,7 +15,7 @@ const TvShowsList = () => {
     const [mylist] = useFirebaseUserCollection('mylist');
 
     return (
-        <Row noGutters className="mt-5 w-100" xs="2" sm="3" md="4" lg="5" xl="6">
+        <Row noGutters className="mt-5 w-100" xs="2" sm="3" md="4" lg="5">
             {list.map(item => (
                 <Col key={item.id} className="mb-5 position-relative">
                     <Link href={`/tvshows/${item.id}`}>
