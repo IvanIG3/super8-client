@@ -11,11 +11,6 @@ function MyApp({ Component, pageProps }) {
         <>
             <Head>
                 <title>Super8</title>
-                <link rel="preconnect" href="https://fonts.gstatic.com"/>
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Rammetto+One&display=swap"
-                    rel="stylesheet"
-                />
             </Head>
             <Provider store={store}>
                 <ReactReduxFirebaseProvider {...rrfProps}>

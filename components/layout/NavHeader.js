@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import { Navbar, Nav } from 'react-bootstrap';
 import { ThMenu } from '@styled-icons/typicons/ThMenu';
-import styled from 'styled-components';
 import Logo from './Logo';
 import NavLink from './NavLink';
 import { useTranslation } from 'react-i18next';
@@ -19,7 +18,7 @@ const NavHeader = () => {
                 </Navbar.Brand>
             </Link>
             <Navbar.Toggle className="border-secondary border-2 text-secondary">
-                <ThMenu style={{width: "1.2em"}}/>
+                <ThMenu style={{width: "1em"}}/>
             </Navbar.Toggle>
             <Navbar.Collapse>
                 <Nav className="justify-content-end flex-1">

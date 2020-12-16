@@ -6,14 +6,15 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const NavText = styled.p`
+    font-weight: bold;
+    font-size: 1.2em;
     margin: 0;
-    font-family: 'Rammetto One';
 `;
 
 const NavLink = ({ href, children }) => {
     const router = useRouter();
     const active = router.pathname === href ? 
-        "border-bottom border-secondary border-3" : "";
+        "border-bottom border-secondary border-2" : "";
     return (
         <Link href={href}>
             <Nav.Link href={href} className="mx-2">

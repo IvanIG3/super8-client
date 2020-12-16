@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const TextLogo = styled.p`
+const TextLogo = styled.h2`
     margin: 0;
-    font-family: 'Rammetto One';
-    font-size: 1em;
+    font-weight: bold;
+    font-size: 1.3em;
     @media (min-width: 300px) {
-        font-size: 1.3em;
+        font-size: 1.5em;
     }
     &:hover {
         cursor: pointer;
