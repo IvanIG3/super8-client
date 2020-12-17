@@ -41,6 +41,9 @@ export default {
         "I already have an user account. Let's login!": "I already have an user account. Let's login!",
         "Add to My List": "Add to My List",
         "Remove from My List": "Remove from My List",
-        
+        "auth/email-already-in-use": "The email address is already in use by another account.",
+        "auth/user-not-found": "There is no user record corresponding to this email",
+        "auth/wrong-password": "Incorrect password",
+
     }
 };

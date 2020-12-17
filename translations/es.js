@@ -41,6 +41,9 @@ export default {
         "I already have an user account. Let's login!": "Ya tengo una cuenta de usuario. ¡Vamos a iniciar sesión!",
         "Add to My List": "Añadir a Mi Lista",
         "Remove from My List": "Eliminar de Mi Lista",
+        "auth/email-already-in-use": "El correo electrónico ya está siendo utilizado por otra cuenta.",
+        "auth/user-not-found": "No hay ningún usuario registrado con este correo electrónico.",
+        "auth/wrong-password": "Contraseña incorrecta",
 
     }
 };

@@ -43,7 +43,7 @@ const CreateUser = () => {
             );
             router.push('/');
         } catch (error) {
-            toast.error(error, { className: 'bg-danger' });
+            toast.error(t(error.code), { className: 'bg-danger' });
         }
     };
 
