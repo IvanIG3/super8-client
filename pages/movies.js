@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import useUpdate from '../hooks/useUpdate';
 
 // Components
 import Layout from '../components/layout/Layout';
@@ -25,15 +26,24 @@ const Movies = () => {
     const query = useSelector(state => state.movies.query);
     const loading = useSelector(state => state.movies.loading);
     const language = useSelector(state => state.language.language);
+    const movies = useSelector(state => state.movies.moviesList);
 
     // Get movies
-    useEffect(() => {
+    const getMovies = () => {
         if(query) {
             dispatch(searchMovies(query, language, page));
-        } else {
+        } else if(sortBy) {
             dispatch(discoverMovies(sortBy, language, page))
         }
-    }, [language, query, page, sortBy]);
+    };
+
+    useEffect(() => {
+        if (movies.length === 0) {
+            getMovies();
+        }
+    }, [query, page, sortBy]);
+
+    useUpdate(() => getMovies(), [language]);
 
     return (
         <Layout>

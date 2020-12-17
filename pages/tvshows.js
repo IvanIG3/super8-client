@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import useUpdate from '../hooks/useUpdate';
 
 // Components
 import Layout from '../components/layout/Layout';
@@ -24,15 +25,24 @@ const TvShows = () => {
     const query = useSelector(state => state.tvShows.query);
     const loading = useSelector(state => state.tvShows.loading);
     const language = useSelector(state => state.language.language);
+    const tvShows = useSelector(state => state.tvShows.tvShowsList);
 
     // Get Tv Shows
-    useEffect(() => {
+    const getTvShows = () => {
         if(query) {
             dispatch(searchTvShows(query, language, page));
         } else {
             dispatch(discoverTvShows(sortBy, language, page));
         }
-    }, [language, query, page, sortBy]);
+    };
+
+    useEffect(() => {
+        if(tvShows.length === 0) {
+            getTvShows();
+        }
+    }, [query, page, sortBy]);
+
+    useUpdate(() => getTvShows(), [language]);
     
     return (
         <Layout>

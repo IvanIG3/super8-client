@@ -52,11 +52,13 @@ const tvShowsReducer = (state = initialState, action) => {
                 sortBy: action.payload,
                 query: '',
                 page: 1,
+                tvShowsList: [],
             };
         case TVSHOWS_SET_PAGE:
             return {
                 ...state,
-                page: action.payload
+                page: action.payload,
+                tvShowsList: [],
             };
         case TVSHOWS_SET_QUERY:
             return {
@@ -64,6 +66,7 @@ const tvShowsReducer = (state = initialState, action) => {
                 query: action.payload,
                 sortBy: '',
                 page: 1,
+                tvShowsList: [],
             };
         default:
             return state;

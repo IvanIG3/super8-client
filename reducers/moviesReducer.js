@@ -53,11 +53,13 @@ const moviesReducer = (state = initialState, action) => {
                 sortBy: action.payload,
                 query: '',
                 page: 1,
+                moviesList: []
             };
         case MOVIES_SET_PAGE:
             return {
                 ...state,
-                page: action.payload
+                page: action.payload,
+                moviesList: []
             };
         case MOVIES_SET_QUERY:
             return {
@@ -65,6 +67,7 @@ const moviesReducer = (state = initialState, action) => {
                 query: action.payload,
                 sortBy: '',
                 page: 1,
+                moviesList: []
             };
         default:
             return state;
