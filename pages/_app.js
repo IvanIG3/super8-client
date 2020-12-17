@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-circular-progressbar/dist/styles.css';
 import '../styles/globals.scss';
 import '../translations';
 import { Provider } from 'react-redux';

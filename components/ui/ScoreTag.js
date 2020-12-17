@@ -1,36 +1,61 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import { easeQuadInOut } from "d3-ease";
+import { Animate } from "react-move";
 
-const Score = styled.div`
+const ScoreContainer = styled.div`
     position: absolute;
-    width: 40px;
-    height: 35px;
-    text-align: center;
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: 22px;
-    left: calc(50% - 20px);
-    top: -20px;
-    background-color: black;
-    color: ${props => 
-        props.value >= 80 ? "#00c845" :
-        props.value >= 65 ? "#f7f332" :
-        props.value >= 50 ? "#ff8300" :
-        "#bd2323"
-    };
+    width: 25%;
+    left: 35%;
+    top: -7%;
 `;
 
-const ScoreTag = ({score = 0}) => {
+const ScoreTag = ({ score = 0 }) => {
+    const [ isAnimated, setAnimated ] = useState(false);
+
+    useEffect(() => {
+        setAnimated(!isAnimated);
+    }, []);
+    
     return (
-        <Score value={score}>
-            {score}
-        </Score>
+        <ScoreContainer>
+            <Animate
+                start={{ value: 0 }}
+                update={{
+                    value: [ isAnimated ? score : 0 ],
+                    timing: {
+                        duration: 500,
+                        ease: easeQuadInOut
+                    }
+                }}
+            >
+                {({ value }) => {return (
+                    <CircularProgressbar
+                        value={value}
+                        text={Math.round(value)}
+                        background
+                        backgroundPadding={8}
+                        styles={ buildStyles({
+                            pathTransition: "none",
+                            textSize: "2.5rem",
+                            backgroundColor: "black",
+                            textColor: "#bbb",
+                            trailColor: "transparent",
+                            pathColor: 
+                                value < 50 ? "red" :
+                                value < 70 ? "orange" : "green"
+                        })}
+                    />
+                )}}
+            </Animate>
+        </ScoreContainer>
     );
 };
 
 ScoreTag.propTypes = {
     score: PropTypes.number
 };
- 
+
 export default ScoreTag;
