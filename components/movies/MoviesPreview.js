@@ -21,7 +21,8 @@ const MoviesPreview = ({ num }) => {
     const carouselItems = moviesList.slice(0, num).map(movie => ({
         title: movie.title,
         image: `${process.env.tmdbImageURL}${movie.backdrop_path}`,
-        overview: `${movie.overview.substring(0, 150)}...`
+        overview: `${movie.overview.substring(0, 150)}...`,
+        url: `/movies/${movie.id}`
     }));
 
     return (
