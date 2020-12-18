@@ -24,7 +24,7 @@ const MyListPage = () => {
                     <MyList />
                 :
                     <>
-                        <p className="mt-3">
+                        <p className="mt-5 text-center">
                             {t("Login to see your list of movies and TV shows")}
                         </p>
                         <Button

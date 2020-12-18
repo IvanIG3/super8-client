@@ -46,6 +46,7 @@ export default {
         "auth/wrong-password": "Incorrect password",
         "Login to see your list of movies and TV shows": "Login to see your list of movies and TV shows",
         "There's nothing in your list": "There's nothing in your list",
+        "Add a film or a tv show to your list and you'll see it here": "Add a film or a tv show to your list and you'll see it here",
         
     }
 };
