@@ -5,7 +5,7 @@ import { Spinner, Image, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import Layout from '../../components/layout/Layout';
-import { getTvShow } from '../../actions/tvShowActions';
+import { getTvShow, clearState } from '../../actions/tvShowActions';
 import useFirebaseUserCollection from '../../hooks/useFirebaseUserCollection';
 
 const TvShow = () => {
@@ -31,6 +31,7 @@ const TvShow = () => {
         if(router.query.id) {
             dispatch( getTvShow(router.query.id, language) );
         }
+        return () => dispatch(clearState());
     }, [router, language]);
 
     // Check if in my list

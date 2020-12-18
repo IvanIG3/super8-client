@@ -5,7 +5,7 @@ import { Spinner, Image, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import Layout from '../../components/layout/Layout';
-import { getMovie } from '../../actions/movieActions';
+import { getMovie, clearState } from '../../actions/movieActions';
 import useFirebaseUserCollection from '../../hooks/useFirebaseUserCollection';
 
 const Movie = () => {
@@ -31,6 +31,7 @@ const Movie = () => {
         if(router.query.id) {
             dispatch( getMovie(router.query.id, language) );
         }
+        return () => dispatch(clearState());
     }, [router, language]);
     
     // Check if in my list

@@ -3,7 +3,8 @@ import { toast } from 'react-toastify';
 import {
     TVSHOW_START_FETCHING_INFO,
     TVSHOW_END_FETCHING_INFO,
-    TVSHOW_ERROR_FETCHING_INFO
+    TVSHOW_ERROR_FETCHING_INFO,
+    TVSHOW_CLEAR_STATE,
 } from '../types';
 
 export function getTvShow(id, language) {
@@ -23,4 +24,8 @@ export function getTvShow(id, language) {
             toast.error(error.response.data.msg, { className: 'bg-danger' });
         }
     };
+};
+
+export function clearState() {
+    return dispatch => dispatch({ type: TVSHOW_CLEAR_STATE });
 };

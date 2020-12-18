@@ -1,7 +1,8 @@
 import {
     TVSHOW_START_FETCHING_INFO,
     TVSHOW_END_FETCHING_INFO,
-    TVSHOW_ERROR_FETCHING_INFO
+    TVSHOW_ERROR_FETCHING_INFO,
+    TVSHOW_CLEAR_STATE,
 } from '../types';
 
 // Initial state
@@ -33,6 +34,8 @@ const tvShowReducer = (state = initialState, action) => {
                 loading: false,
                 error: action.payload
             };
+        case TVSHOW_CLEAR_STATE:
+            return initialState;
         default:
             return state;
     }

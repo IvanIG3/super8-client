@@ -3,7 +3,8 @@ import { toast } from 'react-toastify';
 import {
     MOVIE_START_FETCHING_INFO,
     MOVIE_END_FETCHING_INFO,
-    MOVIE_ERROR_FETCHING_INFO
+    MOVIE_ERROR_FETCHING_INFO,
+    MOVIE_CLEAR_STATE,
 } from '../types';
 
 export function getMovie(id, language) {
@@ -23,4 +24,8 @@ export function getMovie(id, language) {
             toast.error(error.response.data.msg, { className: 'bg-danger' });
         }
     };
+};
+
+export function clearState() {
+    return dispatch => dispatch({ type: MOVIE_CLEAR_STATE });
 };
