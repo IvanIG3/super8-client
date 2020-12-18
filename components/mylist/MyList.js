@@ -5,13 +5,11 @@ import { useTranslation } from 'react-i18next';
 
 import ImageCard from '../ui/ImageCard';
 import ScoreTag from '../ui/ScoreTag';
-import useFirebaseUserCollection from '../../hooks/useFirebaseUserCollection';
 
-const MyList = () => {
+const MyList = ({ items }) => {
 
     // Hooks
     const { t } = useTranslation();
-    const [items] = useFirebaseUserCollection('mylist');
 
     return (
         <>

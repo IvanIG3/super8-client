@@ -47,6 +47,7 @@ export default {
         "Login to see your list of movies and TV shows": "Inicia sesión para consultar tu lista de películas y series",
         "There's nothing in your list": "No hay nada en tu lista",
         "Add a film or a tv show to your list and you'll see it here": "Agrega una película o una serie a tu lista y la verás aquí",
-        
+        "Search for the title...": "Busca por el título...",
+
     }
 };
