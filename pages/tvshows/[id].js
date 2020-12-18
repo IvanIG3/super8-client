@@ -38,6 +38,8 @@ const TvShow = () => {
     useEffect(() => {
         if(tvShow && mylist) {
             setInMyList( mylist.some(item => item.id === tvShow.id) );
+        } else if(tvShow && !mylist) {
+            setInMyList(false);
         }
     }, [tvShow, mylist]);
 

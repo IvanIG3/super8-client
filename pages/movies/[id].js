@@ -38,6 +38,8 @@ const Movie = () => {
     useEffect(() => {
         if(movie && mylist) {
             setInMyList( mylist.some(item => item.id === movie.id) );
+        } else if(movie && !mylist) {
+            setInMyList(false);
         }
     }, [movie, mylist]);
 
