@@ -2,6 +2,9 @@ import {
     MOVIES_START_DISCOVERING_LIST,
     MOVIES_END_DISCOVERING_LIST,
     MOVIES_ERROR_DISCOVERING_LIST,
+    MOVIES_START_PREVIEW_LIST,
+    MOVIES_END_PREVIEW_LIST,
+    MOVIES_ERROR_PREVIEW_LIST,
     MOVIES_START_SEARCHING_LIST,
     MOVIES_END_SEARCHING_LIST,
     MOVIES_ERROR_SEARCHING_LIST,
@@ -13,6 +16,7 @@ import {
 // Initial state
 const initialState = {
     moviesList: [],
+    previewList: [],
     loading: false,
     sortBy: 'popular',
     page: 1,
@@ -31,6 +35,11 @@ const moviesReducer = (state = initialState, action) => {
                 loading: true,
                 moviesList: [],
             };
+        case MOVIES_START_PREVIEW_LIST:
+            return {
+                ...state,
+                loading: true,
+            };
         case MOVIES_END_DISCOVERING_LIST:
         case MOVIES_END_SEARCHING_LIST:
             return {
@@ -40,8 +49,16 @@ const moviesReducer = (state = initialState, action) => {
                 moviesList: action.payload.moviesList,
                 totalPages: action.payload.totalPages,
             };
+        case MOVIES_END_PREVIEW_LIST:
+            return {
+                ...state,
+                loading: false,
+                previewList: action.payload,
+                error: false
+            };
         case MOVIES_ERROR_DISCOVERING_LIST:
         case MOVIES_ERROR_SEARCHING_LIST:
+        case MOVIES_ERROR_PREVIEW_LIST:
             return {
                 ...state,
                 loading: false,

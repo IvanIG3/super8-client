@@ -4,6 +4,9 @@ import {
     MOVIES_START_DISCOVERING_LIST,
     MOVIES_END_DISCOVERING_LIST,
     MOVIES_ERROR_DISCOVERING_LIST,
+    MOVIES_START_PREVIEW_LIST,
+    MOVIES_END_PREVIEW_LIST,
+    MOVIES_ERROR_PREVIEW_LIST,
     MOVIES_START_SEARCHING_LIST,
     MOVIES_END_SEARCHING_LIST,
     MOVIES_ERROR_SEARCHING_LIST,
@@ -28,6 +31,25 @@ export function discoverMovies(endpoint, language, page) {
         } catch (error) {
             dispatch({
                 type: MOVIES_ERROR_DISCOVERING_LIST,
+                payload: error.response.data.msg
+            });
+            toast.error(error.response.data.msg, { className: 'bg-danger' });
+        }
+    };
+};
+
+export function previewMovies(endpoint, language) {
+    return async dispatch => {
+        dispatch({ type: MOVIES_START_PREVIEW_LIST });
+        try {
+            const movies = await apiTmdb(`/movie/${endpoint}`, { language });
+            dispatch({
+                type: MOVIES_END_PREVIEW_LIST,
+                payload: movies.results
+            });
+        } catch (error) {
+            dispatch({
+                type: MOVIES_ERROR_PREVIEW_LIST,
                 payload: error.response.data.msg
             });
             toast.error(error.response.data.msg, { className: 'bg-danger' });

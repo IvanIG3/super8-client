@@ -1,24 +1,26 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
-import { discoverMovies } from '../../actions/moviesActions';
+import { previewMovies } from '../../actions/moviesActions';
 import CarouselImages from '../ui/CarouselImages';
 import PropTypes from 'prop-types';
 
 const MoviesPreview = ({ num }) => {
     // Redux
     const dispatch = useDispatch();
-    const moviesList = useSelector(state => state.movies.moviesList);
+    const previewList = useSelector(state => state.movies.previewList);
     const language = useSelector(state => state.language.language);
     const loading = useSelector(state => state.movies.loading);
 
     // Get movies
     useEffect(() => {
-        dispatch(discoverMovies('popular', language, '1'));
+        if(previewList.length === 0) {
+            dispatch(previewMovies('popular', language));
+        }
     }, [language]);
 
     // Carousel items
-    const carouselItems = moviesList.slice(0, num).map(movie => ({
+    const carouselItems = previewList.slice(0, num).map(movie => ({
         title: movie.title,
         image: `${process.env.tmdbImageURL}${movie.backdrop_path}`,
         overview: `${movie.overview.substring(0, 150)}...`,

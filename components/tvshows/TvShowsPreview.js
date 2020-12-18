@@ -1,24 +1,26 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
-import { discoverTvShows } from '../../actions/tvShowsActions';
+import { previewTvShows } from '../../actions/tvShowsActions';
 import CarouselImages from '../ui/CarouselImages';
 import PropTypes from 'prop-types';
 
 const TvShowsPreview = ({ num }) => {
     // Redux
     const dispatch = useDispatch();
-    const tvShowsList = useSelector(state => state.tvShows.tvShowsList);
+    const previewList = useSelector(state => state.tvShows.previewList);
     const language = useSelector(state => state.language.language);
     const loading = useSelector(state => state.tvShows.loading);
 
     // Get default tv shows
     useEffect(() => {
-        dispatch(discoverTvShows('popular', language, '1'));
+        if(previewList.length === 0) {
+            dispatch(previewTvShows('popular', language));
+        }
     }, [language]);
 
     // Carousel items
-    const carouselItems = tvShowsList.slice(0, num).map(tvShow => ({
+    const carouselItems = previewList.slice(0, num).map(tvShow => ({
         title: tvShow.name,
         image: `${process.env.tmdbImageURL}${tvShow.backdrop_path}`,
         overview: `${tvShow.overview.substring(0, 150)}...`,

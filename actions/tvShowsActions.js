@@ -4,6 +4,9 @@ import {
     TVSHOWS_START_DISCOVERING_LIST,
     TVSHOWS_END_DISCOVERING_LIST,
     TVSHOWS_ERROR_DISCOVERING_LIST,
+    TVSHOWS_START_PREVIEW_LIST,
+    TVSHOWS_END_PREVIEW_LIST,
+    TVSHOWS_ERROR_PREVIEW_LIST,
     TVSHOWS_START_SEARCHING_LIST,
     TVSHOWS_END_SEARCHING_LIST,
     TVSHOWS_ERROR_SEARCHING_LIST,
@@ -27,6 +30,25 @@ export function discoverTvShows(endpoint, language, page) {
         } catch (error) {
             dispatch({
                 type: TVSHOWS_ERROR_DISCOVERING_LIST,
+                payload: error.response.data.msg
+            });
+            toast.error(error.response.data.msg, { className: 'bg-danger' });
+        }
+    };
+};
+
+export function previewTvShows(endpoint, language) {
+    return async dispatch => {
+        dispatch({ type: TVSHOWS_START_PREVIEW_LIST });
+        try {
+            const tvshows = await apiTmdb(`/tv/${endpoint}`, { language });
+            dispatch({
+                type: TVSHOWS_END_PREVIEW_LIST,
+                payload: tvshows.results
+            });
+        } catch (error) {
+            dispatch({
+                type: TVSHOWS_ERROR_PREVIEW_LIST,
                 payload: error.response.data.msg
             });
             toast.error(error.response.data.msg, { className: 'bg-danger' });

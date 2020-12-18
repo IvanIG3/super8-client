@@ -2,6 +2,9 @@ import {
     TVSHOWS_START_DISCOVERING_LIST,
     TVSHOWS_END_DISCOVERING_LIST,
     TVSHOWS_ERROR_DISCOVERING_LIST,
+    TVSHOWS_START_PREVIEW_LIST,
+    TVSHOWS_END_PREVIEW_LIST,
+    TVSHOWS_ERROR_PREVIEW_LIST,
     TVSHOWS_START_SEARCHING_LIST,
     TVSHOWS_END_SEARCHING_LIST,
     TVSHOWS_ERROR_SEARCHING_LIST,
@@ -13,6 +16,7 @@ import {
 // Initial state
 const initialState = {
     tvShowsList: [],
+    previewList: [],
     loading: false,
     sortBy: 'popular',
     page: 1,
@@ -30,6 +34,11 @@ const tvShowsReducer = (state = initialState, action) => {
                 loading: true,
                 tvShowsList: [],
             };
+        case TVSHOWS_START_PREVIEW_LIST:
+            return {
+                ...state,
+                loading: true,
+            };
         case TVSHOWS_END_DISCOVERING_LIST:
         case TVSHOWS_END_SEARCHING_LIST:
             return {
@@ -39,8 +48,16 @@ const tvShowsReducer = (state = initialState, action) => {
                 tvShowsList: action.payload.tvShowsList,
                 totalPages: action.payload.totalPages,
             };
+        case TVSHOWS_END_PREVIEW_LIST:
+            return {
+                ...state,
+                loading: false,
+                previewList: action.payload,
+                error: false
+            };
         case TVSHOWS_ERROR_DISCOVERING_LIST:
         case TVSHOWS_ERROR_SEARCHING_LIST:
+        case TVSHOWS_ERROR_PREVIEW_LIST:
             return {
                 ...state,
                 loading: false,
