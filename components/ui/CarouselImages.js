@@ -22,8 +22,6 @@ const MovieTitle = styled.a`
 `;
 
 const CarouselImages = ({items}) => {
-
-
     return (
         <Carousel>
             {items.map((item, idx) => (

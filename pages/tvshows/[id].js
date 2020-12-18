@@ -51,6 +51,8 @@ const TvShow = () => {
                 title: tvShow.name,
                 vote_average: tvShow.vote_average,
                 poster_path: tvShow.poster_path,
+                overview: tvShow.overview,
+                backdrop_path: tvShow.backdrop_path,
                 type: 'tvshows'
             });
         }

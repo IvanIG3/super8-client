@@ -45,6 +45,7 @@ export default {
         "auth/user-not-found": "No hay ningún usuario registrado con este correo electrónico.",
         "auth/wrong-password": "Contraseña incorrecta",
         "Login to see your list of movies and TV shows": "Inicia sesión para consultar tu lista de películas y series",
+        "There's nothing in your list": "No hay nada en tu lista",
 
     }
 };
