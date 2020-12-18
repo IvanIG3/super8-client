@@ -44,6 +44,7 @@ export default {
         "auth/email-already-in-use": "El correo electrónico ya está siendo utilizado por otra cuenta.",
         "auth/user-not-found": "No hay ningún usuario registrado con este correo electrónico.",
         "auth/wrong-password": "Contraseña incorrecta",
+        "Login to see your list of movies and TV shows": "Inicia sesión para consultar tu lista de películas y series",
 
     }
 };
