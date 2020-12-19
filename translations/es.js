@@ -48,6 +48,11 @@ export default {
         "There's nothing in your list": "No hay nada en tu lista",
         "Add a film or a tv show to your list and you'll see it here": "Agrega una película o una serie a tu lista y la verás aquí",
         "Search for the title...": "Busca por el título...",
-
+        "Mark a film or a tv show as seen and you'll find it here": "Marca una película o serie como vista y la encontrarás aquí",
+        "Seen": "Visto",
+        "Mark as seen": "Marcar como visto",
+        "Unmark as seen": "Desmarcar como visto",
+        "You haven't seen anything yet": "You haven't seen anything yet",
+        
     }
 };

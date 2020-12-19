@@ -5,14 +5,14 @@ import { useTranslation } from 'react-i18next';
 
 import ImageCard from '../ui/ImageCard';
 import ScoreTag from '../ui/ScoreTag';
-import SeenTag from '../ui/SeenTag';
+import MyListTag from '../ui/MyListTag';
 import useFirebaseUserCollection from '../../hooks/useFirebaseUserCollection';
 
-const MyList = ({ items }) => {
+const SeenList = ({ items }) => {
 
     // Hooks
     const { t } = useTranslation();
-    const [seenlist] = useFirebaseUserCollection('seen');
+    const [ mylist ] = useFirebaseUserCollection('mylist');
 
     return (
         <>
@@ -34,19 +34,19 @@ const MyList = ({ items }) => {
                             </a>
                         </Link>
                         <ScoreTag score={item.vote_average * 10}/>
-                        {seenlist && seenlist.some(i => i.id === item.id) &&
-                            <SeenTag />
+                        {mylist && mylist.some(i => i.id === item.id) &&
+                            <MyListTag />
                         }
                     </Col>
                 ))}
             </Row>
             {(!items || items.length === 0) &&
                 <p className="text-center">
-                    {t("Add a film or a tv show to your list and you'll see it here")}
+                    {t("Mark a film or a tv show as seen and you'll find it here")}
                 </p>
             }
         </>
     );
 }
-
-export default MyList;
+ 
+export default SeenList;

@@ -3,15 +3,14 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Spinner, Image, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { BookmarkCheckFill } from '@styled-icons/bootstrap/BookmarkCheckFill';
+import { EyeFill } from '@styled-icons/bootstrap/EyeFill';
 
 import Layout from '../../components/layout/Layout';
 import { getTvShow, clearState } from '../../actions/tvShowActions';
 import useFirebaseUserCollection from '../../hooks/useFirebaseUserCollection';
 
 const TvShow = () => {
-    // States
-    const [ inMyList, setInMyList] = useState(false);
-    
     // Hooks
     const router = useRouter();
     const dispatch = useDispatch();
@@ -25,6 +24,7 @@ const TvShow = () => {
 
     // Firestore
     const [ mylist, addToMyList, removeFromMyList ] = useFirebaseUserCollection('mylist');
+    const [ seenlist, addToSeen, removeFromSeen ] = useFirebaseUserCollection('seen');
 
     // Get Tv Show
     useEffect(() => {
@@ -35,28 +35,34 @@ const TvShow = () => {
     }, [router, language]);
 
     // Check if in my list
-    useEffect(() => {
-        if(tvShow && mylist) {
-            setInMyList( mylist.some(item => item.id === tvShow.id) );
-        } else if(tvShow && !mylist) {
-            setInMyList(false);
-        }
-    }, [tvShow, mylist]);
+    const inMyList = tvShow && mylist && mylist.some(item => item.id === tvShow.id);
+    const inSeenList = tvShow && seenlist && seenlist.some(item => item.id === tvShow.id);
+
+    // TvShow item for firebase
+    const createItem = () => ({
+        id: tvShow.id,
+        title: tvShow.name,
+        vote_average: tvShow.vote_average,
+        poster_path: tvShow.poster_path,
+        overview: tvShow.overview,
+        backdrop_path: tvShow.backdrop_path,
+        type: 'tvshows'
+    });
 
     // Handlers
     const handleMyListButton = () => {
         if(inMyList) {
             removeFromMyList(tvShow.id);
         } else {
-            addToMyList(tvShow.id, {
-                id: tvShow.id,
-                title: tvShow.name,
-                vote_average: tvShow.vote_average,
-                poster_path: tvShow.poster_path,
-                overview: tvShow.overview,
-                backdrop_path: tvShow.backdrop_path,
-                type: 'tvshows'
-            });
+            addToMyList(tvShow.id, createItem());
+        }
+    };
+
+    const handleSeenButton = () => {
+        if(inSeenList) {
+            removeFromSeen(tvShow.id);
+        } else {
+            addToSeen(tvShow.id, createItem());
         }
     };
 
@@ -82,14 +88,30 @@ const TvShow = () => {
                             alt={tvShow.name}
                         />
                         {uid && 
-                            <Button
-                                className="my-2"
-                                type="button"
-                                variant={inMyList ? "danger" : "success"}
-                                onClick={handleMyListButton}
-                            >
-                                {inMyList ? t('Remove from My List') : t('Add to My List')}
-                            </Button>
+                            <>
+                                <Button
+                                    className="mt-2"
+                                    type="button"
+                                    variant={inMyList ? "danger" : "success"}
+                                    onClick={handleMyListButton}
+                                >
+                                    <>
+                                        <BookmarkCheckFill style={{ width: "1em"}} className="mr-1 pb-1"/>
+                                        {inMyList ? t('Remove from My List') : t('Add to My List')}
+                                    </>
+                                </Button>
+                                <Button
+                                    className="mt-1"
+                                    type="button"
+                                    variant={inSeenList ? "danger" : "success"}
+                                    onClick={handleSeenButton}
+                                >
+                                    <>
+                                        <EyeFill style={{ width: "1.1em"}} className="mr-1 pb-1" />
+                                        {inSeenList ? t('Unmark as seen') : t('Mark as seen')}
+                                    </>
+                                </Button>
+                            </>
                         }
                     </div>
                     <div className="mt-4 col-sm-6 col-md-8">

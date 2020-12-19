@@ -6,17 +6,17 @@ import { Button } from 'react-bootstrap';
 
 // Components
 import Layout from '../components/layout/Layout';
-import MyList from '../components/mylist/MyList';
+import SeenList from '../components/seen/SeenList';
 import SearchForm from '../components/ui/SearchForm';
 
 // Hooks
 import useFirebaseUserCollection from '../hooks/useFirebaseUserCollection';
 
-const MyListPage = () => {
+const Seen = () => {
     // Hooks
     const { t } = useTranslation();
     const router = useRouter();
-    const [ items ] = useFirebaseUserCollection('mylist');
+    const [ items ] = useFirebaseUserCollection('seen');
 
     // State
     const [ query, setQuery ] = useState('');
@@ -38,7 +38,7 @@ const MyListPage = () => {
 
     return (
         <Layout>
-            <h1 className="text-center">{t('My List')}</h1>
+            <h1 className="text-center">{t('Seen')}</h1>
             <div className="d-flex flex-column align-items-center">
                 <div className="my-3">
                     <SearchForm
@@ -49,7 +49,7 @@ const MyListPage = () => {
                 </div>
                 <div className="d-flex flex-column align-items-center">
                     {uid ?
-                        <MyList items={filterItems()}/>
+                        <SeenList items={filterItems()}/>
                     :
                         <>
                             <p className="mt-5 text-center">
@@ -71,5 +71,5 @@ const MyListPage = () => {
         </Layout>
     );
 }
-
-export default MyListPage;
+ 
+export default Seen;

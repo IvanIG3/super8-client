@@ -3,15 +3,14 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Spinner, Image, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { BookmarkCheckFill } from '@styled-icons/bootstrap/BookmarkCheckFill';
+import { EyeFill } from '@styled-icons/bootstrap/EyeFill';
 
 import Layout from '../../components/layout/Layout';
 import { getMovie, clearState } from '../../actions/movieActions';
 import useFirebaseUserCollection from '../../hooks/useFirebaseUserCollection';
 
 const Movie = () => {
-    // States
-    const [ inMyList, setInMyList] = useState(false);
-
     // Hooks
     const router = useRouter();
     const dispatch = useDispatch();
@@ -25,6 +24,7 @@ const Movie = () => {
 
     // Firestore
     const [ mylist, addToMyList, removeFromMyList ] = useFirebaseUserCollection('mylist');
+    const [ seenlist, addToSeen, removeFromSeen ] = useFirebaseUserCollection('seen');
     
     // Get movie
     useEffect(() => {
@@ -34,29 +34,35 @@ const Movie = () => {
         return () => dispatch(clearState());
     }, [router, language]);
     
-    // Check if in my list
-    useEffect(() => {
-        if(movie && mylist) {
-            setInMyList( mylist.some(item => item.id === movie.id) );
-        } else if(movie && !mylist) {
-            setInMyList(false);
-        }
-    }, [movie, mylist]);
+    // Check if in my list / seen list
+    const inMyList = movie && mylist && mylist.some(item => item.id === movie.id);
+    const inSeenList = movie && seenlist && seenlist.some(item => item.id === movie.id);
+
+    // Movie item for firebase
+    const createItem = () => ({
+        id: movie.id,
+        title: movie.title,
+        vote_average: movie.vote_average,
+        poster_path: movie.poster_path,
+        overview: movie.overview,
+        backdrop_path: movie.backdrop_path,
+        type: 'movies'
+    });
 
     // Handlers
     const handleMyListButton = () => {
         if(inMyList) {
             removeFromMyList(movie.id);
         } else {
-            addToMyList(movie.id, {
-                id: movie.id,
-                title: movie.title,
-                vote_average: movie.vote_average,
-                poster_path: movie.poster_path,
-                overview: movie.overview,
-                backdrop_path: movie.backdrop_path,
-                type: 'movies'
-            });
+            addToMyList(movie.id, createItem());
+        }
+    };
+
+    const handleSeenButton = () => {
+        if(inSeenList) {
+            removeFromSeen(movie.id);
+        } else {
+            addToSeen(movie.id, createItem());
         }
     };
     
@@ -82,14 +88,30 @@ const Movie = () => {
                             alt={movie.title}
                         />
                         {uid && 
-                            <Button
-                                className="my-2"
-                                type="button"
-                                variant={inMyList ? "danger" : "success"}
-                                onClick={handleMyListButton}
-                            >
-                                {inMyList ? t('Remove from My List') : t('Add to My List')}
-                            </Button>
+                            <>
+                                <Button
+                                    className="mt-2"
+                                    type="button"
+                                    variant={inMyList ? "danger" : "success"}
+                                    onClick={handleMyListButton}
+                                >
+                                    <>
+                                        <BookmarkCheckFill style={{ width: "1em"}} className="mr-1 pb-1"/>
+                                        {inMyList ? t('Remove from My List') : t('Add to My List')}
+                                    </>
+                                </Button>
+                                <Button
+                                    className="mt-1"
+                                    type="button"
+                                    variant={inSeenList ? "danger" : "success"}
+                                    onClick={handleSeenButton}
+                                >
+                                    <>
+                                        <EyeFill style={{ width: "1.1em"}} className="mr-1 pb-1" />
+                                        {inSeenList ? t('Unmark as seen') : t('Mark as seen')}
+                                    </>
+                                </Button>
+                            </>
                         }
                     </div>
                     <div className="mt-4 col-sm-6 col-md-8">

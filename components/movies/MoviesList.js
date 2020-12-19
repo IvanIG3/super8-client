@@ -7,12 +7,14 @@ import PropTypes from 'prop-types';
 import ImageCard from '../ui/ImageCard';
 import ScoreTag from '../ui/ScoreTag';
 import MyListTag from '../ui/MyListTag';
+import SeenTag from '../ui/SeenTag';
 import useFirebaseUserCollection from '../../hooks/useFirebaseUserCollection';
 
 const MoviesList = () => {
     
     const list = useSelector(state => state.movies.moviesList);
     const [mylist] = useFirebaseUserCollection('mylist');
+    const [seenlist] = useFirebaseUserCollection('seen');
 
     return (
         <Row noGutters className="mt-5 w-100" xs="2" sm="3" md="4" lg="5">
@@ -35,6 +37,9 @@ const MoviesList = () => {
                     <ScoreTag score={item.vote_average * 10}/>
                     {mylist && mylist.some(i => i.id === item.id) &&
                         <MyListTag />
+                    }
+                    {seenlist && seenlist.some(i => i.id === item.id) &&
+                        <SeenTag />
                     }
                 </Col>
             ))}

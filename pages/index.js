@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import MoviesPreview from '../components/movies/MoviesPreview';
 import TvShowsPreview from '../components/tvshows/TvShowsPreview';
 import MyListPreview from '../components/mylist/MyListPreview';
+import SeenListPreview from '../components/seen/SeenListPreview';
 
 const Index = () => {
 
@@ -33,7 +34,13 @@ const Index = () => {
                     <Link href="/mylist">
                         <a><h1 className="w-100 text-center">{t('My List')}</h1></a>
                     </Link>
-                    <MyListPreview numfilms={20} />
+                    <MyListPreview />
+                </Col>
+                <Col xs={12} md={10} lg={8} xl={6}>
+                    <Link href="/seen">
+                        <a><h1 className="w-100 text-center">{t('Seen')}</h1></a>
+                    </Link>
+                    <SeenListPreview />
                 </Col>
             </Row>
         </Layout>
