@@ -45,6 +45,7 @@ export default {
         "auth/user-not-found": "There is no user record corresponding to this email",
         "auth/wrong-password": "Incorrect password",
         "Login to see your list of movies and TV shows": "Login to see your list of movies and TV shows",
+        "Login to mark a movie or TV show as seen": "Login to mark a movie or TV show as seen",
         "There's nothing in your list": "There's nothing in your list",
         "Add a film or a tv show to your list and you'll see it here": "Add a film or a tv show to your list and you'll see it here",
         "Search for the title...": "Search for the title...",

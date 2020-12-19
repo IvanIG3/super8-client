@@ -21,7 +21,7 @@ const SeenListPreview = () => {
         items = [{
             image: "no-items-mylist.jpg",
             title: t("You haven't seen anything yet"),
-            overview: t("Login to see your list of movies and TV shows"),
+            overview: t("Login to mark a movie or TV show as seen"),
             url: "/seen",
         }];
     }
