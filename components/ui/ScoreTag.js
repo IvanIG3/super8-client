@@ -7,8 +7,8 @@ import { Animate } from "react-move";
 
 const ScoreContainer = styled.div`
     position: absolute;
-    width: 25%;
-    left: 35%;
+    width: 24%;
+    left: 38%;
     top: -7%;
 `;
 
@@ -37,11 +37,13 @@ const ScoreTag = ({ score = 0 }) => {
                         text={Math.round(value)}
                         background
                         backgroundPadding={8}
+                        className="font-weight-bold"
                         styles={ buildStyles({
                             pathTransition: "none",
                             textSize: "2.5rem",
                             backgroundColor: "black",
                             textColor: "#bbb",
+                            fontWidth: "700",
                             trailColor: "transparent",
                             pathColor: 
                                 value < 50 ? "red" :
