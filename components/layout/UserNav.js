@@ -1,16 +1,18 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useFirebase } from 'react-redux-firebase';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
 import LanguageSelector from '../ui/LanguageSelector';
+import { removeCollections } from '../../actions/collectionActions';
 
 const UserNav = () => {
     // Hooks
     const firebase = useFirebase();
     const { t } = useTranslation();
     const router = useRouter();
+    const dispatch = useDispatch();
 
     // Redux
     const user = useSelector(state => state.firebase.profile);
@@ -20,6 +22,7 @@ const UserNav = () => {
     const login = () => {
         if(uid) {
             firebase.logout();
+            dispatch( removeCollections() );
         } else {
             router.push('/login');
         }

@@ -6,6 +6,7 @@ import languageReducer from './languageReducer';
 import tvShowsReducer from './tvShowsReducer';
 import movieReducer from './movieReducer';
 import tvShowReducer from './tvShowReducer';
+import collectionReducer from './collectionReducer';
 
 export default combineReducers({
     movies: moviesReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
     language: languageReducer,
     firebase: firebaseReducer,
     firestore: firestoreReducer,
+    firestoreCollections: collectionReducer,
 });
