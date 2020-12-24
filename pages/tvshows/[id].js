@@ -1,4 +1,4 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useEffect, useContext }  from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Spinner, Image, Button } from 'react-bootstrap';
@@ -20,9 +20,9 @@ const TvShow = () => {
     const language = useSelector(state => state.language.language);
     const tvShow = useSelector(state => state.tvShow.tvShow);
     const loading = useSelector(state => state.tvShow.loading);
-    const uid = useSelector(state => state.firebase.auth.uid);
 
     // Firestore
+    const { user } = useContext(firebaseContext);
     const [ mylist, addToMyList, removeFromMyList ] = useFirebaseUserCollection('mylist');
     const [ seenlist, addToSeen, removeFromSeen ] = useFirebaseUserCollection('seen');
 
@@ -87,7 +87,7 @@ const TvShow = () => {
                             src={`${process.env.tmdbImageURL}${tvShow.poster_path}`}
                             alt={tvShow.name}
                         />
-                        {uid && 
+                        {user && 
                             <>
                                 <Button
                                     className="mt-2"

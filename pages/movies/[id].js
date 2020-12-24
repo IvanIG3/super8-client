@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Spinner, Image, Button } from 'react-bootstrap';
@@ -9,6 +9,7 @@ import { EyeFill } from '@styled-icons/bootstrap/EyeFill';
 import Layout from '../../components/layout/Layout';
 import { getMovie, clearState } from '../../actions/movieActions';
 import useFirebaseUserCollection from '../../hooks/useFirebaseUserCollection';
+import { firebaseContext } from '../../firebase';
 
 const Movie = () => {
     // Hooks
@@ -20,9 +21,9 @@ const Movie = () => {
     const language = useSelector(state => state.language.language);
     const movie = useSelector(state => state.movie.movie);
     const loading = useSelector(state => state.movie.loading);
-    const uid = useSelector(state => state.firebase.auth.uid);
 
     // Firestore
+    const { user } = useContext(firebaseContext);
     const [ mylist, addToMyList, removeFromMyList ] = useFirebaseUserCollection('mylist');
     const [ seenlist, addToSeen, removeFromSeen ] = useFirebaseUserCollection('seen');
     
@@ -87,7 +88,7 @@ const Movie = () => {
                             src={`${process.env.tmdbImageURL}${movie.poster_path}`}
                             alt={movie.title}
                         />
-                        {uid && 
+                        {user && 
                             <>
                                 <Button
                                     className="mt-2"

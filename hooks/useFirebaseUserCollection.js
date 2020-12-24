@@ -1,49 +1,46 @@
-import { useEffect } from 'react';
-import { useFirestore } from 'react-redux-firebase';
+import { useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import useUpdate from './useUpdate';
 import {
     addCollection,
     addItemToCollection as addItem,
     removeItemFromCollection as removeItem
 } from '../actions/collectionActions';
+import { firebaseContext } from '../firebase';
 
 const useFirebaseUserCollection = (collection) => {
     // States
-    const uid = useSelector(state => state.firebase.auth.uid);
     const collectionState = useSelector(state => state.firestoreCollections[collection]);
-    const firestoreCollection = useSelector(state => state.firestore.data[collection]);
 
     // Hooks
-    const firestore = useFirestore();
     const dispatch = useDispatch();
+
+    // Firebase
+    const { user, firestore } = useContext(firebaseContext);
+    const getCollectionRef = async () => {
+        const userRef = await firestore.collection('users').doc(user.uid);
+        const collectionRef = await userRef.collection(collection);
+        return collectionRef;
+    };
     
     // Connect to firestore
     useEffect(() => {
-        (async function() {
-            if(uid && !collectionState) {
-                firestore.get({
-                    collection: 'users',
-                    doc: uid, 
-                    subcollections: [{ collection }],
-                    storeAs: collection
-                });
-            }
-        })();
-    }, [uid]);
-
-    // Read result from query
-    useUpdate(() => {
-        dispatch( addCollection(collection, Object.values(firestoreCollection)) );
-    }, [firestoreCollection]);
+        if(user && !collectionState) {
+            (async function() {
+                const collectionRef = await getCollectionRef();
+                const snapshot = await collectionRef.get();
+                const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                dispatch( addCollection(collection, data) );
+            })();
+        }
+    }, [user]);
 
     // Add item to collection
     const addItemToCollection = async (id, item) => {
         try {
-            await firestore
-                .collection('users').doc(uid)
-                .collection(collection).doc(id.toString()).set(item);
+            const collectionRef = await getCollectionRef();
+            const docRef = await collectionRef.doc(id.toString());
+            await docRef.set(item);
             dispatch( addItem(collection, item) );
         } catch (error) {
             toast.error(error.message, { className: 'bg-danger' });
@@ -53,9 +50,9 @@ const useFirebaseUserCollection = (collection) => {
     // Remove item from collection
     const removeItemToCollection = async (id) => {
         try {
-            await firestore
-                .collection('users').doc(uid)
-                .collection(collection).doc(id.toString()).delete();
+            const collectionRef = await getCollectionRef();
+            const docRef = await collectionRef.doc(id.toString());
+            await docRef.delete();
             dispatch( removeItem(collection, id) );
         } catch (error) {
             toast.error(error.message, { className: 'bg-danger' });

@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Link from 'next/link';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Form, Button, Row, Col, Alert } from 'react-bootstrap';
 import { AlertCircleOutline } from '@styled-icons/evaicons-outline/AlertCircleOutline';
 import { useTranslation } from 'react-i18next';
-import { useFirebase } from 'react-redux-firebase';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import Layout from '../components/layout/Layout';
+import { firebaseContext } from '../firebase';
 
 const CreateUser = () => {
     // Hooks
     const router = useRouter();
-    const firebase = useFirebase();
     const { t } = useTranslation();
+
+    // Firebase
+    const { auth } = useContext(firebaseContext);
+
+    // Form validations
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -37,10 +41,8 @@ const CreateUser = () => {
     // Create user
     const createNewUser = async ({ name, email, password }) => {
         try {
-            await firebase.createUser(
-                { email, password },
-                { name, email }
-            );
+            const userInstance = await auth.createUserWithEmailAndPassword(email, password);
+            await userInstance.user.updateProfile({ displayName: name });
             router.push('/');
         } catch (error) {
             toast.error(t(error.code), { className: 'bg-danger' });

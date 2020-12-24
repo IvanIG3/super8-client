@@ -1,19 +1,7 @@
-import store from '../store';
-import initFirebase from './initFirebase';
-import firebase from 'firebase/app';
-import { createFirestoreInstance } from 'redux-firestore';
+import useFirebase from '../hooks/useFirebase';
+import firebaseContext from './firebaseContext';
 
-// Initialize firebase instance
-initFirebase();
-
-const rrfProps = {
-    firebase,
-    config: {
-        userProfile: 'users',
-        useFirestoreForProfile: true,
-    },
-    dispatch: store.dispatch,
-    createFirestoreInstance
+export {
+    firebaseContext,
+    useFirebase
 };
-
-export default rrfProps;

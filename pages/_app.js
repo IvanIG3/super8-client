@@ -4,23 +4,27 @@ import 'react-circular-progressbar/dist/styles.css';
 import '../styles/globals.scss';
 import '../translations';
 import { Provider } from 'react-redux';
-import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
-import rrfProps from '../firebase';
 import store from '../store';
+import { firebaseContext, useFirebase } from '../firebase';
+import useAuth from '../hooks/useAuth';
 
-function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }) => {
+    // User login
+    const { auth, firestore } = useFirebase();
+    const user = useAuth(auth);
+
     return (
         <>
             <Head>
                 <title>Super8</title>
             </Head>
             <Provider store={store}>
-                <ReactReduxFirebaseProvider {...rrfProps}>
+                <firebaseContext.Provider value={{ auth, firestore, user }}>
                     <Component {...pageProps} />
-                </ReactReduxFirebaseProvider>
+                </firebaseContext.Provider>
             </Provider>
         </>
-    )
-}
+    );
+};
 
 export default MyApp

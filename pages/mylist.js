@@ -1,28 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
 
-// Components
 import Layout from '../components/layout/Layout';
 import MyList from '../components/mylist/MyList';
 import SearchForm from '../components/ui/SearchForm';
-
-// Hooks
 import useFirebaseUserCollection from '../hooks/useFirebaseUserCollection';
+import { firebaseContext } from '../firebase';
 
 const MyListPage = () => {
     // Hooks
     const { t } = useTranslation();
     const router = useRouter();
     const [ items ] = useFirebaseUserCollection('mylist');
+    const { user } = useContext(firebaseContext);
 
     // State
     const [ query, setQuery ] = useState('');
-
-    // Redux
-    const uid = useSelector(state => state.firebase.auth.uid);
 
     // Filter items from my list
     const filterItems = () => {
@@ -48,7 +43,7 @@ const MyListPage = () => {
                     />
                 </div>
                 <div className="d-flex flex-column align-items-center">
-                    {uid ?
+                    {user ?
                         <MyList items={filterItems()}/>
                     :
                         <>

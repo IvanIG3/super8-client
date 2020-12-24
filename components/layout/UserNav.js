@@ -1,27 +1,25 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useFirebase } from 'react-redux-firebase';
+import React, { useContext } from 'react';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
 import LanguageSelector from '../ui/LanguageSelector';
 import { removeCollections } from '../../actions/collectionActions';
+import { firebaseContext } from '../../firebase';
 
 const UserNav = () => {
     // Hooks
-    const firebase = useFirebase();
     const { t } = useTranslation();
     const router = useRouter();
     const dispatch = useDispatch();
 
-    // Redux
-    const user = useSelector(state => state.firebase.profile);
-    const uid = useSelector(state => state.firebase.auth.uid);
+    // Firebase
+    const { user, auth } = useContext(firebaseContext);
 
     // Login
     const login = () => {
-        if(uid) {
-            firebase.logout();
+        if(user) {
+            auth.signOut();
             dispatch( removeCollections() );
         } else {
             router.push('/login');
@@ -37,7 +35,7 @@ const UserNav = () => {
             </div>
             <div className="d-flex flex-wrap align-items-center">
                 <p className="my-0 mr-3">
-                    {user && user.name}
+                    {user && user.displayName}
                 </p>
                 <Button
                     variant="secondary"
@@ -45,7 +43,7 @@ const UserNav = () => {
                     size="sm"
                     onClick={ () => login() }
                 >
-                    {uid ? t("Logout") : t("Login")}
+                    {user ? t("Logout") : t("Login")}
                 </Button>
             </div>
         </div>
