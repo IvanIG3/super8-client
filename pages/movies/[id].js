@@ -8,7 +8,7 @@ import { EyeFill } from '@styled-icons/bootstrap/EyeFill';
 
 import Layout from '../../components/layout/Layout';
 import { getMovie, clearState } from '../../actions/movieActions';
-import { extractInfoMovie } from '../../actions/moviesActions';
+import { extractInfoMovie } from '../../tmdb/extractInfo';
 import useFirebaseUserCollection from '../../hooks/useFirebaseUserCollection';
 import { firebaseContext } from '../../firebase';
 

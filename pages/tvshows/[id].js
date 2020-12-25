@@ -8,7 +8,7 @@ import { EyeFill } from '@styled-icons/bootstrap/EyeFill';
 
 import Layout from '../../components/layout/Layout';
 import { getTvShow, clearState } from '../../actions/tvShowActions';
-import { extractInfoTvShow } from '../../actions/tvShowsActions';
+import { extractInfoTvShow } from '../../tmdb/extractInfo';
 import useFirebaseUserCollection from '../../hooks/useFirebaseUserCollection';
 import { firebaseContext } from '../../firebase';
 

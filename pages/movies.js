@@ -4,70 +4,161 @@ import { Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import useUpdate from '../hooks/useUpdate';
 
+// Icons
+import { TrendingUp } from '@styled-icons/boxicons-regular/TrendingUp';
+import { StarFill } from '@styled-icons/bootstrap/StarFill';
+import { TheaterMasks } from '@styled-icons/fa-solid/TheaterMasks';
+import { CalendarExclamation } from '@styled-icons/boxicons-regular/CalendarExclamation';
+
 // Components
 import Layout from '../components/layout/Layout';
-import MoviesList from '../components/movies/MoviesList';
-import MoviesSortButtons from '../components/movies/MoviesSortButtons';
-import MoviesSearchForm from '../components/movies/MoviesSearchForm';
-import MoviesPaginator from '../components/movies/MoviesPaginator';
+import SearchForm from '../components/ui/SearchForm';
+import SortButtons from '../components/ui/SortButtons';
+import ImageCardList from '../components/ui/ImageCardList';
+import Paginator from '../components/ui/Paginator';
 
-// Redux actions
-import { discoverMovies, searchMovies } from '../actions/moviesActions';
+// Actions
+import apiTmdb from '../tmdb/apiTmdb';
+import useFirebaseUserCollection from '../hooks/useFirebaseUserCollection';
+import { extractInfoMovie } from '../tmdb/extractInfo';
+import actions from '../actions/listActions';
 
-
-const Movies = () => {
+const MoviesPage = () => {
     // Hooks
     const { t } = useTranslation();
     const dispatch = useDispatch();
+    const [mylist] = useFirebaseUserCollection('mylist');
+    const [seenlist] = useFirebaseUserCollection('seen');
+
+    // Actions
+    const {
+        startFetchingList,
+        searchList,
+        sortList,
+        setSortBy,
+        setQuery,
+        setPage,
+    } = actions('movies');
 
     // Redux
     const sortBy = useSelector(state => state.movies.sortBy);
     const page = useSelector(state => state.movies.page);
     const query = useSelector(state => state.movies.query);
     const loading = useSelector(state => state.movies.loading);
+    const movies = useSelector(state => state.movies.list);
+    const totalPages = useSelector(state => state.movies.totalPages);
     const language = useSelector(state => state.language.language);
-    const movies = useSelector(state => state.movies.moviesList);
+
+    // Search movies
+    const searchMovies = async () => {
+        const movies = await apiTmdb(`/search/movie`, { query, language, page });
+        const results = movies.results.map(movie => extractInfoMovie(movie));
+        const totalPages = movies.total_pages;
+        return { results, totalPages };
+    };
+
+    // Sort movies
+    const sortMovies = async () => {
+        const movies = await apiTmdb(`/movie/${sortBy}`, { language, page });
+        const results = movies.results.map(movie => extractInfoMovie(movie));
+        const totalPages = movies.total_pages;
+        return { results, totalPages };
+    };
 
     // Get movies
     const getMovies = () => {
         if(query) {
-            dispatch(searchMovies(query, language, page));
+            dispatch(searchList(searchMovies));
         } else if(sortBy) {
-            dispatch(discoverMovies(sortBy, language, page))
+            dispatch(sortList(sortMovies));
         }
     };
 
+    // Listeners
+    useEffect(() => loading && getMovies(), [loading]);
     useEffect(() => {
-        if (movies.length === 0) {
-            getMovies();
+        if(!movies) {
+            dispatch( setSortBy('popular') );
+            dispatch( startFetchingList() );
         }
-    }, [query, page, sortBy]);
-
+    }, []);
     useUpdate(() => getMovies(), [language]);
+
+    // Sorting movie buttons
+    const sortButtons = [
+        {
+            name: t('popular'),
+            value: 'popular',
+            icon: <TrendingUp style={{width: "1.5em"}}/>
+        },
+        {
+            name: t('top_rated'),
+            value: 'top_rated',
+            icon: <StarFill style={{width: "1.5em"}}/>
+        },
+        {
+            name: t('now_playing'),
+            value: 'now_playing',
+            icon: <TheaterMasks style={{width: "1.5em"}}/>
+        },
+        {
+            name: t('upcoming'),
+            value: 'upcoming',
+            icon: <CalendarExclamation style={{width: "1.5em"}}/>
+        },
+    ];
 
     return (
         <Layout>
-            <h1 className="text-center">{t('Movies')} - {t(sortBy)}</h1>
+            <h1 className="text-center">
+                {t('Movies')}
+                {sortBy && ` - ${t(sortBy)}`}
+            </h1>
             <div className="d-flex flex-column align-items-center">
                 <div className="my-3">
-                    <MoviesSortButtons />
+                    <SortButtons
+                        onChange={sort => {
+                            dispatch(setSortBy(sort));
+                            dispatch(startFetchingList());
+                        }}
+                        buttons={sortButtons}
+                        value={sortBy}
+                    />
                 </div>
                 <div className="my-3">
-                    <MoviesSearchForm />
+                    <SearchForm
+                        query={query}
+                        setQuery={query => {
+                            dispatch(setQuery(query));
+                            dispatch(startFetchingList());
+                        }}
+                        placeholder={t('Search for a movie...')}
+                    />
                 </div>
-                {loading ?
+                {!movies || loading ?
                     <Spinner
                         className="my-5"
                         animation="border"
                         variant="secondary"
                     />
                 :
-                    <MoviesList />
+                    <ImageCardList 
+                        items={movies}
+                        mylist={mylist}
+                        seenlist={seenlist}
+                    />
                 }
-                <MoviesPaginator />
+                <Paginator
+                    page={page}
+                    setPage={page => {
+                        dispatch(setPage(page));
+                        dispatch(startFetchingList());
+                    }}
+                    totalPages={totalPages}
+                />
             </div>
         </Layout>
     );
 }
-
-export default Movies;
+ 
+export default MoviesPage;

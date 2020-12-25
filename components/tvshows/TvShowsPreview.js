@@ -1,27 +1,38 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
-import { previewTvShows } from '../../actions/tvShowsActions';
-import CarouselImages from '../ui/CarouselImages';
 import PropTypes from 'prop-types';
+
+import CarouselImages from '../ui/CarouselImages';
+import actions from '../../actions/listActions';
+import apiTmdb from '../../tmdb/apiTmdb';
+import { extractInfoTvShow } from '../../tmdb/extractInfo';
 
 const TvShowsPreview = ({ num }) => {
     // Redux
     const dispatch = useDispatch();
-    const previewList = useSelector(state => state.tvShows.previewList);
+    const list = useSelector(state => state.tvShows.previewList);
     const language = useSelector(state => state.language.language);
     const loading = useSelector(state => state.tvShows.loading);
 
-    // Get default tv shows
+    // Actions
+    const { previewList } = actions('tvShows');
+
+    // Preview tv shows
+    const previewTvShows = async () => {
+        const tvShows = await apiTmdb(`/tv/popular`, { language });
+        return tvShows.results.map(tv => extractInfoTvShow(tv));
+    };
+
     useEffect(() => {
-        if(previewList.length === 0) {
-            dispatch(previewTvShows('popular', language));
+        if(!list) {
+            dispatch(previewList(previewTvShows));
         }
     }, [language]);
 
     return (
         <>
-            {loading ?
+            {!list || loading ?
                 <div className="text-center">
                     <Spinner
                         className="my-5"
@@ -30,7 +41,7 @@ const TvShowsPreview = ({ num }) => {
                     />
                 </div>
             :
-                <CarouselImages items={previewList.slice(0, num)} />
+                <CarouselImages items={list.slice(0, num)} />
             }
         </>
     );
