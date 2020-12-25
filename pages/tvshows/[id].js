@@ -8,7 +8,9 @@ import { EyeFill } from '@styled-icons/bootstrap/EyeFill';
 
 import Layout from '../../components/layout/Layout';
 import { getTvShow, clearState } from '../../actions/tvShowActions';
+import { extractInfoTvShow } from '../../actions/tvShowsActions';
 import useFirebaseUserCollection from '../../hooks/useFirebaseUserCollection';
+import { firebaseContext } from '../../firebase';
 
 const TvShow = () => {
     // Hooks
@@ -38,23 +40,12 @@ const TvShow = () => {
     const inMyList = tvShow && mylist && mylist.some(item => item.id === tvShow.id);
     const inSeenList = tvShow && seenlist && seenlist.some(item => item.id === tvShow.id);
 
-    // TvShow item for firebase
-    const createItem = () => ({
-        id: tvShow.id,
-        title: tvShow.name,
-        vote_average: tvShow.vote_average,
-        poster_path: tvShow.poster_path,
-        overview: tvShow.overview,
-        backdrop_path: tvShow.backdrop_path,
-        type: 'tvshows'
-    });
-
     // Handlers
     const handleMyListButton = () => {
         if(inMyList) {
             removeFromMyList(tvShow.id);
         } else {
-            addToMyList(tvShow.id, createItem());
+            addToMyList(tvShow.id, extractInfoTvShow(tvShow));
         }
     };
 
@@ -62,7 +53,7 @@ const TvShow = () => {
         if(inSeenList) {
             removeFromSeen(tvShow.id);
         } else {
-            addToSeen(tvShow.id, createItem());
+            addToSeen(tvShow.id, extractInfoTvShow(tvShow));
         }
     };
 
@@ -84,7 +75,11 @@ const TvShow = () => {
                         <Image
                             fluid rounded thumbnail
                             className="border-light"
-                            src={`${process.env.tmdbImageURL}${tvShow.poster_path}`}
+                            src={
+                                tvShow.poster_path ?
+                                    `${process.env.tmdbImageURL}${tvShow.poster_path}` :
+                                    'no-poster.png'
+                            }
                             alt={tvShow.name}
                         />
                         {user && 

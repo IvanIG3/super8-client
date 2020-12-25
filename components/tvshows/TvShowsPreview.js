@@ -19,14 +19,6 @@ const TvShowsPreview = ({ num }) => {
         }
     }, [language]);
 
-    // Carousel items
-    const carouselItems = previewList.slice(0, num).map(tvShow => ({
-        title: tvShow.name,
-        image: `${process.env.tmdbImageURL}${tvShow.backdrop_path}`,
-        overview: `${tvShow.overview.substring(0, 150)}...`,
-        url: `/tvshows/${tvShow.id}`
-    }));
-
     return (
         <>
             {loading ?
@@ -38,7 +30,7 @@ const TvShowsPreview = ({ num }) => {
                     />
                 </div>
             :
-                <CarouselImages items={carouselItems} />
+                <CarouselImages items={previewList.slice(0, num)} />
             }
         </>
     );

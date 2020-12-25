@@ -16,6 +16,20 @@ import {
 } from '../types';
 
 
+export const extractInfoMovie = movie => ({
+    id: movie.id,
+    title: movie.title,
+    vote_average: movie.vote_average,
+    poster_path: movie.poster_path ? 
+        `${process.env.tmdbImageURL}${movie.poster_path}` : 'no-poster.png',
+    overview: `${movie.overview.substring(0, 150)}...`,
+    backdrop_path: movie.backdrop_path ? 
+        `${process.env.tmdbImageURL}${movie.backdrop_path}` : 'no-backdrop.png',
+    url: `/movies/${movie.id}`,
+    type: 'movie'
+});
+
+
 export function discoverMovies(endpoint, language, page) {
     return async dispatch => {
         dispatch({ type: MOVIES_START_DISCOVERING_LIST });
@@ -24,7 +38,7 @@ export function discoverMovies(endpoint, language, page) {
             dispatch({
                 type: MOVIES_END_DISCOVERING_LIST,
                 payload: {
-                    moviesList: movies.results,
+                    moviesList: movies.results.map(movie => extractInfoMovie(movie)),
                     totalPages: movies.total_pages,
                 }
             });
@@ -45,7 +59,7 @@ export function previewMovies(endpoint, language) {
             const movies = await apiTmdb(`/movie/${endpoint}`, { language });
             dispatch({
                 type: MOVIES_END_PREVIEW_LIST,
-                payload: movies.results
+                payload: movies.results.map(movie => extractInfoMovie(movie)),
             });
         } catch (error) {
             dispatch({
@@ -65,7 +79,7 @@ export function searchMovies(query, language, page) {
             dispatch({
                 type: MOVIES_END_SEARCHING_LIST,
                 payload: {
-                    moviesList: movies.results,
+                    moviesList: movies.results.map(movie => extractInfoMovie(movie)),
                     totalPages: movies.total_pages,
                 }
             });

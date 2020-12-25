@@ -11,10 +11,12 @@ const CarouselCaption = styled(Carousel.Caption)`
 `;
 
 const MovieTitle = styled.a`
+    display: block;
     margin-bottom: 5px;
     font-size: 1em;
     @media (min-width: 576px) {
         font-size: 1.5em;
+        margin: 0;
     }
     &:hover {
         cursor: pointer;
@@ -31,7 +33,7 @@ const CarouselImages = ({items}) => {
                             <Image
                                 rounded fluid
                                 className="w-100"
-                                src={item.image}
+                                src={item.backdrop_path}
                                 alt={item.title}
                             />
                         </a>
@@ -54,7 +56,7 @@ const CarouselImages = ({items}) => {
 
 CarouselImages.propTypes = {
     items: PropTypes.arrayOf( PropTypes.shape({
-        image: PropTypes.string.isRequired,
+        backdrop_path: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         overview: PropTypes.string,
         url: PropTypes.string

@@ -8,26 +8,17 @@ const SeenListPreview = () => {
     const { t } = useTranslation();
     const [ seenlist ] = useFirebaseUserCollection('seen');
 
-    // Items for carousel
-    let items;
-    if(seenlist && seenlist.length > 0) {
-        items = seenlist.map(item => ({
-            image: `${process.env.tmdbImageURL}${item.backdrop_path}`,
-            title: item.title,
-            overview: item.overview,
-            url: `/${item.type}/${item.id}`,
-        }));
-    } else {
-        items = [{
-            image: "no-items-mylist.jpg",
-            title: t("You haven't seen anything yet"),
-            overview: t("Login to mark a movie or TV show as seen"),
-            url: "/seen",
-        }];
-    }
-
     return (
-        <CarouselImages items={items} />
+        <CarouselImages items={
+            seenlist && seenlist.length > 0 ?
+            seenlist :
+            [{
+                backdrop_path: "no-items-mylist.jpg",
+                title: t("You haven't seen anything yet"),
+                overview: t("Login to mark a movie or TV show as seen"),
+                url: "/seen",
+            }]
+        }/>
     );
 }
  

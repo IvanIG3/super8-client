@@ -8,6 +8,7 @@ import { EyeFill } from '@styled-icons/bootstrap/EyeFill';
 
 import Layout from '../../components/layout/Layout';
 import { getMovie, clearState } from '../../actions/movieActions';
+import { extractInfoMovie } from '../../actions/moviesActions';
 import useFirebaseUserCollection from '../../hooks/useFirebaseUserCollection';
 import { firebaseContext } from '../../firebase';
 
@@ -39,23 +40,12 @@ const Movie = () => {
     const inMyList = movie && mylist && mylist.some(item => item.id === movie.id);
     const inSeenList = movie && seenlist && seenlist.some(item => item.id === movie.id);
 
-    // Movie item for firebase
-    const createItem = () => ({
-        id: movie.id,
-        title: movie.title,
-        vote_average: movie.vote_average,
-        poster_path: movie.poster_path,
-        overview: movie.overview,
-        backdrop_path: movie.backdrop_path,
-        type: 'movies'
-    });
-
     // Handlers
     const handleMyListButton = () => {
         if(inMyList) {
             removeFromMyList(movie.id);
         } else {
-            addToMyList(movie.id, createItem());
+            addToMyList(movie.id, extractInfoMovie(movie));
         }
     };
 
@@ -63,7 +53,7 @@ const Movie = () => {
         if(inSeenList) {
             removeFromSeen(movie.id);
         } else {
-            addToSeen(movie.id, createItem());
+            addToSeen(movie.id, extractInfoMovie(movie));
         }
     };
     
@@ -85,7 +75,11 @@ const Movie = () => {
                         <Image
                             fluid rounded thumbnail
                             className="border-light"
-                            src={`${process.env.tmdbImageURL}${movie.poster_path}`}
+                            src={
+                                movie.poster_path ? 
+                                    `${process.env.tmdbImageURL}${movie.poster_path}` :
+                                    '/no-poster.png'
+                            }
                             alt={movie.title}
                         />
                         {user && 

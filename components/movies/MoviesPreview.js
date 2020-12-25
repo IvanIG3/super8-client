@@ -19,14 +19,6 @@ const MoviesPreview = ({ num }) => {
         }
     }, [language]);
 
-    // Carousel items
-    const carouselItems = previewList.slice(0, num).map(movie => ({
-        title: movie.title,
-        image: `${process.env.tmdbImageURL}${movie.backdrop_path}`,
-        overview: `${movie.overview.substring(0, 150)}...`,
-        url: `/movies/${movie.id}`
-    }));
-
     return (
         <>
             {loading ?
@@ -38,7 +30,7 @@ const MoviesPreview = ({ num }) => {
                     />
                 </div>
             :
-                <CarouselImages items={carouselItems} />
+                <CarouselImages items={previewList.slice(0, num)} />
             }
         </>
     );
