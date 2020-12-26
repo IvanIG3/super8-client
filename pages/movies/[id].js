@@ -45,7 +45,7 @@ const Movie = () => {
         if(inMyList) {
             removeFromMyList(movie.id);
         } else {
-            addToMyList(movie.id, extractInfoMovie(movie));
+            addToMyList(extractInfoMovie(movie));
         }
     };
 
@@ -53,7 +53,7 @@ const Movie = () => {
         if(inSeenList) {
             removeFromSeen(movie.id);
         } else {
-            addToSeen(movie.id, extractInfoMovie(movie));
+            addToSeen(extractInfoMovie(movie));
         }
     };
     

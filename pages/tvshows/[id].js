@@ -45,7 +45,7 @@ const TvShow = () => {
         if(inMyList) {
             removeFromMyList(tvShow.id);
         } else {
-            addToMyList(tvShow.id, extractInfoTvShow(tvShow));
+            addToMyList(extractInfoTvShow(tvShow));
         }
     };
 
@@ -53,7 +53,7 @@ const TvShow = () => {
         if(inSeenList) {
             removeFromSeen(tvShow.id);
         } else {
-            addToSeen(tvShow.id, extractInfoTvShow(tvShow));
+            addToSeen(extractInfoTvShow(tvShow));
         }
     };
 
