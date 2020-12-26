@@ -6,6 +6,7 @@ import {
     addItemToCollection as addItem,
     removeItemFromCollection as removeItem
 } from '../actions/collectionActions';
+import listActions from '../actions/listActions';
 import { firebaseContext } from '../firebase';
 import useUpdate from '../hooks/useUpdate';
 
@@ -17,6 +18,9 @@ const useFirebaseUserCollection = (collection) => {
 
     // Hooks
     const dispatch = useDispatch();
+
+    // List actions
+    const { startFetchingList } = listActions(collection);
 
     // Firestore
     const { user, firestore } = useContext(firebaseContext);
@@ -63,6 +67,7 @@ const useFirebaseUserCollection = (collection) => {
     const addItemToCollection = async (item) => {
         try {
             dispatch( addItem(collection, item) );
+            dispatch( startFetchingList() );
         } catch (error) {
             toast.error(error.message, { className: 'bg-danger' });
         }
@@ -72,6 +77,7 @@ const useFirebaseUserCollection = (collection) => {
     const removeItemToCollection = async (id) => {
         try {
             dispatch( removeItem(collection, id) );
+            dispatch( startFetchingList() );
         } catch (error) {
             toast.error(error.message, { className: 'bg-danger' });
         }

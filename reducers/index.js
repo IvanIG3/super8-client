@@ -11,6 +11,7 @@ export default combineReducers({
     tvShows: createListReducer('tvShows'),
     tvShow: tvShowReducer,
     mylist: createListReducer('mylist'),
+    seen: createListReducer('seen'),
     language: languageReducer,
     firestoreCollections: collectionReducer,
 });
