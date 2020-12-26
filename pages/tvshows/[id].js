@@ -1,15 +1,13 @@
 import React, { useEffect, useContext }  from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { Spinner, Image, Button } from 'react-bootstrap';
+import { Spinner, Image } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { BookmarkCheckFill } from '@styled-icons/bootstrap/BookmarkCheckFill';
-import { EyeFill } from '@styled-icons/bootstrap/EyeFill';
 
 import Layout from '../../components/layout/Layout';
+import CollectionButtons from '../../components/ui/CollectionButtons';
 import { getTvShow, clearState } from '../../actions/tvShowActions';
 import { extractInfoTvShow } from '../../tmdb/extractInfo';
-import useFirebaseUserCollection from '../../hooks/useFirebaseUserCollection';
 import { firebaseContext } from '../../firebase';
 
 const TvShow = () => {
@@ -25,8 +23,6 @@ const TvShow = () => {
 
     // Firestore
     const { user } = useContext(firebaseContext);
-    const [ mylist, addToMyList, removeFromMyList ] = useFirebaseUserCollection('mylist');
-    const [ seenlist, addToSeen, removeFromSeen ] = useFirebaseUserCollection('seen');
 
     // Get Tv Show
     useEffect(() => {
@@ -35,27 +31,6 @@ const TvShow = () => {
         }
         return () => dispatch(clearState());
     }, [router, language]);
-
-    // Check if in my list
-    const inMyList = tvShow && mylist && mylist.some(item => item.id === tvShow.id);
-    const inSeenList = tvShow && seenlist && seenlist.some(item => item.id === tvShow.id);
-
-    // Handlers
-    const handleMyListButton = () => {
-        if(inMyList) {
-            removeFromMyList(tvShow.id);
-        } else {
-            addToMyList(extractInfoTvShow(tvShow));
-        }
-    };
-
-    const handleSeenButton = () => {
-        if(inSeenList) {
-            removeFromSeen(tvShow.id);
-        } else {
-            addToSeen(extractInfoTvShow(tvShow));
-        }
-    };
 
     return (
         <Layout>
@@ -83,30 +58,9 @@ const TvShow = () => {
                             alt={tvShow.name}
                         />
                         {user && 
-                            <>
-                                <Button
-                                    className="mt-2"
-                                    type="button"
-                                    variant={inMyList ? "danger" : "success"}
-                                    onClick={handleMyListButton}
-                                >
-                                    <>
-                                        <BookmarkCheckFill style={{ width: "1em"}} className="mr-1 pb-1"/>
-                                        {inMyList ? t('Remove from My List') : t('Add to My List')}
-                                    </>
-                                </Button>
-                                <Button
-                                    className="mt-1"
-                                    type="button"
-                                    variant={inSeenList ? "danger" : "success"}
-                                    onClick={handleSeenButton}
-                                >
-                                    <>
-                                        <EyeFill style={{ width: "1.1em"}} className="mr-1 pb-1" />
-                                        {inSeenList ? t('Unmark as seen') : t('Mark as seen')}
-                                    </>
-                                </Button>
-                            </>
+                            <CollectionButtons
+                                item={extractInfoTvShow(tvShow)}
+                            />
                         }
                     </div>
                     <div className="mt-4 col-sm-6 col-md-8">
