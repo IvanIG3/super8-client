@@ -10,6 +10,7 @@ export default combineReducers({
     movie: movieReducer,
     tvShows: createListReducer('tvShows'),
     tvShow: tvShowReducer,
+    mylist: createListReducer('mylist'),
     language: languageReducer,
     firestoreCollections: collectionReducer,
 });

@@ -10,28 +10,34 @@ import SeenTag from '../ui/SeenTag';
 
 const ImageCardList = ({ items, mylist, seenlist }) => (
     <Row noGutters className="mt-5 w-100" xs="2" sm="3" md="4" lg="5">
-        {items.map(item => (
-            <Col key={item.id} className="mb-5">
-                <Link href={item.url}>
-                    <a>
-                        <ImageCard
-                            title={item.title.length > 50 ?
-                                item.title.substring(0, 50) + "..." :
-                                item.title
-                            }
-                            image={item.poster_path}
-                        />
-                    </a>
-                </Link>
-                <ScoreTag score={item.vote_average * 10}/>
-                {mylist && mylist.some(i => i.id === item.id) &&
-                    <MyListTag />
-                }
-                {seenlist && seenlist.some(i => i.id === item.id) &&
-                    <SeenTag />
-                }
-            </Col>
-        ))}
+        {items.length > 0 ?
+            items.map(item => (
+                <Col key={item.id} className="mb-5">
+                    <Link href={item.url}>
+                        <a>
+                            <ImageCard
+                                title={item.title.length > 50 ?
+                                    item.title.substring(0, 50) + "..." :
+                                    item.title
+                                }
+                                image={item.poster_path}
+                            />
+                        </a>
+                    </Link>
+                    <ScoreTag score={item.vote_average * 10}/>
+                    {mylist && mylist.some(i => i.id === item.id) &&
+                        <MyListTag />
+                    }
+                    {seenlist && seenlist.some(i => i.id === item.id) &&
+                        <SeenTag />
+                    }
+                </Col>
+            ))
+        :
+            <p className="text-center">
+                {t("No results found")}
+            </p>
+        }
     </Row>
 );
 

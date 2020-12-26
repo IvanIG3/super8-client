@@ -8,6 +8,10 @@ export default {
         "now_playing": "In theaters",
         "upcoming": "Soon",
         "on_the_air": "This week",
+        "title": "Title",
+        "vote_average": "Top Rated",
+        "movie": "Movies",
+        "tvshow": "TV Shows",
         "Designed & developed by IvanIG3": "Designed & developed by IvanIG3",
         "View Code": "View Code",
         "Search for a movie...": "Search for a movie...",
@@ -47,13 +51,12 @@ export default {
         "Login to see your list of movies and TV shows": "Login to see your list of movies and TV shows",
         "Login to mark a movie or TV show as seen": "Login to mark a movie or TV show as seen",
         "There's nothing in your list": "There's nothing in your list",
-        "Add a film or a tv show to your list and you'll see it here": "Add a film or a tv show to your list and you'll see it here",
         "Search for the title...": "Search for the title...",
-        "Mark a film or a tv show as seen and you'll find it here": "Mark a film or a tv show as seen and you'll find it here",
         "Seen": "Seen",
         "Mark as seen": "Mark as seen",
         "Unmark as seen": "Unmark as seen",
         "You haven't seen anything yet": "You haven't seen anything yet",
+        "No results found": "No results found",
         
     }
 };
