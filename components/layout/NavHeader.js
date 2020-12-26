@@ -26,6 +26,7 @@ const NavHeader = () => {
                     <NavLink href="/tvshows">{t('TV Shows')}</NavLink>
                     <NavLink href="/mylist">{t('My List')}</NavLink>
                     <NavLink href="/seen">{t('Seen')}</NavLink>
+                    <NavLink href="/favorites">{t('Favorites')}</NavLink>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

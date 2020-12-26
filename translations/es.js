@@ -3,6 +3,7 @@ export default {
         "Movies": "Películas",
         "TV Shows": "Series",
         "My List": "Mi Lista",
+        "Favorites": "Favoritas",
         "popular": "Populares",
         "top_rated": "Más valoradas",
         "now_playing": "En cines",
@@ -55,6 +56,8 @@ export default {
         "Seen": "Visto",
         "Mark as seen": "Marcar como visto",
         "Unmark as seen": "Desmarcar como visto",
+        "Mark as favorite": "Marcar como favorita",
+        "Remove from favorites": "Quitar de favoritas",
         "You haven't seen anything yet": "Todavía no has visto nada",
         "No results found": "No se han encontrado resultados",
         
