@@ -1,11 +1,13 @@
 import React, { useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { Spinner, Image } from 'react-bootstrap';
+import { Row, Col, Spinner, Image } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import Layout from '../../components/layout/Layout';
 import CollectionButtons from '../../components/ui/CollectionButtons';
+import Paragraph from '../../components/ui/Paragraph';
+
 import { getMovie, clearState } from '../../actions/movieActions';
 import { extractInfoMovie } from '../../tmdb/extractInfo';
 import { firebaseContext } from '../../firebase';
@@ -45,8 +47,8 @@ const Movie = () => {
                 </div>
             }
             {!loading && movie &&
-                <div className="row justify-content-center">
-                    <div className="d-flex flex-column mt-4 py-2 col-8 col-sm-6 col-md-4">
+                <Row className="justify-content-center">
+                    <Col className="d-flex flex-column mt-4 py-2" xs="12" sm="6" md="4">
                         <Image
                             fluid rounded thumbnail
                             className="border-light"
@@ -58,34 +60,19 @@ const Movie = () => {
                             alt={movie.title}
                         />
                         {user && 
-                            <CollectionButtons
-                                item={extractInfoMovie(movie)}
-                            />
-                        }
-                    </div>
-                    <div className="mt-4 col-sm-6 col-md-8">
-                        <p className="text-justify">
-                            <span className="text-primary">{t('Overview')}: </span>
-                            {movie.overview}
-                        </p>
-                        <p>
-                            <span className="text-primary">{t('Score')}: </span>
-                            {movie.vote_average * 10} / 100 ({movie.vote_count} {t('votes')})
-                        </p>
-                        <p>
-                            <span className="text-primary">{t('Release Date')}: </span>
-                            {movie.release_date}
-                        </p>
-                        <p>
-                            <span className="text-primary">{t('Runtime')}: </span>
-                            {new Date(movie.runtime * 60 * 1000).toISOString().substr(11, 8)}
-                        </p>
-                        <p>
-                            <span className="text-primary">{t('Genres')}: </span>
-                            {movie.genres.map(genre => genre.name).join(', ')}
-                        </p>
-                    </div>
-                </div>
+                            <CollectionButtons item={extractInfoMovie(movie)}/>}
+                    </Col>
+                    <Col className="mt-4" xs="12" sm="6" md="8">
+                        <Paragraph tag={t('Overview')} text={movie.overview}/>
+                        <Paragraph tag={t('Score')} 
+                            text={`${movie.vote_average * 10} / 100 (${movie.vote_count} ${t('votes')})`}/>
+                        <Paragraph tag={t('Release Date')} text={movie.release_date}/>
+                        <Paragraph tag={t('Runtime')} 
+                            text={new Date(movie.runtime * 60 * 1000).toISOString().substr(11, 8)}/>
+                        <Paragraph tag={t('Genres')} 
+                            text={movie.genres.map(genre => genre.name).join(', ')}/>
+                    </Col>
+                </Row>
             }
         </Layout>
     );
