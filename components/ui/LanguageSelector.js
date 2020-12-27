@@ -10,7 +10,7 @@ const LanguageSelector = () => {
 
     // Redux
     const dispatch = useDispatch();
-    const language = useSelector(state => state.movies.language);
+    const language = useSelector(state => state.language.language);
 
     // Change language
     const handleChange = e => {
