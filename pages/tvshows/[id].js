@@ -1,12 +1,13 @@
 import React, { useEffect, useContext }  from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, Spinner, Image } from 'react-bootstrap';
+import { Row, Col, Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import Layout from '../../components/layout/Layout';
 import CollectionButtons from '../../components/ui/CollectionButtons';
 import Paragraph from '../../components/ui/Paragraph';
+import Poster from '../../components/ui/Poster';
 
 import { getTvShow, clearState } from '../../actions/tvShowActions';
 import { extractInfoTvShow } from '../../tmdb/extractInfo';
@@ -49,15 +50,9 @@ const TvShow = () => {
             {!loading && tvShow &&
                 <Row className="justify-content-center">
                     <Col className="d-flex flex-column mt-4 py-2" xs="12" sm="6" md="4">
-                        <Image
-                            fluid rounded thumbnail
-                            className="border-light"
-                            src={
-                                tvShow.poster_path ?
-                                    `${process.env.tmdbImageURL}${tvShow.poster_path}` :
-                                    'no-poster.png'
-                            }
-                            alt={tvShow.name}
+                        <Poster posterPath={tvShow.poster_path ? 
+                            `${process.env.tmdbImageURL}${tvShow.poster_path}` :
+                            '/no-poster.png'}
                         />
                         {user && 
                             <CollectionButtons item={extractInfoTvShow(tvShow)}/>}
