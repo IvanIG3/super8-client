@@ -1,7 +1,7 @@
-import React, { useEffect, useContext }  from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, Spinner } from 'react-bootstrap';
+import { Row, Col, Spinner, Tab, Tabs } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import Layout from '../../components/layout/Layout';
@@ -26,8 +26,8 @@ const TvShow = () => {
 
     // Get Tv Show
     useEffect(() => {
-        if(router.query.id) {
-            dispatch( getTvShow(router.query.id, language) );
+        if (router.query.id) {
+            dispatch(getTvShow(router.query.id, language));
         }
         return () => dispatch(clearState());
     }, [router, language]);
@@ -45,10 +45,18 @@ const TvShow = () => {
                 </div>
             }
             {!loading && tvShow &&
-                <TvShowDetails />
+                <Tabs defaultActiveKey="details" className="mt-4">
+                    <Tab
+                        tabClassName="xs-block"
+                        eventKey="details"
+                        title={t('Details')}
+                    >
+                        <TvShowDetails />
+                    </Tab>
+                </Tabs>
             }
         </Layout>
     );
 }
- 
+
 export default TvShow;

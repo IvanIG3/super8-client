@@ -60,6 +60,7 @@ export default {
         "Remove from favorites": "Quitar de favoritas",
         "You haven't seen anything yet": "Todavía no has visto nada",
         "No results found": "No se han encontrado resultados",
+        "Details": "Detalles",
         
     }
 };

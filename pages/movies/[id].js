@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, Spinner } from 'react-bootstrap';
+import { Row, Col, Spinner, Tab, Tabs } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import Layout from '../../components/layout/Layout';
@@ -23,15 +23,15 @@ const Movie = () => {
 
     // Firestore
     const { user } = useContext(firebaseContext);
-    
+
     // Get movie
     useEffect(() => {
-        if(router.query.id) {
-            dispatch( getMovie(router.query.id, language) );
+        if (router.query.id) {
+            dispatch(getMovie(router.query.id, language));
         }
         return () => dispatch(clearState());
     }, [router, language]);
-    
+
     return (
         <Layout>
             <h1 className="text-center w-100">{movie && movie.title}</h1>
@@ -45,10 +45,18 @@ const Movie = () => {
                 </div>
             }
             {!loading && movie &&
-                <MovieDetails />
+                <Tabs defaultActiveKey="details" className="mt-4">
+                    <Tab
+                        tabClassName="xs-block"
+                        eventKey="details"
+                        title={t('Details')}
+                    >
+                        <MovieDetails />
+                    </Tab>
+                </Tabs>
             }
         </Layout>
     );
 }
- 
+
 export default Movie;

@@ -69,3 +69,10 @@ h1 {
     background-color: $dark;
     background-size: cover;
 }
+
+.xs-block {
+    width: 100%;
+    @media (min-width: 576px) {
+        width: auto;
+    }
+}
