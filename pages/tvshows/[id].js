@@ -5,12 +5,9 @@ import { Row, Col, Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import Layout from '../../components/layout/Layout';
-import CollectionButtons from '../../components/ui/CollectionButtons';
-import Paragraph from '../../components/ui/Paragraph';
-import Poster from '../../components/ui/Poster';
+import TvShowDetails from '../../components/tvshows/TvShowDetails';
 
 import { getTvShow, clearState } from '../../actions/tvShowActions';
-import { extractInfoTvShow } from '../../tmdb/extractInfo';
 import { firebaseContext } from '../../firebase';
 
 const TvShow = () => {
@@ -48,25 +45,7 @@ const TvShow = () => {
                 </div>
             }
             {!loading && tvShow &&
-                <Row className="justify-content-center">
-                    <Col className="d-flex flex-column mt-4 py-2" xs="12" sm="6" md="4">
-                        <Poster posterPath={tvShow.poster_path ? 
-                            `${process.env.tmdbImageURL}${tvShow.poster_path}` :
-                            '/no-poster.png'}
-                        />
-                        {user && 
-                            <CollectionButtons item={extractInfoTvShow(tvShow)}/>}
-                    </Col>
-                    <Col className="mt-4" xs="12" sm="6" md="8">
-                        <Paragraph tag={t('Overview')} text={tvShow.overview}/>
-                        <Paragraph tag={t('Score')} 
-                            text={`${tvShow.vote_average * 10} / 100 (${tvShow.vote_count} ${t('votes')})`}/>
-                        <Paragraph tag={t('Release Date')} text={tvShow.first_air_date}/>
-                        <Paragraph tag={t('Seasons')} text={tvShow.seasons ? tvShow.seasons.length : 1}/>
-                        <Paragraph tag={t('Genres')} 
-                            text={tvShow.genres.map(genre => genre.name).join(', ')}/>
-                    </Col>
-                </Row>
+                <TvShowDetails />
             }
         </Layout>
     );
