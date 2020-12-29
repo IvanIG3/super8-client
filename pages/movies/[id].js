@@ -47,7 +47,7 @@ const Movie = () => {
                 </div>
             }
             {!loading && movie &&
-                <Tabs defaultActiveKey="details" className="mt-4">
+                <Tabs defaultActiveKey="details" className="mt-4 text-center">
                     <Tab
                         tabClassName="xs-block"
                         eventKey="details"

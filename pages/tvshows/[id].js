@@ -47,7 +47,7 @@ const TvShow = () => {
                 </div>
             }
             {!loading && tvShow &&
-                <Tabs defaultActiveKey="details" className="mt-4">
+                <Tabs defaultActiveKey="details" className="mt-4 text-center">
                     <Tab
                         tabClassName="xs-block"
                         eventKey="details"
