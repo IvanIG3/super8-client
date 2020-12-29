@@ -14,8 +14,9 @@ import { CalendarExclamation } from '@styled-icons/boxicons-regular/CalendarExcl
 import Layout from '../components/layout/Layout';
 import SearchForm from '../components/ui/SearchForm';
 import SortButtons from '../components/ui/SortButtons';
-import ImageCardList from '../components/ui/ImageCardList';
 import Paginator from '../components/ui/Paginator';
+import GridList from '../components/ui/GridList';
+import PosterCard from '../components/ui/PosterCard';
 
 // Actions
 import apiTmdb from '../tmdb/apiTmdb';
@@ -142,11 +143,19 @@ const MoviesPage = () => {
                         variant="secondary"
                     />
                 :
-                    <ImageCardList 
-                        items={movies}
-                        mylist={mylist}
-                        seenlist={seenlist}
-                    />
+                    <GridList xs={2} sm={3} md={4} lg={5}>
+                        {movies.map(item => (
+                            <PosterCard 
+                                key={item.id}
+                                title={item.title}
+                                image={item.poster_path}
+                                url={item.url}
+                                score={item.vote_average * 10}
+                                mylist={mylist && mylist.some(i => i.id === item.id)}
+                                seen={seenlist && seenlist.some(i => i.id === item.id)}
+                            />
+                        ))}
+                    </GridList>
                 }
                 <Paginator
                     page={page}

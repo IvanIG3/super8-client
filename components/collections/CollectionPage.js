@@ -13,8 +13,9 @@ import { TvOutline } from '@styled-icons/evaicons-outline/TvOutline';
 // Components
 import SearchForm from '../ui/SearchForm';
 import SortButtons from '../ui/SortButtons';
-import ImageCardList from '../ui/ImageCardList';
+import GridList from '../ui/GridList';
 import Paginator from '../ui/Paginator';
+import PosterCard from '../ui/PosterCard';
 
 // Actions
 import actions from '../../actions/listActions';
@@ -143,9 +144,17 @@ const CollectionPage = ({ collectionList, reducer }) => {
                     variant="secondary"
                 />
             :
-                <ImageCardList 
-                    items={filteredList}
-                />
+                <GridList xs={2} sm={3} md={4} lg={5}>
+                    {filteredList.map(item => (
+                        <PosterCard 
+                            key={item.id}
+                            title={item.title}
+                            image={item.poster_path}
+                            url={item.url}
+                            score={item.vote_average * 10}
+                        />
+                    ))}
+                </GridList>
             }
             <Paginator
                 page={page}
