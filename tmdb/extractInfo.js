@@ -8,7 +8,7 @@ export const extractInfoMovie = movie => ({
         `${process.env.tmdbImageURL}${movie.poster_path}` : 'no-poster.png',
     overview: `${movie.overview.substring(0, 150)}...`,
     backdrop_path: movie.backdrop_path ? 
-        `${process.env.tmdbImageURL}${movie.backdrop_path}` : 'no-backdrop.png',
+        `${process.env.tmdbBackdropURL}${movie.backdrop_path}` : 'no-backdrop.png',
     url: `/movies/${movie.id}`,
     type: 'movie'
 });
@@ -21,7 +21,7 @@ export const extractInfoTvShow = tvShow => ({
         `${process.env.tmdbImageURL}${tvShow.poster_path}` : 'no-poster.png',
     overview: `${tvShow.overview.substring(0, 150)}...`,
     backdrop_path: tvShow.backdrop_path ? 
-        `${process.env.tmdbImageURL}${tvShow.backdrop_path}` : 'no-backdrop.png',
+        `${process.env.tmdbBackdropURL}${tvShow.backdrop_path}` : 'no-backdrop.png',
     url: `/tvshows/${tvShow.id}`,
     type: 'tvshow'
 });
