@@ -2,8 +2,11 @@ import apiTmdb from '../tmdb/apiTmdb';
 import { toast } from 'react-toastify';
 import {
     TVSHOW_START_FETCHING_INFO,
+    TVSHOW_START_FETCHING_CAST,
     TVSHOW_END_FETCHING_INFO,
+    TVSHOW_END_FETCHING_CAST,
     TVSHOW_ERROR_FETCHING_INFO,
+    TVSHOW_ERROR_FETCHING_CAST,
     TVSHOW_CLEAR_STATE,
 } from '../types';
 
@@ -19,6 +22,25 @@ export function getTvShow(id, language) {
         } catch (error) {
             dispatch({
                 type: TVSHOW_ERROR_FETCHING_INFO,
+                payload: error.response.data.msg
+            });
+            toast.error(error.response.data.msg, { className: 'bg-danger' });
+        }
+    };
+};
+
+export function getTvShowCast(id, language) {
+    return async dispatch => {
+        dispatch({ type: TVSHOW_START_FETCHING_CAST });
+        try {
+            const result = await apiTmdb(`/tv/${id}/aggregate_credits`, { language });
+            dispatch({
+                type: TVSHOW_END_FETCHING_CAST,
+                payload: result.cast
+            });
+        } catch (error) {
+            dispatch({
+                type: TVSHOW_ERROR_FETCHING_CAST,
                 payload: error.response.data.msg
             });
             toast.error(error.response.data.msg, { className: 'bg-danger' });

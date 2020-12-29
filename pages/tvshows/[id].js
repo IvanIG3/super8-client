@@ -1,13 +1,14 @@
 import React, { useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, Spinner, Tab, Tabs } from 'react-bootstrap';
+import { Spinner, Tab, Tabs } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import Layout from '../../components/layout/Layout';
 import TvShowDetails from '../../components/tvshows/TvShowDetails';
+import TvShowCast from '../../components/tvshows/TvShowCast';
 
-import { getTvShow, clearState } from '../../actions/tvShowActions';
+import { getTvShow, getTvShowCast, clearState } from '../../actions/tvShowActions';
 import { firebaseContext } from '../../firebase';
 
 const TvShow = () => {
@@ -28,6 +29,7 @@ const TvShow = () => {
     useEffect(() => {
         if (router.query.id) {
             dispatch(getTvShow(router.query.id, language));
+            dispatch(getTvShowCast(router.query.id, language));
         }
         return () => dispatch(clearState());
     }, [router, language]);
@@ -52,6 +54,13 @@ const TvShow = () => {
                         title={t('Details')}
                     >
                         <TvShowDetails />
+                    </Tab>
+                    <Tab
+                        tabClassName="xs-block"
+                        eventKey="cast"
+                        title={t('Cast')}
+                    >
+                        <TvShowCast />
                     </Tab>
                 </Tabs>
             }

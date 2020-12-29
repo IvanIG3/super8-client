@@ -1,7 +1,10 @@
 import {
     TVSHOW_START_FETCHING_INFO,
+    TVSHOW_START_FETCHING_CAST,
     TVSHOW_END_FETCHING_INFO,
+    TVSHOW_END_FETCHING_CAST,
     TVSHOW_ERROR_FETCHING_INFO,
+    TVSHOW_ERROR_FETCHING_CAST,
     TVSHOW_CLEAR_STATE,
 } from '../types';
 
@@ -9,6 +12,7 @@ import {
 const initialState = {
     loading: false,
     tvShow: null,
+    cast: null,
     error: null
 };
 
@@ -16,10 +20,12 @@ const initialState = {
 const tvShowReducer = (state = initialState, action) => {
     switch (action.type) {
         case TVSHOW_START_FETCHING_INFO:
+        case TVSHOW_START_FETCHING_CAST:
             return {
                 ...state,
                 loading: true,
                 tvShow: null,
+                cast: null,
             };
         case TVSHOW_END_FETCHING_INFO:
             return {
@@ -28,7 +34,15 @@ const tvShowReducer = (state = initialState, action) => {
                 error: null,
                 tvShow: action.payload
             };
+        case TVSHOW_END_FETCHING_CAST:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                cast: action.payload
+            };
         case TVSHOW_ERROR_FETCHING_INFO:
+        case TVSHOW_ERROR_FETCHING_CAST:
             return {
                 ...state,
                 loading: false,
