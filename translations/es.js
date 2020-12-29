@@ -11,8 +11,8 @@ export default {
         "on_the_air": "Esta semana",
         "title": "Título",
         "vote_average": "Más valoradas",
-        "movie": "Películas",
-        "tvshow": "Series",
+        "movie": "Película",
+        "tvshow": "Serie",
         "Designed & developed by IvanIG3": "Diseñado y desarrollado por IvanIG3",
         "View Code": "Ver código",
         "Search for a movie...": "Busca por una película...",
@@ -60,6 +60,7 @@ export default {
         "Remove from favorites": "Quitar de favoritas",
         "You haven't seen anything yet": "Todavía no has visto nada",
         "No results found": "No se han encontrado resultados",
+        "Type": "Tipo",
         "Details": "Detalles",
         
     }

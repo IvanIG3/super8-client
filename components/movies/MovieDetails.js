@@ -32,6 +32,7 @@ const MovieDetails = () => {
                     <CollectionButtons item={extractInfoMovie(movie)}/>}
             </Col>
             <Col className="mt-4" xs="12" sm="6" md="8">
+                <Paragraph tag={t('Type')} text={t('movie')}/>
                 <Paragraph tag={t('Overview')} text={movie.overview}/>
                 <Paragraph tag={t('Score')} 
                     text={`${movie.vote_average * 10} / 100 (${movie.vote_count} ${t('votes')})`}/>

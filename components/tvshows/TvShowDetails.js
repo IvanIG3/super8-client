@@ -32,6 +32,7 @@ const TvShowDetails = () => {
                     <CollectionButtons item={extractInfoTvShow(tvShow)}/>}
             </Col>
                 <Col className="mt-4" xs="12" sm="6" md="8">
+                    <Paragraph tag={t('Type')} text={t('tvshow')}/>
                     <Paragraph tag={t('Overview')} text={tvShow.overview}/>
                     <Paragraph tag={t('Score')} 
                         text={`${tvShow.vote_average * 10} / 100 (${tvShow.vote_count} ${t('votes')})`}/>
