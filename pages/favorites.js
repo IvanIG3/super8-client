@@ -9,13 +9,11 @@ import CollectionPage from '../components/collections/CollectionPage';
 
 // Actions
 import { firebaseContext } from '../firebase';
-import useFirebaseUserCollection from '../hooks/useFirebaseUserCollection';
 
 const FavoritesPage = () => {
     // Hooks
     const { t } = useTranslation();
     const { user } = useContext(firebaseContext);
-    const [ favorites ] = useFirebaseUserCollection('favorites');
 
     // Redux
     const sortBy = useSelector(state => state.favorites.sortBy);
@@ -31,10 +29,7 @@ const FavoritesPage = () => {
                     placeholder={t("Login to see your list of movies and TV shows")}
                 />
             :
-                <CollectionPage
-                    collectionList={favorites}
-                    reducer="favorites"
-                />
+                <CollectionPage collection="favorites"/>
             }
         </Layout>
     );

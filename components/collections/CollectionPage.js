@@ -20,14 +20,16 @@ import PosterCard from '../ui/PosterCard';
 
 // Actions
 import actions from '../../actions/listActions';
+import useFirebaseUserCollection from '../../hooks/useFirebaseUserCollection';
 
 // Props
 const PER_PAGE = 20;
 
-const CollectionPage = ({ collectionList, reducer }) => {
+const CollectionPage = ({ collection }) => {
     // Hooks
     const { t } = useTranslation();
     const dispatch = useDispatch();
+    const [ collectionList ] = useFirebaseUserCollection(collection);
 
     // Actions
     const {
@@ -37,15 +39,15 @@ const CollectionPage = ({ collectionList, reducer }) => {
         setSortBy,
         setQuery,
         setPage,
-    } = actions(reducer);
+    } = actions(collection);
 
     // Redux
-    const sortBy = useSelector(state => state[reducer].sortBy);
-    const page = useSelector(state => state[reducer].page);
-    const query = useSelector(state => state[reducer].query);
-    const loading = useSelector(state => state[reducer].loading);
-    const filteredList = useSelector(state => state[reducer].list);
-    const totalPages = useSelector(state => state[reducer].totalPages);
+    const sortBy = useSelector(state => state[collection].sortBy);
+    const page = useSelector(state => state[collection].page);
+    const query = useSelector(state => state[collection].query);
+    const loading = useSelector(state => state[collection].loading);
+    const filteredList = useSelector(state => state[collection].list);
+    const totalPages = useSelector(state => state[collection].totalPages);
     const language = useSelector(state => state.language.language);
 
     const search = () => {
@@ -170,17 +172,7 @@ const CollectionPage = ({ collectionList, reducer }) => {
 };
 
 CollectionPage.propTypes = {
-    collectionList: PropTypes.arrayOf( PropTypes.shape({
-        id: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]).isRequired,
-        title: PropTypes.string.isRequired,
-        vote_average: PropTypes.number,
-        poster_path: PropTypes.string,
-        overview: PropTypes.string,
-        backdrop_path: PropTypes.string,
-        url: PropTypes.string,
-        type: PropTypes.string.isRequired,
-    })).isRequired,
-    reducer: PropTypes.string.isRequired
+    collection: PropTypes.string.isRequired
 };
  
 export default CollectionPage;

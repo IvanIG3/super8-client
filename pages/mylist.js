@@ -9,13 +9,11 @@ import CollectionPage from '../components/collections/CollectionPage';
 
 // Actions
 import { firebaseContext } from '../firebase';
-import useFirebaseUserCollection from '../hooks/useFirebaseUserCollection';
 
 const MyListPage = () => {
     // Hooks
     const { t } = useTranslation();
     const { user } = useContext(firebaseContext);
-    const [ mylist ] = useFirebaseUserCollection('mylist');
 
     // Redux
     const sortBy = useSelector(state => state.mylist.sortBy);
@@ -31,10 +29,7 @@ const MyListPage = () => {
                     placeholder={t("Login to see your list of movies and TV shows")}
                 />
             :
-                <CollectionPage
-                    collectionList={mylist}
-                    reducer="mylist"
-                />
+                <CollectionPage collection="mylist"/>
             }
         </Layout>
     );
