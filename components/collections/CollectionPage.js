@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import useUpdate from '../../hooks/useUpdate';
+import PropTypes from 'prop-types';
 
 // Icons
 import { SortAlphaDown } from '@styled-icons/bootstrap/SortAlphaDown';
@@ -166,6 +167,20 @@ const CollectionPage = ({ collectionList, reducer }) => {
             />
         </div>
     );
-}
+};
+
+CollectionPage.propTypes = {
+    collectionList: PropTypes.arrayOf( PropTypes.shape({
+        id: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]).isRequired,
+        title: PropTypes.string.isRequired,
+        vote_average: PropTypes.number,
+        poster_path: PropTypes.string,
+        overview: PropTypes.string,
+        backdrop_path: PropTypes.string,
+        url: PropTypes.string,
+        type: PropTypes.string.isRequired,
+    })).isRequired,
+    reducer: PropTypes.string.isRequired
+};
  
 export default CollectionPage;
