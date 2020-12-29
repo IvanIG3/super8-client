@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 import MoviesPreview from '../components/movies/MoviesPreview';
 import TvShowsPreview from '../components/tvshows/TvShowsPreview';
 import MyListPreview from '../components/mylist/MyListPreview';
-import SeenListPreview from '../components/seen/SeenListPreview';
 
 const Index = () => {
 
@@ -17,32 +16,32 @@ const Index = () => {
 
     return (
         <Layout>
-            <Row className="justify-content-center mb-5">
-                <Col xs={12} md={10} lg={8} xl={6}>
-                    <Link href="/movies">
-                        <a><h1 className="w-100 text-center">{t('Movies')}</h1></a>
-                    </Link>
-                    <MoviesPreview numfilms={20} />
-                </Col>
-                <Col xs={12} md={10} lg={8} xl={6}>
-                    <Link href="/tvshows">
-                        <a><h1 className="w-100 text-center">{t('TV Shows')}</h1></a>
-                    </Link>
-                    <TvShowsPreview numfilms={20} />
-                </Col>
-                <Col xs={12} md={10} lg={8} xl={6}>
-                    <Link href="/mylist">
-                        <a><h1 className="w-100 text-center">{t('My List')}</h1></a>
-                    </Link>
-                    <MyListPreview />
-                </Col>
-                <Col xs={12} md={10} lg={8} xl={6}>
-                    <Link href="/seen">
-                        <a><h1 className="w-100 text-center">{t('Seen')}</h1></a>
-                    </Link>
-                    <SeenListPreview />
-                </Col>
-            </Row>
+            <div className="mb-5">
+                <Row className="justify-content-center my-3">
+                    <Col xs={12} md={10} lg={8} xl={8}>
+                        <Link href="/movies">
+                            <a><h1 className="w-100 text-center">{t('Movies')}</h1></a>
+                        </Link>
+                        <MoviesPreview numfilms={20} />
+                    </Col>
+                </Row>
+                <Row className="justify-content-center my-3">
+                    <Col xs={12} md={10} lg={8} xl={8}>
+                        <Link href="/tvshows">
+                            <a><h1 className="w-100 text-center">{t('TV Shows')}</h1></a>
+                        </Link>
+                        <TvShowsPreview numfilms={20} />
+                    </Col>
+                </Row>
+                <Row className="justify-content-center my-3">
+                    <Col xs={12} md={10} lg={8} xl={8}>
+                        <Link href="/mylist">
+                            <a><h1 className="w-100 text-center">{t('My List')}</h1></a>
+                        </Link>
+                        <MyListPreview />
+                    </Col>
+                </Row>
+            </div>
         </Layout>
     );
 }
