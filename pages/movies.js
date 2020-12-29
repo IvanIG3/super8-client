@@ -116,26 +116,22 @@ const MoviesPage = () => {
                 {sortBy && ` - ${t(sortBy)}`}
             </h1>
             <div className="d-flex flex-column align-items-center">
-                <div className="my-3">
-                    <SortButtons
-                        onChange={sort => {
-                            dispatch(setSortBy(sort));
-                            dispatch(startFetchingList());
-                        }}
-                        buttons={sortButtons}
-                        value={sortBy}
-                    />
-                </div>
-                <div className="my-3">
-                    <SearchForm
-                        query={query}
-                        setQuery={query => {
-                            dispatch(setQuery(query));
-                            dispatch(startFetchingList());
-                        }}
-                        placeholder={t('Search for a movie...')}
-                    />
-                </div>
+                <SortButtons
+                    onChange={sort => {
+                        dispatch(setSortBy(sort));
+                        dispatch(startFetchingList());
+                    }}
+                    buttons={sortButtons}
+                    value={sortBy}
+                />
+                <SearchForm
+                    query={query}
+                    setQuery={query => {
+                        dispatch(setQuery(query));
+                        dispatch(startFetchingList());
+                    }}
+                    placeholder={t('Search for a movie...')}
+                />
                 {!movies || loading ?
                     <Spinner
                         className="my-5"

@@ -14,7 +14,7 @@ const SearchForm = ({query, setQuery, placeholder}) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="my-3">
             <InputGroup style={{maxWidth: "300px"}}>
                 <FormControl
                     placeholder={placeholder}

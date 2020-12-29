@@ -22,6 +22,7 @@ const SortButtons = ({ value, buttons, onChange }) => {
             name="sort-options"
             onChange={onChange}
             value={value}
+            className="my-3"
         >
             {buttons.map((button, idx) => (
                 <ToggleButton
