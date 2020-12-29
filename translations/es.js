@@ -62,6 +62,7 @@ export default {
         "No results found": "No se han encontrado resultados",
         "Type": "Tipo",
         "Details": "Detalles",
+        "Cast": "Reparto",
         
     }
 };

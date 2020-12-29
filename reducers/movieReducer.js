@@ -1,7 +1,10 @@
 import {
     MOVIE_START_FETCHING_INFO,
+    MOVIE_START_FETCHING_CAST,
     MOVIE_END_FETCHING_INFO,
+    MOVIE_END_FETCHING_CAST,
     MOVIE_ERROR_FETCHING_INFO,
+    MOVIE_ERROR_FETCHING_CAST,
     MOVIE_CLEAR_STATE,
 } from '../types';
 
@@ -9,6 +12,7 @@ import {
 const initialState = {
     loading: false,
     movie: null,
+    cast: null,
     error: null,
 };
 
@@ -16,10 +20,12 @@ const initialState = {
 const movieReducer = (state = initialState, action) => {
     switch(action.type) {
         case MOVIE_START_FETCHING_INFO:
+        case MOVIE_START_FETCHING_CAST:
             return {
                 ...state,
                 loading: true,
                 movie: null,
+                cast: null,
             };
         case MOVIE_END_FETCHING_INFO:
             return {
@@ -28,7 +34,15 @@ const movieReducer = (state = initialState, action) => {
                 error: null,
                 movie: action.payload
             };
+        case MOVIE_END_FETCHING_CAST:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                cast: action.payload
+            };
         case MOVIE_ERROR_FETCHING_INFO:
+        case MOVIE_ERROR_FETCHING_CAST:
             return {
                 ...state,
                 loading: false,

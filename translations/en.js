@@ -62,6 +62,7 @@ export default {
         "No results found": "No results found",
         "Type": "Type",
         "Details": "Details",
+        "Cast": "Cast",
         
     }
 };

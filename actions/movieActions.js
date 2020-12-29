@@ -2,8 +2,11 @@ import apiTmdb from '../tmdb/apiTmdb';
 import { toast } from 'react-toastify';
 import {
     MOVIE_START_FETCHING_INFO,
+    MOVIE_START_FETCHING_CAST,
     MOVIE_END_FETCHING_INFO,
+    MOVIE_END_FETCHING_CAST,
     MOVIE_ERROR_FETCHING_INFO,
+    MOVIE_ERROR_FETCHING_CAST,
     MOVIE_CLEAR_STATE,
 } from '../types';
 
@@ -19,6 +22,25 @@ export function getMovie(id, language) {
         } catch (error) {
             dispatch({
                 type: MOVIE_ERROR_FETCHING_INFO,
+                payload: error.response.data.msg
+            });
+            toast.error(error.response.data.msg, { className: 'bg-danger' });
+        }
+    };
+};
+
+export function getMovieCast(id, language) {
+    return async dispatch => {
+        dispatch({ type: MOVIE_START_FETCHING_CAST });
+        try {
+            const result = await apiTmdb(`/movie/${id}/credits`, { language });
+            dispatch({
+                type: MOVIE_END_FETCHING_CAST,
+                payload: result.cast
+            });
+        } catch (error) {
+            dispatch({
+                type: MOVIE_ERROR_FETCHING_CAST,
                 payload: error.response.data.msg
             });
             toast.error(error.response.data.msg, { className: 'bg-danger' });

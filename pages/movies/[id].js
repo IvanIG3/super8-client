@@ -1,13 +1,14 @@
 import React, { useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, Spinner, Tab, Tabs } from 'react-bootstrap';
+import { Spinner, Tab, Tabs } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import Layout from '../../components/layout/Layout';
 import MovieDetails from '../../components/movies/MovieDetails';
+import MovieCast from '../../components/movies/MovieCast';
 
-import { getMovie, clearState } from '../../actions/movieActions';
+import { getMovie, getMovieCast, clearState } from '../../actions/movieActions';
 import { firebaseContext } from '../../firebase';
 
 const Movie = () => {
@@ -28,6 +29,7 @@ const Movie = () => {
     useEffect(() => {
         if (router.query.id) {
             dispatch(getMovie(router.query.id, language));
+            dispatch(getMovieCast(router.query.id, language));
         }
         return () => dispatch(clearState());
     }, [router, language]);
@@ -52,6 +54,13 @@ const Movie = () => {
                         title={t('Details')}
                     >
                         <MovieDetails />
+                    </Tab>
+                    <Tab
+                        tabClassName="xs-block"
+                        eventKey="cast"
+                        title={t('Cast')}
+                    >
+                        <MovieCast />
                     </Tab>
                 </Tabs>
             }
