@@ -63,6 +63,7 @@ export default {
         "Type": "Type",
         "Details": "Details",
         "Cast": "Cast",
+        "Recommendations": "Recommendations",
         
     }
 };

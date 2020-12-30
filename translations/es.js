@@ -63,6 +63,7 @@ export default {
         "Type": "Tipo",
         "Details": "Detalles",
         "Cast": "Reparto",
+        "Recommendations": "Recomendaciones",
         
     }
 };

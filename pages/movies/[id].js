@@ -7,8 +7,14 @@ import { useTranslation } from 'react-i18next';
 import Layout from '../../components/layout/Layout';
 import MovieDetails from '../../components/movies/MovieDetails';
 import MovieCast from '../../components/movies/MovieCast';
+import MovieRecommendations from '../../components/movies/MovieRecommendations';
 
-import { getMovie, getMovieCast, clearState } from '../../actions/movieActions';
+import {
+    getMovie,
+    getMovieCast,
+    clearState,
+    getMovieRecommendations
+} from '../../actions/movieActions';
 import { firebaseContext } from '../../firebase';
 
 const Movie = () => {
@@ -30,6 +36,7 @@ const Movie = () => {
         if (router.query.id) {
             dispatch(getMovie(router.query.id, language));
             dispatch(getMovieCast(router.query.id, language));
+            dispatch(getMovieRecommendations(router.query.id, language));
         }
         return () => dispatch(clearState());
     }, [router, language]);
@@ -61,6 +68,13 @@ const Movie = () => {
                         title={t('Cast')}
                     >
                         <MovieCast />
+                    </Tab>
+                    <Tab
+                        tabClassName="xs-block"
+                        eventKey="recommendations"
+                        title={t('Recommendations')}
+                    >
+                        <MovieRecommendations />
                     </Tab>
                 </Tabs>
             }
