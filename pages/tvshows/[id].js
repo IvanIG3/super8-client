@@ -7,8 +7,14 @@ import { useTranslation } from 'react-i18next';
 import Layout from '../../components/layout/Layout';
 import TvShowDetails from '../../components/tvshows/TvShowDetails';
 import TvShowCast from '../../components/tvshows/TvShowCast';
+import TvShowRecommendations from '../../components/tvshows/TvShowRecommendations';
 
-import { getTvShow, getTvShowCast, clearState } from '../../actions/tvShowActions';
+import {
+    getTvShow,
+    getTvShowCast,
+    clearState,
+    getTvShowRecommendations
+} from '../../actions/tvShowActions';
 import { firebaseContext } from '../../firebase';
 
 const TvShow = () => {
@@ -30,6 +36,7 @@ const TvShow = () => {
         if (router.query.id) {
             dispatch(getTvShow(router.query.id, language));
             dispatch(getTvShowCast(router.query.id, language));
+            dispatch(getTvShowRecommendations(router.query.id, language));
         }
         return () => dispatch(clearState());
     }, [router, language]);
@@ -61,6 +68,13 @@ const TvShow = () => {
                         title={t('Cast')}
                     >
                         <TvShowCast />
+                    </Tab>
+                    <Tab
+                        tabClassName="xs-block"
+                        eventKey="recommendations"
+                        title={t('Recommendations')}
+                    >
+                        <TvShowRecommendations />
                     </Tab>
                 </Tabs>
             }
