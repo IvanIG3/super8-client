@@ -25,7 +25,7 @@ const TvShowDetails = () => {
         <Row className="justify-content-center">
             <Col className="d-flex flex-column mt-4 py-2" xs="12" sm="6" md="4">
                 <Image
-                    className="img-thumbnail border-light rounded"
+                    className="border rounded-lg border-dark"
                     src={tvShow.poster_path ? 
                         `${process.env.tmdbImageURL}${tvShow.poster_path}` :
                         '/no-poster.png'}
