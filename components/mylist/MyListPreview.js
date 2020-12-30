@@ -13,7 +13,7 @@ const MyListPreview = () => {
             mylist && mylist.length > 0 ?
             mylist :
             [{
-                backdrop_path: "no-items-mylist.jpg",
+                backdrop_path: "/no-items-mylist.jpg",
                 title: t("There's nothing in your list"),
                 overview: t("Login to see your list of movies and TV shows"),
                 url: "/mylist",

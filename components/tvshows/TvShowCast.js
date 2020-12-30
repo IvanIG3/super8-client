@@ -21,6 +21,8 @@ const TvShowCast = () => {
                         }
                         title={actor.name}
                         text={actor.roles && actor.roles.length > 0 && actor.roles[0].character}
+                        width={400}
+                        height={600}
                     />
                 </div>
             ))}

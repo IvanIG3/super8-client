@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import Image from 'next/image';
 
 import CollectionButtons from '../../components/ui/CollectionButtons';
 import Paragraph from '../../components/ui/Paragraph';
-import Poster from '../../components/ui/Poster';
 
 import { extractInfoTvShow } from '../../tmdb/extractInfo';
 import { firebaseContext } from '../../firebase';
@@ -24,9 +24,13 @@ const TvShowDetails = () => {
     return (
         <Row className="justify-content-center">
             <Col className="d-flex flex-column mt-4 py-2" xs="12" sm="6" md="4">
-                <Poster posterPath={tvShow.poster_path ? 
-                    `${process.env.tmdbImageURL}${tvShow.poster_path}` :
-                    '/no-poster.png'}
+                <Image
+                    className="img-thumbnail border-light rounded"
+                    src={tvShow.poster_path ? 
+                        `${process.env.tmdbImageURL}${tvShow.poster_path}` :
+                        '/no-poster.png'}
+                    width={500}
+                    height={750}
                 />
                 {user && 
                     <CollectionButtons item={extractInfoTvShow(tvShow)}/>}

@@ -7,19 +7,19 @@ import ScoreTag from '../ui/ScoreTag';
 import MyListTag from '../ui/MyListTag';
 import SeenTag from '../ui/SeenTag';
 
-const PosterCard = ({ title, image, url, score, mylist, seen }) => (
+const PosterCard = ({ title, image, url, score=0, mylist, seen }) => (
     <div className="position-relative my-4">
         <Link href={url}>
             <a>
                 <ImageCard
-                    title={title && title.length > 50 ? `${title.substring(0, 50)}...` : title}
+                    title={title}
                     image={image}
+                    width={400}
+                    height={600}
                 />
             </a>
         </Link>
-        {score &&
-            <ScoreTag score={score}/>
-        }
+        <ScoreTag score={score}/>
         {mylist &&
             <MyListTag />
         }

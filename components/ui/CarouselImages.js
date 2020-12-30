@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Carousel, Image } from 'react-bootstrap';
+import { Carousel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const CarouselCaption = styled(Carousel.Caption)`
     padding: 5px;
@@ -31,10 +32,11 @@ const CarouselImages = ({items}) => {
                     <Link href={item.url || ""}>
                         <a>
                             <Image
-                                rounded fluid
-                                className="w-100"
+                                className="rounded"
                                 src={item.backdrop_path}
-                                alt={item.title}
+                                layout='responsive'
+                                width={800}
+                                height={450}
                             />
                         </a>
                     </Link>

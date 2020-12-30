@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
 import { Github } from '@styled-icons/boxicons-logos/Github';
 import { useTranslation } from 'react-i18next';
+import Image from 'next/image';
 
 const FooterContainer = styled(Container)`
     display: flex;
@@ -24,7 +25,6 @@ const Reference = styled.a`
 `;
 
 const TmdbLogo = styled.a`
-    width: 80px;
     bottom: 25px;
     right: 0px;
     margin-top: 20px;
@@ -61,7 +61,12 @@ const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <img src="/tmdb.svg" alt="Logo TMDB"/>
+                    <Image 
+                        src="/tmdb.svg" 
+                        alt="Logo TMDB"
+                        width={80}
+                        height={80}
+                    />
                 </TmdbLogo>
             </FooterContainer>
             

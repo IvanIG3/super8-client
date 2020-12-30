@@ -21,6 +21,8 @@ const MovieCast = () => {
                         }
                         title={actor.name}
                         text={actor.character}
+                        width={400}
+                        height={600}
                     />
                 </div>
             ))}
