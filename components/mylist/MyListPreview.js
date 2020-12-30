@@ -9,16 +9,20 @@ const MyListPreview = () => {
     const [ mylist ] = useFirebaseUserCollection('mylist');
 
     return (
-        <CarouselImages items={
-            mylist && mylist.length > 0 ?
-            mylist :
-            [{
-                backdrop_path: "/no-items-mylist.jpg",
-                title: t("There's nothing in your list"),
-                overview: t("Login to see your list of movies and TV shows"),
-                url: "/mylist",
-            }]
-        }/>
+        <CarouselImages
+            width={800}
+            height={450}
+            items={
+                mylist && mylist.length > 0 ?
+                mylist :
+                [{
+                    backdrop_path: "/no-items-mylist.jpg",
+                    title: t("There's nothing in your list"),
+                    overview: t("Login to see your list of movies and TV shows"),
+                    url: "/mylist",
+                }]
+            }
+        />
     );
 }
  

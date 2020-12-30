@@ -33,15 +33,23 @@ const MoviesPreview = ({ num }) => {
     return (
         <>
             {!list || loading ?
-                <div className="text-center">
+                <div
+                    className="text-center position-relative"
+                    style={{width: "100%", paddingBottom: "56.25%"}}
+                >
                     <Spinner
-                        className="my-5"
+                        className="position-absolute"
+                        style={{top: "40%", right: "47%"}}
                         animation="border"
                         variant="secondary"
                     />
                 </div>
             :
-                <CarouselImages items={list.slice(0, num)} />
+                <CarouselImages
+                    items={list.slice(0, num)}
+                    width={800}
+                    height={450}
+                />
             }
         </>
     );

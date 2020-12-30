@@ -24,7 +24,7 @@ const MovieTitle = styled.a`
     }
 `;
 
-const CarouselImages = ({items}) => {
+const CarouselImages = ({items, width, height}) => {
     return (
         <Carousel>
             {items.map((item, idx) => (
@@ -35,8 +35,8 @@ const CarouselImages = ({items}) => {
                                 className="rounded"
                                 src={item.backdrop_path}
                                 layout='responsive'
-                                width={800}
-                                height={450}
+                                width={width}
+                                height={height}
                             />
                         </a>
                     </Link>
@@ -44,11 +44,9 @@ const CarouselImages = ({items}) => {
                         <Link href={item.url || ""}>
                             <MovieTitle>{item.title}</MovieTitle>
                         </Link>
-                        {item.overview &&
-                            <p className="d-none d-sm-block text-justify">
-                                {`${item.overview.substring(0, 120)} ...`}
-                            </p>
-                        }
+                        <p className="d-none d-sm-block text-justify">
+                            {item.overview}
+                        </p>
                     </CarouselCaption>
                 </Carousel.Item>
             ))}
@@ -62,7 +60,9 @@ CarouselImages.propTypes = {
         title: PropTypes.string.isRequired,
         overview: PropTypes.string,
         url: PropTypes.string
-    }))
+    })),
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
 };
  
 export default CarouselImages;
