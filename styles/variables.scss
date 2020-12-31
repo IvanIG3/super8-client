@@ -9,8 +9,13 @@ $warning:       #cb4b16;
 $danger:        #c00000;
 $light:         #fdf6e3;
 $dark:          #073642;
+$body-bg:       $gray-900;
+$body-color:    $gray-600;
 
 /* OVERWRITTEN VALUES */
 $secondary:     #752b00;
 $primary:       #f7a000;
 $light:         #839496;
+$dark:          #002630;
+$body-bg:       $dark;
+$body-color:    $gray-500;

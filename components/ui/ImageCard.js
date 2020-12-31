@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const ImageCard = ({title, text, image, width, height}) => {
     return (
-        <Card bg="transparent" className="h-100 flex-column">
+        <Card bg="transparent" className="h-100 flex-column border-0">
             <Image
                 className="rounded"
                 src={image}
