@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import store from '../store';
 import { firebaseContext, useFirebase } from '../firebase';
 import useAuth from '../hooks/useAuth';
+import { SkeletonTheme } from "react-loading-skeleton";
 
 const MyApp = ({ Component, pageProps }) => {
     // User login
@@ -20,7 +21,9 @@ const MyApp = ({ Component, pageProps }) => {
             </Head>
             <Provider store={store}>
                 <firebaseContext.Provider value={{ auth, firestore, user }}>
-                    <Component {...pageProps} />
+                    <SkeletonTheme color="#202020" highlightColor="#444">
+                        <Component {...pageProps} />
+                    </SkeletonTheme>
                 </firebaseContext.Provider>
             </Provider>
         </>

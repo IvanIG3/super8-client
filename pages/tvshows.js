@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import useUpdate from '../hooks/useUpdate';
 
@@ -126,27 +125,19 @@ const TvShowsPage = () => {
                     }}
                     placeholder={t('Search for a Tv Show...')}
                 />
-                {!tvShows || loading ?
-                    <Spinner
-                        className="my-5"
-                        animation="border"
-                        variant="secondary"
-                    />
-                :
-                    <GridList xs={2} sm={3} md={4} lg={5}>
-                        {tvShows.map(item => (
-                            <PosterCard 
-                                key={item.id}
-                                title={item.title}
-                                image={item.poster_path}
-                                url={item.url}
-                                score={item.vote_average * 10}
-                                mylist={mylist && mylist.some(i => i.id === item.id)}
-                                seen={seenlist && seenlist.some(i => i.id === item.id)}
-                            />
-                        ))}
-                    </GridList>
-                }
+                <GridList xs={2} sm={3} md={4} lg={5}>
+                    {(loading || !tvShows ? [...Array(20)] : tvShows).map((item={}, idx) => (
+                        <PosterCard
+                            key={idx}
+                            title={item.title}
+                            image={item.poster_path}
+                            url={item.url}
+                            score={item.vote_average * 10}
+                            mylist={mylist && mylist.some(i => i.id === item.id)}
+                            seen={seenlist && seenlist.some(i => i.id === item.id)}
+                        />
+                    ))}
+                </GridList>
                 <Paginator
                     page={page}
                     setPage={page => {

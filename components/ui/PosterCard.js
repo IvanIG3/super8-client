@@ -7,7 +7,7 @@ import ScoreTag from '../ui/ScoreTag';
 import MyListTag from '../ui/MyListTag';
 import SeenTag from '../ui/SeenTag';
 
-const PosterCard = ({ title, image, url, score=0, mylist, seen }) => (
+const PosterCard = ({ title, image, url="/404", score, mylist, seen }) => (
     <div className="position-relative my-4">
         <Link href={url}>
             <a>
@@ -19,7 +19,7 @@ const PosterCard = ({ title, image, url, score=0, mylist, seen }) => (
                 />
             </a>
         </Link>
-        <ScoreTag score={score}/>
+        <ScoreTag score={isNaN(score) ? 0 : score}/>
         {mylist &&
             <MyListTag />
         }
@@ -30,12 +30,13 @@ const PosterCard = ({ title, image, url, score=0, mylist, seen }) => (
 );
 
 PosterCard.propTypes = {
-    title: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    image: PropTypes.string,
     url: PropTypes.string,
     score: PropTypes.number,
     mylist: PropTypes.bool,
-    seen: PropTypes.bool
+    seen: PropTypes.bool,
+    loading: PropTypes.bool,
 };
  
 export default PosterCard;

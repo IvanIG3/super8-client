@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import useUpdate from '../../hooks/useUpdate';
 import PropTypes from 'prop-types';
@@ -136,25 +135,17 @@ const CollectionPage = ({ collection }) => {
                 }}
                 placeholder={t('Search for the title...')}
             />
-            {!filteredList || loading ?
-                <Spinner
-                    className="my-5"
-                    animation="border"
-                    variant="secondary"
-                />
-            :
-                <GridList xs={2} sm={3} md={4} lg={5}>
-                    {filteredList.map(item => (
-                        <PosterCard 
-                            key={item.id}
-                            title={item.title}
-                            image={item.poster_path}
-                            url={item.url}
-                            score={item.vote_average * 10}
-                        />
-                    ))}
-                </GridList>
-            }
+            <GridList xs={2} sm={3} md={4} lg={5}>
+                {(loading || !filteredList ? [...Array(20)] : filteredList).map((item={}, idx) => (
+                    <PosterCard
+                        key={idx}
+                        title={item.title}
+                        image={item.poster_path}
+                        url={item.url}
+                        score={item.vote_average * 10}
+                    />
+                ))}
+            </GridList>
             <Paginator
                 page={page}
                 setPage={page => {
