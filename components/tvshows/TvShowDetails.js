@@ -2,12 +2,13 @@ import React, { useContext } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import Image from 'next/image';
 
 import CollectionButtons from '../../components/ui/CollectionButtons';
 import Paragraph from '../../components/ui/Paragraph';
+import Label from '../../components/ui/Label';
+import ImageCard from '../../components/ui/ImageCard';
 
-import { extractInfoTvShow } from '../../tmdb/extractInfo';
+import { tvShowSelector } from '../../selectors/tvShowSelectors';
 import { firebaseContext } from '../../firebase';
 
 const TvShowDetails = () => {
@@ -19,32 +20,33 @@ const TvShowDetails = () => {
     const { user } = useContext(firebaseContext);
 
     // Redux
-    const tvShow = useSelector(state => state.tvShow.tvShow);
+    const tvShow = useSelector(tvShowSelector);
 
     return (
         <Row className="justify-content-center">
             <Col className="d-flex flex-column mt-4 py-2" xs="12" sm="6" md="4">
-                <Image
-                    className="border rounded-lg border-dark"
-                    src={tvShow.poster_path ? 
-                        `${process.env.tmdbImageURL}${tvShow.poster_path}` :
-                        '/no-poster.png'}
+                <ImageCard
+                    image={tvShow.poster_path}
                     width={500}
                     height={750}
-                />
-                {user && 
-                    <CollectionButtons item={extractInfoTvShow(tvShow)}/>}
+                >
+                    <CollectionButtons item={tvShow} logged={user != null}/>
+                </ImageCard>
             </Col>
-                <Col className="mt-4" xs="12" sm="6" md="8">
-                    <Paragraph tag={t('Type')} text={t('tvshow')}/>
-                    <Paragraph tag={t('Overview')} text={tvShow.overview}/>
-                    <Paragraph tag={t('Score')} 
-                        text={`${tvShow.vote_average * 10} / 100 (${tvShow.vote_count} ${t('votes')})`}/>
-                    <Paragraph tag={t('Release Date')} text={tvShow.first_air_date}/>
-                    <Paragraph tag={t('Seasons')} text={tvShow.seasons ? tvShow.seasons.length : 1}/>
-                    <Paragraph tag={t('Genres')} 
-                        text={tvShow.genres.map(genre => genre.name).join(', ')}/>
-                </Col>
+            <Col className="mt-4 text-justify" xs="12" sm="6" md="8">
+                <Label>{t('Type')}</Label>
+                <Paragraph>{t('tvshow')}</Paragraph>
+                <Label>{t('Overview')}</Label>
+                <Paragraph count={5}>{tvShow.overview}</Paragraph>
+                <Label>{t('Score')}</Label>
+                <Paragraph>{tvShow.score}</Paragraph>
+                <Label>{t('Release Date')}</Label>
+                <Paragraph>{tvShow.first_air_date}</Paragraph>
+                <Label>{t('Seasons')}</Label>
+                <Paragraph>{tvShow.seasons}</Paragraph>
+                <Label>{t('Genres')}</Label>
+                <Paragraph>{tvShow.genres}</Paragraph>
+            </Col>
         </Row>
     );
 }

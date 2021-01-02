@@ -13,7 +13,6 @@ import {
 
 // Initial state
 const initialState = {
-    loading: false,
     tvShow: null,
     cast: null,
     recommendations: null,
@@ -24,32 +23,35 @@ const initialState = {
 const tvShowReducer = (state = initialState, action) => {
     switch (action.type) {
         case TVSHOW_START_FETCHING_INFO:
+            return {
+                ...state,
+                tvShow: null,
+            };
         case TVSHOW_START_FETCHING_CAST:
+            return {
+                ...state,
+                cast: null,
+            };
         case TVSHOW_START_FETCHING_RECOMMENDATIONS:
             return {
                 ...state,
-                loading: true,
-                tvShow: null,
-                cast: null,
+                recommendations: null,
             };
         case TVSHOW_END_FETCHING_INFO:
             return {
                 ...state,
-                loading: false,
                 error: null,
                 tvShow: action.payload
             };
         case TVSHOW_END_FETCHING_CAST:
             return {
                 ...state,
-                loading: false,
                 error: null,
                 cast: action.payload
             };
         case TVSHOW_END_FETCHING_RECOMMENDATIONS:
             return {
                 ...state,
-                loading: false,
                 error: null,
                 recommendations: action.payload
             };
@@ -58,7 +60,6 @@ const tvShowReducer = (state = initialState, action) => {
         case TVSHOW_ERROR_FETCHING_RECOMMENDATIONS:
             return {
                 ...state,
-                loading: false,
                 error: action.payload
             };
         case TVSHOW_CLEAR_STATE:
