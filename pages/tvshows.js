@@ -19,7 +19,7 @@ import PosterCard from '../components/ui/PosterCard';
 // Actions
 import apiTmdb from '../tmdb/apiTmdb';
 import useFirebaseUserCollection from '../hooks/useFirebaseUserCollection';
-import { extractInfoTvShow } from '../tmdb/extractInfo';
+import { tvShowListSelector } from '../selectors/tvShowSelectors';
 import actions from '../actions/listActions';
 
 const TvShowsPage = () => {
@@ -44,14 +44,14 @@ const TvShowsPage = () => {
     const page = useSelector(state => state.tvShows.page);
     const query = useSelector(state => state.tvShows.query);
     const loading = useSelector(state => state.tvShows.loading);
-    const tvShows = useSelector(state => state.tvShows.list);
+    const tvShows = useSelector(tvShowListSelector);
     const totalPages = useSelector(state => state.tvShows.totalPages);
     const language = useSelector(state => state.language.language);
 
     // Search tv shows
     const searchTvShows = async () => {
         const tvShows = await apiTmdb(`/search/tv`, { query, language, page });
-        const results = tvShows.results.map(tvShows => extractInfoTvShow(tvShows));
+        const results = tvShows.results;
         const totalPages = tvShows.total_pages;
         return { results, totalPages };
     };
@@ -59,7 +59,7 @@ const TvShowsPage = () => {
     // Sort tv shows
     const sortTvShows = async () => {
         const tvShows = await apiTmdb(`/tv/${sortBy}`, { language, page });
-        const results = tvShows.results.map(tvShows => extractInfoTvShow(tvShows));
+        const results = tvShows.results;
         const totalPages = tvShows.total_pages;
         return { results, totalPages };
     };

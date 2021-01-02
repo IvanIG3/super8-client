@@ -20,7 +20,7 @@ import PosterCard from '../components/ui/PosterCard';
 // Actions
 import apiTmdb from '../tmdb/apiTmdb';
 import useFirebaseUserCollection from '../hooks/useFirebaseUserCollection';
-import { extractInfoMovie } from '../tmdb/extractInfo';
+import { movieListSelector } from '../selectors/movieSelectors';
 import actions from '../actions/listActions';
 
 const MoviesPage = () => {
@@ -45,14 +45,14 @@ const MoviesPage = () => {
     const page = useSelector(state => state.movies.page);
     const query = useSelector(state => state.movies.query);
     const loading = useSelector(state => state.movies.loading);
-    const movies = useSelector(state => state.movies.list);
+    const movies = useSelector(movieListSelector);
     const totalPages = useSelector(state => state.movies.totalPages);
     const language = useSelector(state => state.language.language);
 
     // Search movies
     const searchMovies = async () => {
         const movies = await apiTmdb(`/search/movie`, { query, language, page });
-        const results = movies.results.map(movie => extractInfoMovie(movie));
+        const results = movies.results;
         const totalPages = movies.total_pages;
         return { results, totalPages };
     };
@@ -60,7 +60,7 @@ const MoviesPage = () => {
     // Sort movies
     const sortMovies = async () => {
         const movies = await apiTmdb(`/movie/${sortBy}`, { language, page });
-        const results = movies.results.map(movie => extractInfoMovie(movie));
+        const results = movies.results;
         const totalPages = movies.total_pages;
         return { results, totalPages };
     };

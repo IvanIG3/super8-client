@@ -10,10 +10,27 @@ export const tvShowSelector = createSelector(
         overview: tvShow.overview,
         score: tvShow.vote_average && tvShow.vote_count &&
             `${tvShow.vote_average * 10} / 100 (${tvShow.vote_count})` || "0",
-        first_air_date: tvShow.first_air_date,
-        genres: tvShow.genres ? tvShow.genres.map(genre => genre.name).join(', ') : "-",
         seasons: tvShow.seasons ? tvShow.seasons.length : 1,
+        genres: tvShow.genres ? tvShow.genres.map(genre => genre.name).join(', ') : "-",
+        first_air_date: tvShow.first_air_date,
+        url: `/tvshows/${tvShow.id}`,
+        type: 'tvshow',
+        backdrop_path: tvShow.backdrop_path ? 
+            `${process.env.tmdbBackdropURL}${tvShow.backdrop_path}` : '/no-backdrop.png',
+        vote_average: tvShow.vote_average,
     }) : {}
+);
+
+export const tvShowListSelector = createSelector(
+    state => state.tvShows.list,
+    list => list && list.map(tvShow => ({
+        id: tvShow.id,
+        title: tvShow.name,
+        score: tvShow.vote_average * 10,
+        poster_path: tvShow.poster_path ? 
+            `${process.env.tmdbImageURL}${tvShow.poster_path}` : '/no-poster.png',
+        url: `/tvshows/${tvShow.id}`,
+    }))
 );
 
 export const castSelector = createSelector(
