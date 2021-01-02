@@ -13,7 +13,6 @@ import {
 
 // Initial state
 const initialState = {
-    loading: false,
     movie: null,
     cast: null,
     recommendations: null,
@@ -24,32 +23,35 @@ const initialState = {
 const movieReducer = (state = initialState, action) => {
     switch(action.type) {
         case MOVIE_START_FETCHING_INFO:
+            return {
+                ...state,
+                movie: null,
+            };
         case MOVIE_START_FETCHING_CAST:
+            return {
+                ...state,
+                cast: null,
+            };
         case MOVIE_START_FETCHING_RECOMMENDATIONS:
             return {
                 ...state,
-                loading: true,
-                movie: null,
-                cast: null,
+                recommendations: null,
             };
         case MOVIE_END_FETCHING_INFO:
             return {
                 ...state,
-                loading: false,
                 error: null,
                 movie: action.payload
             };
         case MOVIE_END_FETCHING_CAST:
             return {
                 ...state,
-                loading: false,
                 error: null,
                 cast: action.payload
             };
         case MOVIE_END_FETCHING_RECOMMENDATIONS:
             return {
                 ...state,
-                loading: false,
                 error: null,
                 recommendations: action.payload
             };
@@ -58,7 +60,6 @@ const movieReducer = (state = initialState, action) => {
         case MOVIE_ERROR_FETCHING_RECOMMENDATIONS:
             return {
                 ...state,
-                loading: false,
                 error: action.payload
             };
         case MOVIE_CLEAR_STATE:

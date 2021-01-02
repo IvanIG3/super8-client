@@ -2,12 +2,13 @@ import React, { useContext } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import Image from 'next/image';
 
 import CollectionButtons from '../../components/ui/CollectionButtons';
 import Paragraph from '../../components/ui/Paragraph';
+import Label from '../../components/ui/Label';
+import ImageCard from '../../components/ui/ImageCard';
 
-import { extractInfoMovie } from '../../tmdb/extractInfo';
+import { movieSelector } from '../../selectors/movieSelectors';
 import { firebaseContext } from '../../firebase';
 
 const MovieDetails = () => {
@@ -19,32 +20,32 @@ const MovieDetails = () => {
     const { user } = useContext(firebaseContext);
 
     // Redux
-    const movie = useSelector(state => state.movie.movie);
+    const movie = useSelector(movieSelector);
 
     return (
         <Row className="justify-content-center">
             <Col className="d-flex flex-column mt-4 py-2" xs="12" sm="6" md="4">
-                <Image
-                    className="border rounded-lg border-dark"
-                    src={movie.poster_path ? 
-                        `${process.env.tmdbImageURL}${movie.poster_path}` :
-                        '/no-poster.png'}
+                <ImageCard
+                    image={movie.poster_path}
                     width={500}
                     height={750}
-                />
-                {user && 
-                    <CollectionButtons item={extractInfoMovie(movie)}/>}
+                >
+                    <CollectionButtons item={movie} logged={user != null}/>
+                </ImageCard>
             </Col>
-            <Col className="mt-4" xs="12" sm="6" md="8">
-                <Paragraph tag={t('Type')} text={t('movie')}/>
-                <Paragraph tag={t('Overview')} text={movie.overview}/>
-                <Paragraph tag={t('Score')} 
-                    text={`${movie.vote_average * 10} / 100 (${movie.vote_count} ${t('votes')})`}/>
-                <Paragraph tag={t('Release Date')} text={movie.release_date}/>
-                <Paragraph tag={t('Runtime')} 
-                    text={new Date(movie.runtime * 60 * 1000).toISOString().substr(11, 8)}/>
-                <Paragraph tag={t('Genres')} 
-                    text={movie.genres.map(genre => genre.name).join(', ')}/>
+            <Col className="mt-4 text-justify" xs="12" sm="6" md="8">
+                <Label>{t('Type')}</Label>
+                <Paragraph>{t('movie')}</Paragraph>
+                <Label>{t('Overview')}</Label>
+                <Paragraph count={5}>{movie.overview}</Paragraph>
+                <Label>{t('Score')}</Label>
+                <Paragraph>{movie.score}</Paragraph>
+                <Label>{t('Release Date')}</Label>
+                <Paragraph>{movie.release_date}</Paragraph>
+                <Label>{t('Runtime')}</Label>
+                <Paragraph>{movie.runtime}</Paragraph>
+                <Label>{t('Genres')}</Label>
+                <Paragraph>{movie.genres}</Paragraph>
             </Col>
         </Row>
     );

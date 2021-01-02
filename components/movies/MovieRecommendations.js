@@ -1,35 +1,43 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import GridList from '../ui/GridList';
 import PosterCard from '../ui/PosterCard';
 import useFirebaseUserCollection from '../../hooks/useFirebaseUserCollection';
-import { extractInfoMovie } from '../../tmdb/extractInfo';
+import { getMovieRecommendations } from '../../actions/movieActions';
+import { recommendationsSelector } from '../../selectors/movieSelectors';
 
 const MovieRecommendations = () => {
     // Hooks
+    const dispatch = useDispatch();
     const [mylist] = useFirebaseUserCollection('mylist');
     const [seenlist] = useFirebaseUserCollection('seen');
 
     // Redux
-    const list = useSelector(state => state.movie.recommendations);
+    const movie = useSelector(state => state.movie.movie);
+    const list = useSelector(recommendationsSelector);
+    const language = useSelector(state => state.language.language);
+
+    // Get recommendations
+    useEffect(() => {
+        if (movie) {
+            dispatch(getMovieRecommendations(movie.id, language));
+        }
+    }, [movie, language]);
 
     return (
         <GridList xs={2} sm={3} md={4} lg={5}>
-            {list && list.map(item => {
-                const movie = extractInfoMovie(item);
-                return (
-                    <PosterCard
-                        key={movie.id}
-                        title={movie.title}
-                        image={movie.poster_path}
-                        url={movie.url}
-                        score={movie.vote_average * 10}
-                        mylist={mylist && mylist.some(i => i.id === movie.id)}
-                        seen={seenlist && seenlist.some(i => i.id === movie.id)}
-                    />
-                )
-            })}
+            {(list || [...Array(20)]).map((item={}, idx) => (
+                <PosterCard
+                    key={idx}
+                    title={item.title}
+                    image={item.poster_path}
+                    url={item.url}
+                    score={item.vote_average * 10}
+                    mylist={mylist && mylist.some(i => i.id === item.id)}
+                    seen={seenlist && seenlist.some(i => i.id === item.id)}
+                />
+            ))}
         </GridList>
     );
 };
