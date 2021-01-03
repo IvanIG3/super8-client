@@ -19,7 +19,7 @@ const MyListPage = () => {
     const sortBy = useSelector(state => state.mylist.sortBy);
 
     return (
-        <Layout>
+        <Layout description="List of movies and tv shows picked up by the user">
             <h1 className="text-center">
                 {t('My List')}
                 {sortBy && ` - ${t(sortBy)}`}

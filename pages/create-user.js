@@ -61,7 +61,7 @@ const CreateUser = () => {
     );
 
     return (
-        <Layout>
+        <Layout description="Create user account page">
             <Row className="justify-content-center">
                 <Col xs={12} md={10} lg={8} xl={6}>
                     <h1 className="text-center mb-4">

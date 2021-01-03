@@ -19,7 +19,7 @@ const FavoritesPage = () => {
     const sortBy = useSelector(state => state.favorites.sortBy);
 
     return (
-        <Layout>
+        <Layout description="Favorites movies and tv shows">
             <h1 className="text-center">
                 {t('Favorites')}
                 {sortBy && ` - ${t(sortBy)}`}

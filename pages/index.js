@@ -15,7 +15,7 @@ const Index = () => {
     const { t } = useTranslation();
 
     return (
-        <Layout>
+        <Layout description="Main page for a quick overview of popular movies and tv shows.">
             <div className="mb-5">
                 <Row className="justify-content-center my-3">
                     <Col xs={12} md={10} lg={8} xl={8}>

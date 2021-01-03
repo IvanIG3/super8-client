@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
 import { ToastContainer } from 'react-toastify';
@@ -14,19 +15,29 @@ const ContainerLayout = styled.div`
     padding-top: 100px;
 `;
 
-const Layout = ({children}) => {
+const Layout = ({children, description}) => {
     return (
-        <ContainerLayout>
-            <Header />
-            <ToastContainer />
-            <Container className="flex-1">
-                <UserNav />
-                <main>
-                    { children }
-                </main>
-            </Container>
-            <Footer />
-        </ContainerLayout>
+        <>
+            <Head>
+                <meta 
+                    name="description"
+                    content={description}
+                />
+                <html lang="es"/>
+                <title>Super8</title>
+            </Head>
+            <ContainerLayout>
+                <Header />
+                <ToastContainer />
+                <Container className="flex-1">
+                    <UserNav />
+                    <main>
+                        { children }
+                    </main>
+                </Container>
+                <Footer />
+            </ContainerLayout>
+        </>
     );
 }
  

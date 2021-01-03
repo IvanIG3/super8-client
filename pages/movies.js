@@ -95,7 +95,7 @@ const MoviesPage = () => {
     ];
 
     return (
-        <Layout>
+        <Layout description="List of popular and new movies">
             <h1 className="text-center">
                 {t('Movies')}
                 {sortBy && ` - ${t(sortBy)}`}

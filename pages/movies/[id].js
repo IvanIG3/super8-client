@@ -35,7 +35,7 @@ const Movie = () => {
     }, [router, language]);
 
     return (
-        <Layout>
+        <Layout description="Movie details">
             <h1 className="text-center w-100">
                 {movie && movie.title || <Skeleton width={200}/>}
             </h1>

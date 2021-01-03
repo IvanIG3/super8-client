@@ -19,7 +19,7 @@ const SeenPage = () => {
     const sortBy = useSelector(state => state.seen.sortBy);
 
     return (
-        <Layout>
+        <Layout description="List of movies and tv shows seen by the user">
             <h1 className="text-center">
                 {t('Seen')}
                 {sortBy && ` - ${t(sortBy)}`}

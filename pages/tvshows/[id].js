@@ -35,7 +35,7 @@ const TvShow = () => {
     }, [router, language]);
 
     return (
-        <Layout>
+        <Layout description="TV show details">
             <h1 className="text-center w-100">
                 {tvShow && tvShow.name || <Skeleton width={200}/>}
             </h1>

@@ -89,7 +89,7 @@ const TvShowsPage = () => {
     ];
 
     return (
-        <Layout>
+        <Layout description="List of popular and new TV shows">
             <h1 className="text-center">
                 {t('TV Shows')}
                 {sortBy && ` - ${t(sortBy)}`}
