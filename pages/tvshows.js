@@ -30,20 +30,12 @@ const TvShowsPage = () => {
     const [seenlist] = useFirebaseUserCollection('seen');
 
     // Actions
-    const {
-        startFetchingList,
-        searchList,
-        sortList,
-        setSortBy,
-        setQuery,
-        setPage,
-    } = actions('tvShows');
+    const {searchList, sortList, setSortBy, setQuery, setPage} = actions('tvShows');
 
     // Redux
     const sortBy = useSelector(state => state.tvShows.sortBy);
     const page = useSelector(state => state.tvShows.page);
     const query = useSelector(state => state.tvShows.query);
-    const loading = useSelector(state => state.tvShows.loading);
     const tvShows = useSelector(tvShowListSelector);
     const totalPages = useSelector(state => state.tvShows.totalPages);
     const language = useSelector(state => state.language.language);
@@ -74,14 +66,8 @@ const TvShowsPage = () => {
     };
 
     // Listeners
-    useEffect(() => loading && getTvShows(), [loading]);
-    useEffect(() => {
-        if(!tvShows) {
-            dispatch( setSortBy('popular') );
-            dispatch( startFetchingList() );
-        }
-    }, []);
-    useUpdate(() => getTvShows(), [language]);
+    useEffect(() => !query && !sortBy && dispatch(setSortBy('popular')), []);
+    useUpdate(() => getTvShows(), [language, query, sortBy, page]);
 
     // Sorting tv shows buttons
     const sortButtons = [
@@ -110,29 +96,23 @@ const TvShowsPage = () => {
             </h1>
             <div className="d-flex flex-column align-items-center">
                 <SortButtons
-                    onChange={sort => {
-                        dispatch(setSortBy(sort));
-                        dispatch(startFetchingList());
-                    }}
+                    onChange={sort => dispatch(setSortBy(sort))}
                     buttons={sortButtons}
                     value={sortBy}
                 />
                 <SearchForm
                     query={query}
-                    setQuery={query => {
-                        dispatch(setQuery(query));
-                        dispatch(startFetchingList());
-                    }}
+                    setQuery={query => dispatch(setQuery(query))}
                     placeholder={t('Search for a Tv Show...')}
                 />
                 <GridList xs={2} sm={3} md={4} lg={5}>
-                    {(loading || !tvShows ? [...Array(20)] : tvShows).map((item={}, idx) => (
+                    {(tvShows || [...Array(20)]).map((item={}, idx) => (
                         <PosterCard
                             key={idx}
                             title={item.title}
                             image={item.poster_path}
                             url={item.url}
-                            score={item.vote_average * 10}
+                            score={item.score}
                             mylist={mylist && mylist.some(i => i.id === item.id)}
                             seen={seenlist && seenlist.some(i => i.id === item.id)}
                         />
@@ -140,10 +120,7 @@ const TvShowsPage = () => {
                 </GridList>
                 <Paginator
                     page={page}
-                    setPage={page => {
-                        dispatch(setPage(page));
-                        dispatch(startFetchingList());
-                    }}
+                    setPage={page => dispatch(setPage(page))}
                     totalPages={totalPages}
                 />
             </div>

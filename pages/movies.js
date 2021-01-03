@@ -31,20 +31,12 @@ const MoviesPage = () => {
     const [seenlist] = useFirebaseUserCollection('seen');
 
     // Actions
-    const {
-        startFetchingList,
-        searchList,
-        sortList,
-        setSortBy,
-        setQuery,
-        setPage,
-    } = actions('movies');
+    const {searchList, sortList, setSortBy, setQuery, setPage} = actions('movies');
 
     // Redux
     const sortBy = useSelector(state => state.movies.sortBy);
     const page = useSelector(state => state.movies.page);
     const query = useSelector(state => state.movies.query);
-    const loading = useSelector(state => state.movies.loading);
     const movies = useSelector(movieListSelector);
     const totalPages = useSelector(state => state.movies.totalPages);
     const language = useSelector(state => state.language.language);
@@ -75,14 +67,8 @@ const MoviesPage = () => {
     };
 
     // Listeners
-    useEffect(() => loading && getMovies(), [loading]);
-    useEffect(() => {
-        if(!movies) {
-            dispatch( setSortBy('popular') );
-            dispatch( startFetchingList() );
-        }
-    }, []);
-    useUpdate(() => getMovies(), [language]);
+    useEffect(() => !query && !sortBy && dispatch(setSortBy('popular')), []);
+    useUpdate(() => getMovies(), [language, query, sortBy, page]);
 
     // Sorting movie buttons
     const sortButtons = [
@@ -116,29 +102,23 @@ const MoviesPage = () => {
             </h1>
             <div className="d-flex flex-column align-items-center">
                 <SortButtons
-                    onChange={sort => {
-                        dispatch(setSortBy(sort));
-                        dispatch(startFetchingList());
-                    }}
+                    onChange={sort => dispatch(setSortBy(sort))}
                     buttons={sortButtons}
                     value={sortBy}
                 />
                 <SearchForm
                     query={query}
-                    setQuery={query => {
-                        dispatch(setQuery(query));
-                        dispatch(startFetchingList());
-                    }}
+                    setQuery={query => dispatch(setQuery(query))}
                     placeholder={t('Search for a movie...')}
                 />
                 <GridList xs={2} sm={3} md={4} lg={5}>
-                    {(loading || !movies ? [...Array(20)] : movies).map((item={}, idx) => (
+                    {(movies || [...Array(20)]).map((item={}, idx) => (
                         <PosterCard
                             key={idx}
                             title={item.title}
                             image={item.poster_path}
                             url={item.url}
-                            score={item.vote_average * 10}
+                            score={item.score}
                             mylist={mylist && mylist.some(i => i.id === item.id)}
                             seen={seenlist && seenlist.some(i => i.id === item.id)}
                         />
@@ -146,10 +126,7 @@ const MoviesPage = () => {
                 </GridList>
                 <Paginator
                     page={page}
-                    setPage={page => {
-                        dispatch(setPage(page));
-                        dispatch(startFetchingList());
-                    }}
+                    setPage={page => dispatch(setPage(page))}
                     totalPages={totalPages}
                 />
             </div>

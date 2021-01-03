@@ -1,9 +1,10 @@
 import {
-    LIST_START_FETCHING,
+    LIST_START_SORTING,
     LIST_END_SORTING,
     LIST_ERROR_SORTING,
     LIST_END_PREVIEW,
     LIST_ERROR_PREVIEW,
+    LIST_START_SEARCHING,
     LIST_END_SEARCHING,
     LIST_ERROR_SEARCHING,
     LIST_SET_SORT_BY,
@@ -14,7 +15,6 @@ import {
 const initialState = {
     list: null,
     previewList: null,
-    loading: false,
     sortBy: null,
     page: 1,
     totalPages: 1,
@@ -28,24 +28,23 @@ const createListReducer = (nameReducer = '') => {
             return state;
         }
         switch (action.type) {
-            case LIST_START_FETCHING:
+            case LIST_START_SORTING:
+            case LIST_START_SEARCHING:
                 return {
                     ...state,
-                    loading: true,
+                    list: null,
                 };
             case LIST_END_SORTING:
             case LIST_END_SEARCHING:
                 return {
                     ...state,
-                    loading: false,
                     error: null,
-                    list: action.payload.list,
+                    list: action.payload.list || [],
                     totalPages: action.payload.totalPages,
                 };
             case LIST_END_PREVIEW:
                 return {
                     ...state,
-                    loading: false,
                     error: false,
                     previewList: action.payload,
                 };
@@ -54,7 +53,7 @@ const createListReducer = (nameReducer = '') => {
             case LIST_ERROR_SEARCHING:
                 return {
                     ...state,
-                    loading: false,
+                    list: [],
                     error: action.payload,
                 };
             case LIST_SET_SORT_BY:

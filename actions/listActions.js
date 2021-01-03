@@ -1,10 +1,11 @@
 import { toast } from 'react-toastify';
 import {
-    LIST_START_FETCHING,
+    LIST_START_SORTING,
     LIST_END_SORTING,
     LIST_ERROR_SORTING,
     LIST_END_PREVIEW,
     LIST_ERROR_PREVIEW,
+    LIST_START_SEARCHING,
     LIST_END_SEARCHING,
     LIST_ERROR_SEARCHING,
     LIST_SET_SORT_BY,
@@ -14,14 +15,13 @@ import {
 
 export default function actions(reducer) {
 
-    const startFetchingList = () => dispatch => dispatch({
-        type: LIST_START_FETCHING,
-        reducer
-    });
-
     const sortList = fetchFunction => {
         return async dispatch => {
             try {
+                dispatch({
+                    type: LIST_START_SORTING,
+                    reducer
+                });
                 const result = await fetchFunction();
                 dispatch({
                     type: LIST_END_SORTING,
@@ -65,6 +65,10 @@ export default function actions(reducer) {
     const searchList = fetchFunction => {
         return async dispatch => {
             try {
+                dispatch({
+                    type: LIST_START_SEARCHING,
+                    reducer
+                });
                 const result = await fetchFunction();
                 dispatch({
                     type: LIST_END_SEARCHING,
@@ -116,7 +120,6 @@ export default function actions(reducer) {
     };
 
     return {
-        startFetchingList,
         sortList,
         previewList,
         searchList,

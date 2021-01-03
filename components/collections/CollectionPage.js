@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import useUpdate from '../../hooks/useUpdate';
 import PropTypes from 'prop-types';
 
 // Icons
@@ -32,7 +31,6 @@ const CollectionPage = ({ collection }) => {
 
     // Actions
     const {
-        startFetchingList,
         searchList,
         sortList,
         setSortBy,
@@ -44,7 +42,6 @@ const CollectionPage = ({ collection }) => {
     const sortBy = useSelector(state => state[collection].sortBy);
     const page = useSelector(state => state[collection].page);
     const query = useSelector(state => state[collection].query);
-    const loading = useSelector(state => state[collection].loading);
     const filteredList = useSelector(state => state[collection].list);
     const totalPages = useSelector(state => state[collection].totalPages);
     const language = useSelector(state => state.language.language);
@@ -58,13 +55,11 @@ const CollectionPage = ({ collection }) => {
     };
 
     const sort = () => {
-        let sortedlist = collectionList.slice().sort((a, b) => {
-            if(sortBy === 'vote_average') {
-                return b.vote_average - a.vote_average;
-            } else {
-                return a.title.localeCompare(b.title);
-            }
-        });
+        let sortedlist = collectionList.slice().sort((a, b) => 
+            sortBy === 'vote_average' ?
+            b.vote_average - a.vote_average :
+            a.title.localeCompare(b.title)
+        );
         if(sortBy === 'tvshow' || sortBy === 'movie') {
             sortedlist = collectionList.filter(i => i.type === sortBy);
         }
@@ -84,14 +79,8 @@ const CollectionPage = ({ collection }) => {
     };
 
     // Listeners
-    useEffect(() => loading && getItems(), [loading]);
-    useEffect(() => {
-        if(collectionList && !filteredList) {
-            dispatch( setSortBy('title') );
-            dispatch( startFetchingList() );
-        }
-    }, [collectionList]);
-    useUpdate(() => getItems(), [language]);
+    useEffect(() => !query && !sortBy && dispatch(setSortBy('title')), []);
+    useEffect(() => getItems(), [language, query, sortBy, page, collectionList]);
 
     // Sorting buttons
     const sortButtons = [
@@ -120,23 +109,17 @@ const CollectionPage = ({ collection }) => {
     return (
         <div className="d-flex flex-column align-items-center">
             <SortButtons
-                onChange={sort => {
-                    dispatch(setSortBy(sort));
-                    dispatch(startFetchingList());
-                }}
+                onChange={sort => dispatch(setSortBy(sort))}
                 buttons={sortButtons}
                 value={sortBy}
             />
             <SearchForm
                 query={query}
-                setQuery={query => {
-                    dispatch(setQuery(query));
-                    dispatch(startFetchingList());
-                }}
+                setQuery={query => dispatch(setQuery(query))}
                 placeholder={t('Search for the title...')}
             />
             <GridList xs={2} sm={3} md={4} lg={5}>
-                {(loading || !filteredList ? [...Array(20)] : filteredList).map((item={}, idx) => (
+                {(filteredList || [...Array(20)]).map((item={}, idx) => (
                     <PosterCard
                         key={idx}
                         title={item.title}
@@ -148,10 +131,7 @@ const CollectionPage = ({ collection }) => {
             </GridList>
             <Paginator
                 page={page}
-                setPage={page => {
-                    dispatch(setPage(page));
-                    dispatch(startFetchingList());
-                }}
+                setPage={page => dispatch(setPage(page))}
                 totalPages={totalPages}
             />
         </div>

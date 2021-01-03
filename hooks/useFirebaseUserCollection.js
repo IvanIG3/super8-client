@@ -6,7 +6,6 @@ import {
     addItemToCollection as addItem,
     removeItemFromCollection as removeItem
 } from '../actions/collectionActions';
-import listActions from '../actions/listActions';
 import { firebaseContext } from '../firebase';
 import useUpdate from '../hooks/useUpdate';
 
@@ -19,32 +18,29 @@ const useFirebaseUserCollection = (collection) => {
     // Hooks
     const dispatch = useDispatch();
 
-    // List actions
-    const { startFetchingList } = listActions(collection);
-
     // Firestore
     const { user, firestore } = useContext(firebaseContext);
-    
+
     const getCollectionRef = async () => {
         const userRef = await firestore.collection('users').doc(user.uid);
         const collectionRef = await userRef.collection(collection);
         return collectionRef;
     };
-    
+
     const saveCollection = async () => {
         const collectionRef = await getCollectionRef();
-        for(let i = 0; collectionState && i < collectionState.length; i += PER_CHUNK) {
+        for (let i = 0; collectionState && i < collectionState.length; i += PER_CHUNK) {
             const docRef = await collectionRef.doc(i.toString());
             await docRef.set({
-                json: JSON.stringify(collectionState.slice(i, i+PER_CHUNK))
+                json: JSON.stringify(collectionState.slice(i, i + PER_CHUNK))
             });
         }
     };
-    
+
     // Connect to firestore
     useEffect(() => {
-        if(user && !collectionState) {
-            (async function() {
+        if (user && !collectionState) {
+            (async function () {
                 try {
                     const collectionRef = await getCollectionRef();
                     const snapshot = await collectionRef.get();
@@ -52,8 +48,8 @@ const useFirebaseUserCollection = (collection) => {
                         const strData = Object.values(doc.data());
                         return JSON.parse(strData);
                     });
-                    dispatch( addCollection(collection, data.flat()) );
-                } catch(error) {
+                    dispatch(addCollection(collection, data.flat()));
+                } catch (error) {
                     toast.error(error.message, { className: 'bg-danger' });
                 }
             })();
@@ -64,24 +60,10 @@ const useFirebaseUserCollection = (collection) => {
     useUpdate(() => collectionState && saveCollection(), [collectionState]);
 
     // Add item to collection
-    const addItemToCollection = async (item) => {
-        try {
-            dispatch( addItem(collection, item) );
-            dispatch( startFetchingList() );
-        } catch (error) {
-            toast.error(error.message, { className: 'bg-danger' });
-        }
-    };
+    const addItemToCollection = async (item) => dispatch(addItem(collection, item));
 
     // Remove item from collection
-    const removeItemToCollection = async (id) => {
-        try {
-            dispatch( removeItem(collection, id) );
-            dispatch( startFetchingList() );
-        } catch (error) {
-            toast.error(error.message, { className: 'bg-danger' });
-        }
-    };
+    const removeItemToCollection = async (id) => dispatch(removeItem(collection, id));
 
     return [
         collectionState,
@@ -89,5 +71,5 @@ const useFirebaseUserCollection = (collection) => {
         removeItemToCollection
     ];
 };
- 
+
 export default useFirebaseUserCollection;
