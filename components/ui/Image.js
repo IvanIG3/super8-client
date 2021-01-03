@@ -15,6 +15,7 @@ const Image = ({ src, width, height }) => (
             <ImageNextJSmage
                 className="border rounded-lg border-dark"
                 src={src}
+                alt={src}
                 layout='responsive'
                 width={width}
                 height={height}
