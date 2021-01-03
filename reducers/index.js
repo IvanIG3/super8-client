@@ -7,8 +7,10 @@ import createListReducer from './listReducer';
 
 export default combineReducers({
     movies: createListReducer('movies'),
+    previewMovies: createListReducer('previewMovies'),
     movie: movieReducer,
     tvShows: createListReducer('tvShows'),
+    previewTvShows: createListReducer('previewTvShows'),
     tvShow: tvShowReducer,
     mylist: createListReducer('mylist'),
     seen: createListReducer('seen'),

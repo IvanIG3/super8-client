@@ -3,9 +3,16 @@ import styled from 'styled-components';
 import { Carousel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import Image from 'next/image';
+import Skeleton from 'react-loading-skeleton';
+
+import Image from './Image';
 
 const CarouselCaption = styled(Carousel.Caption)`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-height: 75%;
     padding: 5px;
     background-color: rgba(0, 0, 0, .8);
     border-radius: 10px;
@@ -13,10 +20,14 @@ const CarouselCaption = styled(Carousel.Caption)`
 
 const MovieTitle = styled.a`
     display: block;
+    height: 100%;
     margin-bottom: 5px;
     font-size: 1em;
-    @media (min-width: 576px) {
+    @media (min-width: 400px) {
         font-size: 1.5em;
+    }
+    @media (min-width: 576px) {
+        height: auto;
         margin: 0;
     }
     &:hover {
@@ -24,32 +35,44 @@ const MovieTitle = styled.a`
     }
 `;
 
+const Overview = styled.p`
+    text-align: justify;
+    overflow: hidden;
+    text-overflow: ellipsis;
+`;
+
 const CarouselImages = ({items, width, height}) => {
     return (
         <Carousel>
-            {items.map((item, idx) => (
-                <Carousel.Item key={idx}>
-                    <Link href={item.url || ""}>
-                        <a>
-                            <Image
-                                className="rounded"
-                                src={item.backdrop_path}
-                                layout='responsive'
-                                width={width}
-                                height={height}
-                            />
-                        </a>
-                    </Link>
-                    <CarouselCaption>
-                        <Link href={item.url || ""}>
-                            <MovieTitle>{item.title}</MovieTitle>
+            {items ? 
+                items.map((item, idx) => (
+                    <Carousel.Item key={idx}>
+                        <Link href={item.url}>
+                            <a>
+                                <Image
+                                    src={item.backdrop_path}
+                                    width={width}
+                                    height={height}
+                                />
+                            </a>
                         </Link>
-                        <p className="d-none d-sm-block text-justify">
-                            {item.overview}
-                        </p>
-                    </CarouselCaption>
-                </Carousel.Item>
-            ))}
+                        <CarouselCaption>
+                            <Link href={item.url}>
+                                <MovieTitle>{item.title}</MovieTitle>
+                            </Link>
+                            <Overview className="d-none d-sm-block">
+                                {item.overview}
+                            </Overview>
+                        </CarouselCaption>
+                    </Carousel.Item>
+                ))
+            :
+                <Skeleton style={{
+                    paddingBottom: `${(height/width)*100}%`,
+                    lineHeight: 0,
+                    display: "block"
+                }}/>
+            }
         </Carousel>
     );
 };

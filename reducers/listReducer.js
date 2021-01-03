@@ -2,8 +2,6 @@ import {
     LIST_START_SORTING,
     LIST_END_SORTING,
     LIST_ERROR_SORTING,
-    LIST_END_PREVIEW,
-    LIST_ERROR_PREVIEW,
     LIST_START_SEARCHING,
     LIST_END_SEARCHING,
     LIST_ERROR_SEARCHING,
@@ -14,7 +12,6 @@ import {
 
 const initialState = {
     list: null,
-    previewList: null,
     sortBy: null,
     page: 1,
     totalPages: 1,
@@ -42,14 +39,7 @@ const createListReducer = (nameReducer = '') => {
                     list: action.payload.list || [],
                     totalPages: action.payload.totalPages,
                 };
-            case LIST_END_PREVIEW:
-                return {
-                    ...state,
-                    error: false,
-                    previewList: action.payload,
-                };
             case LIST_ERROR_SORTING:
-            case LIST_ERROR_PREVIEW:
             case LIST_ERROR_SEARCHING:
                 return {
                     ...state,

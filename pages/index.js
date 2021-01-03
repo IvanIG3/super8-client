@@ -22,7 +22,7 @@ const Index = () => {
                         <Link href="/movies">
                             <a><h1 className="w-100 text-center">{t('Movies')}</h1></a>
                         </Link>
-                        <MoviesPreview numfilms={20} />
+                        <MoviesPreview />
                     </Col>
                 </Row>
                 <Row className="justify-content-center my-3">
@@ -30,7 +30,7 @@ const Index = () => {
                         <Link href="/tvshows">
                             <a><h1 className="w-100 text-center">{t('TV Shows')}</h1></a>
                         </Link>
-                        <TvShowsPreview numfilms={20} />
+                        <TvShowsPreview />
                     </Col>
                 </Row>
                 <Row className="justify-content-center my-3">

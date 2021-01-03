@@ -3,8 +3,6 @@ import {
     LIST_START_SORTING,
     LIST_END_SORTING,
     LIST_ERROR_SORTING,
-    LIST_END_PREVIEW,
-    LIST_ERROR_PREVIEW,
     LIST_START_SEARCHING,
     LIST_END_SEARCHING,
     LIST_ERROR_SEARCHING,
@@ -34,26 +32,6 @@ export default function actions(reducer) {
             } catch (error) {
                 dispatch({
                     type: LIST_ERROR_SORTING,
-                    reducer,
-                    payload: error.message
-                });
-                toast.error(error.message, { className: 'bg-danger' });
-            }
-        };
-    };
-
-    const previewList = fetchFunction => {
-        return async dispatch => {
-            try {
-                const result = await fetchFunction();
-                dispatch({
-                    type: LIST_END_PREVIEW,
-                    reducer,
-                    payload: result
-                });
-            } catch (error) {
-                dispatch({
-                    type: LIST_ERROR_PREVIEW,
                     reducer,
                     payload: error.message
                 });
@@ -121,7 +99,6 @@ export default function actions(reducer) {
 
     return {
         sortList,
-        previewList,
         searchList,
         setSortBy,
         setQuery,

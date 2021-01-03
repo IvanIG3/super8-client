@@ -55,3 +55,14 @@ export const recommendationsSelector = createSelector(
         url: `/movies/${movie.id}`,
     }))
 );
+
+export const previewMoviesSelector = createSelector(
+    state => state.previewMovies.list,
+    list => list && list.map(movie => ({
+        url: `/movies/${movie.id}`,
+        backdrop_path: movie.backdrop_path ? 
+            `${process.env.tmdbBackdropURL}${movie.backdrop_path}` : '/no-backdrop.png',
+        title: movie.title,
+        overview: movie.overview
+    }))
+);
