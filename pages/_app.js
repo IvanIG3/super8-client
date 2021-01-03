@@ -17,6 +17,7 @@ const MyApp = ({ Component, pageProps }) => {
     return (
         <>
             <Head>
+                <html lang="es"/>
                 <title>Super8</title>
             </Head>
             <Provider store={store}>
