@@ -35,6 +35,23 @@ h1 {
     }
 }
 
+input {
+    color: black!important;
+}
+
+::placeholder {
+    color: black!important;
+    opacity: 1;
+}
+
+:-ms-input-placeholder {
+    color: black!important;
+}
+
+::-ms-input-placeholder {
+    color: black!important;
+}
+
 /* Utilities */
 
 .flex-0 {

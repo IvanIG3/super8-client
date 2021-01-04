@@ -19,16 +19,17 @@ const LanguageSelector = () => {
     };
 
     return (
-        <Form.Control
+        <FormControl
             custom
             as="select"
             size="sm"
             value={language}
             onChange={handleChange}
+            aria-label={language}
         >
             <option value="es-ES">ES</option>
             <option value="en-US">EN</option>
-        </Form.Control>
+        </FormControl>
     );
 }
  

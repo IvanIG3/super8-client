@@ -12,7 +12,6 @@ const IconButton = styled.div`
             margin-left: 5px;
         }
     }
-    
 `;
 
 const SortButtons = ({ value, buttons, onChange }) => {
@@ -29,16 +28,11 @@ const SortButtons = ({ value, buttons, onChange }) => {
                     key={idx}
                     variant="secondary"
                     value={button.value}
-                    className="d-inline-block text-nowrap text-truncate"
+                    className="d-inline-block text-nowrap"
+                    aria-label={button.name}
                 >
-                    {button.icon ?
-                        <IconButton>
-                            {button.icon}
-                            <span>{button.name}</span>
-                        </IconButton>
-                    :
-                        button.name
-                    }
+                    {button.icon}
+                    <span className="ml-1 d-none d-md-inline-block">{button.name}</span>
                 </ToggleButton>
             ))}
         </ToggleButtonGroup>
@@ -49,7 +43,7 @@ SortButtons.propTypes = {
     buttons: PropTypes.arrayOf( PropTypes.shape({
         name: PropTypes.string.isRequired,
         value: PropTypes.string.isRequired,
-        icon: PropTypes.object
+        icon: PropTypes.object.isRequired
     })),
     onChange: PropTypes.func,
     defaultValue: PropTypes.string

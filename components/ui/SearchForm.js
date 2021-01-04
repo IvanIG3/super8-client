@@ -21,9 +21,15 @@ const SearchForm = ({query, setQuery, placeholder}) => {
                     className="border border-secondary"
                     onChange={ e => setState(e.target.value) }
                     value={state}
+                    aria-label={placeholder}
                 />
                 <InputGroup.Append>
-                    <Button type="submit" variant="secondary" className="py-0">
+                    <Button
+                        type="submit"
+                        variant="secondary"
+                        className="py-0"
+                        aria-label="Submit search query"
+                    >
                         <SearchAlt2 style={{width: "1.3em"}}/>
                     </Button>
                 </InputGroup.Append>
