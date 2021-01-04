@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-circular-progressbar/dist/styles.css';
 import '../styles/globals.scss';
@@ -14,13 +15,18 @@ const MyApp = ({ Component, pageProps }) => {
     const user = useAuth(auth);
 
     return (
-        <Provider store={store}>
-            <firebaseContext.Provider value={{ auth, firestore, user }}>
-                <SkeletonTheme color="#202020" highlightColor="#444">
-                    <Component {...pageProps} />
-                </SkeletonTheme>
-            </firebaseContext.Provider>
-        </Provider>
+        <>
+            <Head>
+                <title>Super8</title>
+            </Head>
+            <Provider store={store}>
+                <firebaseContext.Provider value={{ auth, firestore, user }}>
+                    <SkeletonTheme color="#202020" highlightColor="#444">
+                        <Component {...pageProps} />
+                    </SkeletonTheme>
+                </firebaseContext.Provider>
+            </Provider>
+        </>
     );
 };
 

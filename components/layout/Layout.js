@@ -15,30 +15,23 @@ const ContainerLayout = styled.div`
     padding-top: 100px;
 `;
 
-const Layout = ({children, description}) => {
-    return (
-        <>
-            <Head>
-                <meta 
-                    name="description"
-                    content={description}
-                />
-                <html lang="es"/>
-                <title>Super8</title>
-            </Head>
-            <ContainerLayout>
-                <Header />
-                <ToastContainer />
-                <Container className="flex-1">
-                    <UserNav />
-                    <main>
-                        { children }
-                    </main>
-                </Container>
-                <Footer />
-            </ContainerLayout>
-        </>
-    );
-}
+const Layout = ({children, description}) => (
+    <>
+        <Head>
+            <meta name="description" content={description} key="description"/>
+        </Head>
+        <ContainerLayout>
+            <Header />
+            <ToastContainer />
+            <Container className="flex-1">
+                <UserNav />
+                <main>
+                    { children }
+                </main>
+            </Container>
+            <Footer />
+        </ContainerLayout>
+    </>
+);
  
 export default Layout;
