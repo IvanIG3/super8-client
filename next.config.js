@@ -1,4 +1,4 @@
-module.exports = {
+const configs = {
     env: {
         tmdbURL: 'https://api.themoviedb.org/3',
         tmdbImageURL: 'https://image.tmdb.org/t/p/w500',
@@ -12,3 +12,9 @@ module.exports = {
         ],
     },
 };
+
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true'
+});
+
+module.exports = withBundleAnalyzer(configs);
