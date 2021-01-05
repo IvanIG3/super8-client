@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Form } from 'react-bootstrap';
+import { FormControl } from 'react-bootstrap';
 import { setLanguage } from '../../actions/languageActions';
 
 const LanguageSelector = () => {
