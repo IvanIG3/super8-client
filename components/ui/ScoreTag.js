@@ -10,6 +10,7 @@ const ScoreContainer = styled.div`
     width: 24%;
     left: 38%;
     top: -7%;
+    max-width: 80px;
 `;
 
 const ScoreTag = ({ score = 0 }) => {

@@ -25,7 +25,7 @@ const Reference = styled.a`
 `;
 
 const TmdbLogo = styled.a`
-    bottom: 25px;
+    bottom: 10px;
     right: 0px;
     margin-top: 20px;
     @media (min-width: 600px) {
